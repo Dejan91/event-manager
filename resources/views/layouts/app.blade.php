@@ -9,15 +9,22 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/fullcalendar/core/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fullcalendar/daygrid/main.css') }}">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/fullcalendar/core/main.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/daygrid/main.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/interaction/main.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/main.js') }}"></script>
+
 </head>
 <body>
     <div id="app">

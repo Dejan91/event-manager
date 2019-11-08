@@ -22,3 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Sociallite
 Route::get('login/{driver}', 'Auth\SocialAuthController@redirectToProvider')->name('social.oauth');
 Route::get('login/{driver}/callback', 'Auth\SocialAuthController@handleProviderCallback')->name('social.callback');
+
+// Events
+Route::post('event', 'EventsController@store');
