@@ -11,7 +11,17 @@ class EventsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'role: Event Manager']);
+        $this->middleware(['auth', 'role:Event Manager']);
+    }
+
+    /**
+     *
+     */
+    public function index()
+    {
+       $events = Event::all();
+
+       return response()->json($events);
     }
 
     /**

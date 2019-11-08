@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <div id="message" class="alert alert-success" style="display: none" role="alert"></div>
     <!-- Modal -->
     <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -47,4 +48,10 @@
 
     <div id='calendar'></div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        let user = {!! json_encode(['user' => $user]) !!};
+    </script>
 @endsection

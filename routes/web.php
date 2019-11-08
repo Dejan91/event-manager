@@ -24,4 +24,5 @@ Route::get('login/{driver}', 'Auth\SocialAuthController@redirectToProvider')->na
 Route::get('login/{driver}/callback', 'Auth\SocialAuthController@handleProviderCallback')->name('social.callback');
 
 // Events
+Route::get('event', 'EventsController@index');
 Route::post('event', 'EventsController@store');

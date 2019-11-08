@@ -26,8 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 
-    submitForm();
-
 });
 
 
@@ -48,10 +46,13 @@ function submitForm() {
             data: $('#eventForm').serialize(),
             success:function(data){
                 $('#createEventModal').modal('hide');
+                $('#message').fadeIn().html(data.success);
+                setTimeout(function() {
+                    $('#message').fadeOut("slow");
+                }, 5000 );
+
             },
-            error: function (data)
-            {
-                console.log(data);
+            error: function (data){
                 if (data.status == '403') {
                     $(".print-error-msg").find("div").html('');
                     $(".print-error-msg").css('display','block');
