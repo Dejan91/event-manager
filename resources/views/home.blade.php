@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div id="message" class="alert alert-success" style="display: none" role="alert"></div>
-    <!-- Modal -->
+    <!-- Create Event Modal -->
     <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -18,11 +18,11 @@
                         <div></div>
                     </div>
 
-                    <form method="POST" id="eventForm">
+                    <form id="eventForm">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Event name</label>
-                            <input type="text" name="name" id="name" class="form-control">
+                            <label for="title">Event Title</label>
+                            <input type="text" name="title" id="title" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="description">Event description</label>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary submitBtn" id="createEvent" onclick="submitForm()">Create event</button>
+                            <button type="button" class="btn btn-primary submitBtn" id="createEvent">Create event</button>
                         </div>
                     </form>
                 </div>
@@ -52,6 +52,6 @@
 
 @section('scripts')
     <script>
-        let user = {!! json_encode(['user' => $user]) !!};
+        let user = {!! $user !!};
     </script>
 @endsection

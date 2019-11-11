@@ -25,4 +25,6 @@ Route::get('login/{driver}/callback', 'Auth\SocialAuthController@handleProviderC
 
 // Events
 Route::get('event', 'EventsController@index');
-Route::post('event', 'EventsController@store');
+Route::post('event', 'EventsController@store')->middleware(['auth', 'role:Super Admin|Event Manager']);
+Route::put('event/update/{event}', 'EventsController@update')->middleware(['auth', 'role:Super Admin|Event Manager']);
+Route::delete('event/{event}', 'EventsController@destroy')->middleware(['auth', 'role:Super Admin|Event Manager']);

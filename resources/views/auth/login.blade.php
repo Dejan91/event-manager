@@ -69,14 +69,23 @@
                     </form>
 
                     <div class="row mt-2">
-                        <div class="col-md-4">
-                            <a href="{{ route('social.oauth', 'facebook') }}" class="btn btn-primary btn-block">
-                                Login with Facebook
-                            </a>
+                        <div class="col-md-4 offset-md-4">
+                            <p class="text-center">OR</p>
                         </div>
+                    </div>
+
+                    <div class="row mt-2">
                         <div class="col-md-4 offset-md-4">
                             <a href="{{ route('social.oauth', 'google') }}" class="btn btn-danger btn-block">
                                 Login with Google
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-4 offset-md-4">
+                            <a href="{{ route('social.oauth', 'facebook') }}" class="btn btn-primary btn-block">
+                                Login with Facebook
                             </a>
                         </div>
                     </div>
