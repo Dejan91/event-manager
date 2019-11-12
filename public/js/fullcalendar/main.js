@@ -25,14 +25,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             $('#createEventModal').modal('show');
 
-            $(document).off('click', '#createEvent');
             $(document).on('click', '#createEvent', function (e) {
                 e.preventDefault();
 
                 $.ajax({
                     type:'POST',
                     url: '/event',
-                    data: $('#eventForm').serialize(),
+                    enctype: 'multipart/form-data',
+                    data: new FormData($('#eventForm')[0]),
+                    processData: false,
+                    cache: false,
+                    contentType: false,
                     success: function(data){
                         calendar.addEvent({
                             id: data.event.id,

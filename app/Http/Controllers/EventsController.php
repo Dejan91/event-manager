@@ -39,16 +39,28 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = request()->validate([
+        request()->validate([
             'title' => 'required|min:2',
             'description' => 'required|min:10',
+            'event_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'start_date' => 'required',
             'end_date' => 'required',
         ]);
 
-        $attributes['user_id'] = auth()->id();
+        $image_path = null;
 
-        $event = Event::create($attributes);
+        if (request()->hasFile('event_image')) {
+            $image_path = request()->file('event_image')->store('event_images', 'public');
+        }
+
+        $event = Event::create([
+            'user_id' => auth()->id(),
+            'title' => request('title'),
+            'description' => request('description'),
+            'image_path' => $image_path,
+            'start_date' => request('start_date'),
+            'end_date' => request('end_date')
+        ]);
 
         return response()->json([
             'success' => 'Event Created',

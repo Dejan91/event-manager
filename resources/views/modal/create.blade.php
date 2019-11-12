@@ -20,6 +20,10 @@
             <textarea name="description" id="description" class="form-control" rows="5"></textarea>
         </div>
         <div class="form-group">
+            <label for="event_image">Event Image</label>
+            <input type="file" name="event_image" class="form-control-file" id="event_image">
+        </div>
+        <div class="form-group">
             <label for="start_date">Starting date</label>
             <input type="date" name="start_date" id="start_date" class="form-control">
         </div>
