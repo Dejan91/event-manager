@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 class EventsController extends Controller
 {
     /**
+     * Return all events
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -17,6 +19,16 @@ class EventsController extends Controller
        $events = Event::all();
 
        return response()->json($events);
+    }
+
+    /**
+     * Show form for creating new event
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('modal.create');
     }
 
     /**
@@ -42,6 +54,17 @@ class EventsController extends Controller
             'success' => 'Event Created',
             'event' => $event,
         ], 200);
+    }
+
+    /**
+     * Show pre populated form for editing event
+     *
+     * @param Event $event
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Event $event)
+    {
+        return view('modal.edit', compact('event'));
     }
 
     /**

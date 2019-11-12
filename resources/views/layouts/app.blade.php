@@ -20,8 +20,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/fullcalendar/core/main.js') }}"></script>
     <script src="{{ asset('js/core/libraries/jquery.min.js')}}"></script>
+    <script src="{{ asset('js/fullcalendar/core/main.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/daygrid/main.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/interaction/main.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/main.js') }}"></script>
@@ -41,7 +41,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @role('Client')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/role') }}">Upgrade to Event Manager</a>
+                            </li>
+                        @endrole
                     </ul>
 
                     <!-- Right Side Of Navbar -->

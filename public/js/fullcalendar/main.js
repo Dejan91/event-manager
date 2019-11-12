@@ -14,7 +14,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (! userHavePermission()) {
                 return;
             }
+
+            $.ajax({
+                type: 'GET',
+                url: '/event/create',
+                success: function (data) {
+                    $('.modal-content').html(data);
+                }
+            });
+
             $('#createEventModal').modal('show');
+
             $(document).off('click', '#createEvent');
             $(document).on('click', '#createEvent', function (e) {
                 e.preventDefault();
@@ -23,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     type:'POST',
                     url: '/event',
                     data: $('#eventForm').serialize(),
-                    success:function(data){
+                    success: function(data){
                         calendar.addEvent({
                             id: data.event.id,
                             user_id: data.event.user_id,
@@ -33,15 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             end: data.event.end_date
                         });
                         $('#createEventModal').modal('hide');
-                        $('#eventForm')[0].reset();
-                        $('#message').fadeIn().html(data.success);
-                        setTimeout(function() {
-                            $('#message').fadeOut("slow");
-                        }, 5000 );
-
+                        showSuccessMessage(data);
                     },
                     error: function (data){
-                        printErrorMsg(data.responseJSON.errors);
+                        showErrorMessage(data.responseJSON.errors);
                     }
                 });
             });
@@ -51,46 +56,42 @@ document.addEventListener('DOMContentLoaded', function() {
             if (! userHavePermission()) {
                 return;
             }
-            $('#createEventModal').on('show.bs.modal', function(e) {
-                $("#title").val(event.event.title);
-                $("#description").val(event.event.extendedProps.description);
-                $("#start_date").val(convertTime(event.event.start));
-                $("#end_date").val(convertTime(event.event.end));
-                $("#createEvent").html('Edit Event');
-                $('#deleteEvent').remove();
-                $('.modal-footer').append(
-                    $("<button class='btn btn-danger' id='deleteEvent'>Delete Event</button>")
-                        .click(function (e) {
-                            e.preventDefault();
 
-                            $.ajax({
-                                type:'DELETE',
-                                url: '/event/' + event.event.id,
-                                success: function(data){
-                                    $('#createEventModal').modal('hide');
-                                    $('#eventForm')[0].reset();
-                                    $('#message').fadeIn().html(data.success);
-                                    setTimeout(function() {
-                                        $('#message').fadeOut("slow");
-                                    }, 5000 );
-                                },
-                                error: function (data){
-                                    printErrorMsg(data.responseJSON.errors);
-                                }
-                            });
-
-                            event.event.remove();
-                            $('#createEventModal').modal('hide');
-                        })
-                );
+            $.ajax({
+                type: 'GET',
+                url: '/event/edit/' + event.event.id,
+                success: function (data) {
+                    $('.modal-content').html(data);
+                }
             });
+
             $('#createEventModal').modal('show');
 
-            $(document).on('click', '#createEvent', function (e) {
+            $(document).on('click', '#deleteEvent', function (e) {
                 e.preventDefault();
 
+                $.ajax({
+                    type:'DELETE',
+                    url: '/event/' + event.event.id,
+                    success: function(data){
+                        event.event.remove();
+                        $('#createEventModal').modal('hide');
+                        showSuccessMessage(data);
+                    },
+                    error: function (data){
+                        showErrorMessage(data.responseJSON.errors);
+                    }
+                });
+
+                $('#createEventModal').modal('hide');
+            });
+
+            $(document).on('click', '#editEvent', function (e) {
+                e.preventDefault();
+
+                // $("input[name$='letter']").val();
                 let title = $('#title').val();
-                let description  = $('#description  ').val();
+                let description = $('#description').val();
                 let start_date = $('#start_date').val();
                 let end_date = $('#end_date').val();
 
@@ -106,14 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     contentType : 'application/json',
                     success: function(data){
                         $('#createEventModal').modal('hide');
-                        $('#eventForm')[0].reset();
-                        $('#message').fadeIn().html(data.success);
-                        setTimeout(function() {
-                            $('#message').fadeOut("slow");
-                        }, 5000 );
-                    },
-                    error: function (data){
-                        printErrorMsg(data.responseJSON.errors);
+                        showSuccessMessage({success: 'Event Edited'});
                     }
                 });
             });
@@ -127,15 +121,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function printErrorMsg (msg) {
+function showErrorMessage (msg) {
     $(".print-error-msg").fadeIn();
     $.each( msg, function( key, value ) {
         $(".print-error-msg").find("div").append('<p>'+value+'</p>');
     });
     setTimeout(function () {
-        $(".print-error-msg").fadeOut('fast');
+        $(".print-error-msg").fadeOut('slow');
         $(".print-error-msg").find("div").empty();
     }, 5000);
+}
+
+function showSuccessMessage(msg) {
+    $('#message').fadeIn().html(msg.success);
+    setTimeout(function() {
+        $('#message').fadeOut("slow");
+    }, 5000 );
 }
 
 function loadEvents() {
@@ -163,10 +164,7 @@ function userHavePermission() {
     let roles = user.roles.filter(role => {
         return role.name === 'Super Admin' || role.name === 'Event Manager';
     });
-    if (! roles.length > 0) {
-        return false;
-    }
-    return true;
+    return !roles.length <= 0;
 }
 
 function convertTime(str) {
