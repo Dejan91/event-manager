@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 
 class EventsController extends Controller
@@ -22,6 +21,17 @@ class EventsController extends Controller
     }
 
     /**
+     * Return single event
+     *
+     * @param Event $event
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Event $event)
+    {
+        return view('modal.show', compact('event'));
+    }
+
+    /**
      * Show form for creating new event
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -34,14 +44,14 @@ class EventsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         request()->validate([
             'title' => 'required|min:2',
             'description' => 'required|min:10',
+            'country' => 'required',
             'event_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'start_date' => 'required',
             'end_date' => 'required',
@@ -56,6 +66,7 @@ class EventsController extends Controller
         $event = Event::create([
             'user_id' => auth()->id(),
             'title' => request('title'),
+            'country_id' => request('country'),
             'description' => request('description'),
             'image_path' => $image_path,
             'start_date' => request('start_date'),

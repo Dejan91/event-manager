@@ -105,6 +105,8 @@ class SocialAuthController extends Controller
                 // user can use reset password to create a password
                 'password' => '',
             ]);
+
+            $user->assignRole('Client');
         }
 
         // Login user

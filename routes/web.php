@@ -24,8 +24,9 @@ Route::get('login/{driver}', 'Auth\SocialAuthController@redirectToProvider')->na
 Route::get('login/{driver}/callback', 'Auth\SocialAuthController@handleProviderCallback')->name('social.callback');
 
 // Events
-Route::get('event', 'EventsController@index');
+Route::get('event', 'EventsController@index')->middleware('auth');
 Route::get('event/create', 'EventsController@create')->middleware(['auth', 'role:Super Admin|Event Manager']);
+Route::get('event/{event}', 'EventsController@show')->middleware('auth');
 Route::get('/event/edit/{event}', 'EventsController@edit')->middleware(['auth', 'role:Super Admin|Event Manager']);
 Route::post('event', 'EventsController@store')->middleware(['auth', 'role:Super Admin|Event Manager']);
 Route::put('event/update/{event}', 'EventsController@update')->middleware(['auth', 'role:Super Admin|Event Manager']);
@@ -34,3 +35,6 @@ Route::delete('event/{event}', 'EventsController@destroy')->middleware(['auth', 
 // Roles
 Route::get('role', 'RoleController@index')->middleware(['auth', 'role:Client']);
 Route::post('role/update', 'RoleController@update')->middleware(['auth', 'role:Client']);
+
+// Countries
+Route::get('country', 'CountriesController@index')->middleware(['auth', 'role:Admin|Event Manager']);

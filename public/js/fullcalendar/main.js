@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         dateClick: function(info) {
             if (! userHavePermission()) {
-                return;
+               return;
             }
 
             $.ajax({
@@ -20,11 +20,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 url: '/event/create',
                 success: function (data) {
                     $('.modal-content').html(data);
+                    $('#createEventModal').modal('show');
                 }
             });
 
-            $('#createEventModal').modal('show');
+            $(document).off('show.bs.modal');
+            $(document).on('show.bs.modal', function () {
+                new SlimSelect({
+                    select: '#country',
+                    searchingText: 'Searching...',
+                    data: loadCountries()
+                });
+            });
 
+            $(document).off('click', '#createEvent');
             $(document).on('click', '#createEvent', function (e) {
                 e.preventDefault();
 
@@ -56,64 +65,70 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         eventClick: function(event) {
+
             if (! userHavePermission()) {
-                return;
-            }
-
-            $.ajax({
-                type: 'GET',
-                url: '/event/edit/' + event.event.id,
-                success: function (data) {
-                    $('.modal-content').html(data);
-                }
-            });
-
-            $('#createEventModal').modal('show');
-
-            $(document).on('click', '#deleteEvent', function (e) {
-                e.preventDefault();
-
                 $.ajax({
-                    type:'DELETE',
+                    type: 'GET',
                     url: '/event/' + event.event.id,
-                    success: function(data){
-                        event.event.remove();
-                        $('#createEventModal').modal('hide');
-                        showSuccessMessage(data);
-                    },
-                    error: function (data){
-                        showErrorMessage(data.responseJSON.errors);
+                    success: function (data) {
+                        $('.modal-content').html(data);
+                        $('#createEventModal').modal('show');
                     }
                 });
-
-                $('#createEventModal').modal('hide');
-            });
-
-            $(document).on('click', '#editEvent', function (e) {
-                e.preventDefault();
-
-                // $("input[name$='letter']").val();
-                let title = $('#title').val();
-                let description = $('#description').val();
-                let start_date = $('#start_date').val();
-                let end_date = $('#end_date').val();
-
+            } else {
                 $.ajax({
-                    type:'PUT',
-                    url: '/event/update/' + event.event.id,
-                    data: JSON.stringify({
-                        title,
-                        description,
-                        start_date,
-                        end_date
-                    }),
-                    contentType : 'application/json',
-                    success: function(data){
-                        $('#createEventModal').modal('hide');
-                        showSuccessMessage({success: 'Event Edited'});
+                    type: 'GET',
+                    url: '/event/edit/' + event.event.id,
+                    success: function (data) {
+                        $('.modal-content').html(data);
+                        $('#createEventModal').modal('show');
                     }
                 });
-            });
+
+                $(document).off('click', '#deleteEvent');
+                $(document).on('click', '#deleteEvent', function (e) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        type:'DELETE',
+                        url: '/event/' + event.event.id,
+                        success: function(data){
+                            event.event.remove();
+                            $('#createEventModal').modal('hide');
+                            showSuccessMessage(data);
+                        },
+                        error: function (data){
+                            showErrorMessage(data.responseJSON.errors);
+                        }
+                    });
+                });
+
+                $(document).off('click', '#editEvent');
+                $(document).on('click', '#editEvent', function (e) {
+                    e.preventDefault();
+
+                    let title = $('#title').val();
+                    let description = $('#description').val();
+                    let start_date = $('#start_date').val();
+                    let end_date = $('#end_date').val();
+
+                    $.ajax({
+                        type:'PUT',
+                        url: '/event/update/' + event.event.id,
+                        data: JSON.stringify({
+                            title,
+                            description,
+                            start_date,
+                            end_date
+                        }),
+                        contentType : 'application/json',
+                        success: function(data){
+                            $('#createEventModal').modal('hide');
+                            showSuccessMessage({success: 'Event Edited'});
+                        }
+                    });
+                });
+            }
         },
 
         events: loadEvents()
@@ -124,23 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function showErrorMessage (msg) {
-    $(".print-error-msg").fadeIn();
-    $.each( msg, function( key, value ) {
-        $(".print-error-msg").find("div").append('<p>'+value+'</p>');
-    });
-    setTimeout(function () {
-        $(".print-error-msg").fadeOut('slow');
-        $(".print-error-msg").find("div").empty();
-    }, 5000);
-}
-
-function showSuccessMessage(msg) {
-    $('#message').fadeIn().html(msg.success);
-    setTimeout(function() {
-        $('#message').fadeOut("slow");
-    }, 5000 );
-}
 
 function loadEvents() {
     let result;
@@ -163,16 +161,45 @@ function loadEvents() {
     return result;
 }
 
-function userHavePermission() {
-    let roles = user.roles.filter(role => {
-        return role.name === 'Super Admin' || role.name === 'Event Manager';
+function loadCountries() {
+    let result;
+    $.ajax({
+        type: 'GET',
+        async: false,
+        url: '/country',
+        success: function (countries) {
+            result = countries.map(country => {
+               return {
+                   text: country.name,
+                   value: country.id
+               }
+            });
+        }
     });
-    return !roles.length <= 0;
+    return result;
 }
 
-function convertTime(str) {
-    let date = new Date(str),
-        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-        day = ("0" + date.getDate()).slice(-2);
-    return [date.getFullYear(), mnth, day, ].join("-");
+function userHavePermission() {
+    if (user.roles[0].name === 'Event Manager' || user.roles[0].name === 'Super Admin') {
+        return true;
+    }
+    return false;
+}
+
+function showErrorMessage (msg) {
+    $(".print-error-msg").fadeIn();
+    $.each( msg, function( key, value ) {
+        $(".print-error-msg").find("div").append('<p>'+value+'</p>');
+    });
+    setTimeout(function () {
+        $(".print-error-msg").fadeOut('slow');
+        $(".print-error-msg").find("div").empty();
+    }, 5000);
+}
+
+function showSuccessMessage(msg) {
+    $('#message').fadeIn().html(msg.success);
+    setTimeout(function() {
+        $('#message').fadeOut("slow");
+    }, 5000 );
 }

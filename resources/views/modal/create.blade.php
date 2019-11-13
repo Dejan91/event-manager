@@ -20,19 +20,25 @@
             <textarea name="description" id="description" class="form-control" rows="5"></textarea>
         </div>
         <div class="form-group">
+            <label for="country">Select country</label>
+            <select id="country" name="country"></select>
+        </div>
+        <div class="form-group">
             <label for="event_image">Event Image</label>
             <input type="file" name="event_image" class="form-control-file" id="event_image">
         </div>
-        <div class="form-group">
-            <label for="start_date">Starting date</label>
-            <input type="date" name="start_date" id="start_date" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="end_date">Ending date</label>
-            <input type="date" name="end_date" id="end_date" class="form-control">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="start_date">Starting date</label>
+                <input type="date" name="start_date" id="start_date" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="end_date">Ending date</label>
+                <input type="date" name="end_date" id="end_date" class="form-control">
+            </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary submitBtn" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary submitBtn" id="createEvent">Create event</button>
         </div>
     </form>
