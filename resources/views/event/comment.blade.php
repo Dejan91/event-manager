@@ -16,19 +16,25 @@
                 {{ $comment->body }}
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="ml-auto">
-                <form action="" class="mb-2">
-                    @csrf
-                    @method('put')
-                    <button type="submit" class="btn btn-secondary btn-sm">Edit</button>     
-                </form>
-                <form action="{{ url("/comments/delete/{$comment->id}") }}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>     
-                </form>                             
+        @can('update', $comment)
+            <div class="row mt-3">
+                <div class="ml-auto">
+                    <div class="d-inline-block">
+                        <form action="">
+                            @csrf
+                            @method('put')
+                            <button type="submit" class="btn btn-secondary btn-sm">Edit</button>     
+                        </form>
+                    </div>
+                    <div class="d-inline-block">
+                        <form action="{{ url("/comments/delete/{$comment->id}") }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>     
+                        </form>       
+                    </div>                                      
+                </div>
             </div>
-        </div>
+        @endcan
     </div>
 </div>

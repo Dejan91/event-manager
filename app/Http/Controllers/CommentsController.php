@@ -34,6 +34,8 @@ class CommentsController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $this->authorize('update', $comment);
+
         $comment->delete();
 
         return back();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Events\StoreEvent;
 
 class EventsController extends Controller
 {
@@ -12,12 +13,17 @@ class EventsController extends Controller
      * Return all events
      *
      * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-       $events = Event::all();
+        $events = Event::all();
 
-       return response()->json($events);
+        if (request()->wantsJson()) {
+            return $events;
+        }
+
+        return view('event.index', compact('events'));
     }
 
     /**
@@ -49,17 +55,8 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(StoreEvent $request)
     {
-        request()->validate([
-            'title' => 'required|min:2',
-            'description' => 'required|min:10',
-            'country' => 'required',
-            'event_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'start_date' => 'required',
-            'end_date' => 'required',
-        ]);
-
         $image_path = null;
 
         if (request()->hasFile('event_image')) {

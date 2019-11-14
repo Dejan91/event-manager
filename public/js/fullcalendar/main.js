@@ -146,16 +146,17 @@ function loadEvents() {
        type: 'GET',
        async: false,
        url: '/event',
+       dataType: "json",
        success: function (events) {
-           result = events.map(event => {
-               return {
-                   id: event.id,
-                   title: event.title,
-                   description: event.description,
-                   start: event.start_date,
-                   end: event.end_date
-               }
-           });
+            result = events.map(event => {
+                return {
+                    id: event.id,
+                    title: event.title,
+                    description: event.description,
+                    start: event.start_date,
+                    end: event.end_date
+                }
+            });
        }
     });
     return result;
