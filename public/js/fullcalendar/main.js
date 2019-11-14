@@ -62,14 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         eventClick: function(event) {
             if (! userHavePermission()) {
-                $.ajax({
-                    type: 'GET',
-                    url: '/event/' + event.event.id,
-                    success: function (data) {
-                        $('.modal-content').html(data);
-                        $('#createEventModal').modal('show');
-                    }
-                });
+                window.location = "/event/" + event.event.id;
             } else {
                 $.ajax({
                     type: 'GET',
@@ -127,6 +120,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             showSuccessMessage({success: 'Event Edited'});
                         }
                     });
+                });
+
+                $(document).off('click', '#eventDetails');
+                $(document).on('click', '#eventDetails', function (e) {
+                    e.preventDefault();
+                    
+                    window.location = "/event/" + event.event.id;
                 });
             }
         },

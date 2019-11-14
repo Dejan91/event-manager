@@ -35,9 +35,10 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success submitBtn" id="eventDetails">Show Details</button>
             @can('update', $event)
-                <button type="button" class="btn btn-warning submitBtn" id="editEvent">Edit event</button>
-                <button type="button" class="btn btn-danger submitBtn" id="deleteEvent">Delete event</button>
+                <button type="button" class="btn btn-warning submitBtn" id="editEvent">Edit Event</button>
+                <button type="button" class="btn btn-danger submitBtn" id="deleteEvent">Delete Event</button>
             @endcan
         </div>
     </form>

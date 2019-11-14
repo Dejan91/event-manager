@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 
 class EventsController extends Controller
 {
@@ -28,7 +28,10 @@ class EventsController extends Controller
      */
     public function show(Event $event)
     {
-        return view('modal.show', compact('event'));
+        return view('event.show', [
+            'event' => $event,
+            'comments' => $event->comments()->paginate(15)
+        ]);
     }
 
     /**
@@ -38,11 +41,11 @@ class EventsController extends Controller
      */
     public function create()
     {
-        return view('modal.create');
+        return view('event.modal.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created event in database.
      *
      * @return \Illuminate\Http\Response
      */
@@ -89,7 +92,7 @@ class EventsController extends Controller
     {
         $this->authorize('update', $event);
 
-        return view('modal.edit', compact('event'));
+        return view('event.modal.edit', compact('event'));
     }
 
     /**

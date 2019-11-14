@@ -10,7 +10,7 @@
     <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="createEventModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                @include('modal.create')
+                @include('event.modal.create')
             </div>
         </div>
     </div>

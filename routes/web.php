@@ -38,3 +38,8 @@ Route::post('role/update', 'RoleController@update')->middleware(['auth', 'role:C
 
 // Countries
 Route::get('country', 'CountriesController@index')->middleware(['auth', 'role:Admin|Event Manager']);
+
+// Comments
+Route::post('/event/{event}/comments', 'CommentsController@store');
+Route::put('/comments/edit/{comment}', 'CommentsController@update');
+Route::delete('/comments/delete/{comment}', 'CommentsController@destroy');
