@@ -8,8 +8,8 @@ class Country extends Model
 {
     protected $fillable = ['name'];
 
-    public function event()
-    {
-        return $this->hasMany(Event::class);
-    }
+   public function events()
+   {
+       return $this->hasMany(Event::class);
+   }
 }

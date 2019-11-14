@@ -19,12 +19,6 @@
             <label for="description">Event description</label>
             <textarea name="description" id="description" class="form-control" rows="5" disabled>{{ $event->description }}</textarea>
         </div>
-{{--        <div class="form-group">--}}
-{{--            <label for="country">Select country</label>--}}
-{{--            <select id="country" name="country">--}}
-{{--                <option value="" selected></option>--}}
-{{--            </select>--}}
-{{--        </div>--}}
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="start_date">Starting date</label>

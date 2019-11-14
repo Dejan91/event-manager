@@ -87,6 +87,8 @@ class EventsController extends Controller
      */
     public function edit(Event $event)
     {
+        $this->authorize('update', $event);
+
         return view('modal.edit', compact('event'));
     }
 
@@ -98,6 +100,8 @@ class EventsController extends Controller
      */
     public function update(Event $event)
     {
+        $this->authorize('update', $event);
+
         $event->update(request()->all());
 
         return response()->json([
@@ -114,6 +118,8 @@ class EventsController extends Controller
      */
     public function destroy(Event $event)
     {
+        $this->authorize('update', $event);
+
         $event->delete();
 
         return response()->json([

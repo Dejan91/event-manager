@@ -21,16 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 success: function (data) {
                     $('.modal-content').html(data);
                     $('#createEventModal').modal('show');
+                    new SlimSelect({
+                        select: '#country',
+                        searchingText: 'Searching...',
+                        data: loadCountries()
+                    });
                 }
-            });
-
-            $(document).off('show.bs.modal');
-            $(document).on('show.bs.modal', function () {
-                new SlimSelect({
-                    select: '#country',
-                    searchingText: 'Searching...',
-                    data: loadCountries()
-                });
             });
 
             $(document).off('click', '#createEvent');
@@ -65,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         eventClick: function(event) {
-
             if (! userHavePermission()) {
                 $.ajax({
                     type: 'GET',
@@ -82,6 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     success: function (data) {
                         $('.modal-content').html(data);
                         $('#createEventModal').modal('show');
+                        new SlimSelect({
+                            select: '#country',
+                            searchingText: 'Searching...',
+                            data: loadCountries()
+                        });
                     }
                 });
 
@@ -180,7 +180,7 @@ function loadCountries() {
 }
 
 function userHavePermission() {
-    if (user.roles[0].name === 'Event Manager' || user.roles[0].name === 'Super Admin') {
+    if (user.roles[0].name === "Event Manager" || user.roles[0].name === "Super Admin") {
         return true;
     }
     return false;
