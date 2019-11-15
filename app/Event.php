@@ -48,4 +48,9 @@ class Event extends Model
         $this->comments()->create($comment);
     }
 
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
+    }
+
 }

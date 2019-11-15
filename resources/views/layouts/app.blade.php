@@ -64,10 +64,9 @@
                                     <a class="dropdown-item" href="{{ url('/event') }}">
                                         All Events
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+                                    <a class="dropdown-item" href="{{ url('/event?popular=1') }}">
+                                        Popular Events
+                                    </a>
                                 </div>
                             </li>
                         @endrole
