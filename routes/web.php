@@ -40,6 +40,9 @@ Route::post('role/update', 'RoleController@update')->middleware(['auth', 'role:C
 Route::get('country', 'CountriesController@index')->middleware(['auth', 'role:Admin|Event Manager']);
 
 // Comments
-Route::post('/event/{event}/comments', 'CommentsController@store');
-Route::put('/comments/edit/{comment}', 'CommentsController@update');
-Route::delete('/comments/delete/{comment}', 'CommentsController@destroy');
+Route::post('/event/{event}/comments', 'CommentsController@store')->middleware('auth');
+Route::put('/comments/edit/{comment}', 'CommentsController@update')->middleware('auth');
+Route::delete('/comments/delete/{comment}', 'CommentsController@destroy')->middleware('auth');
+
+// Favorites
+Route::post('/comment/{comment}/favorite', 'FavoritesController@store');

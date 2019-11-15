@@ -6,6 +6,15 @@
                     {{ $comment->owner->name }}
                 </a> said {{ $comment->created_at->diffForHumans() }}...
             </h5>
+
+            <div>
+                <form method="POST" action="{{ $comment->path() . '/favorite' }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-secondary" {{ $comment->isFavorited() ? 'disabled' : '' }}>
+                        {{ $comment->favorites_count }} {{ Str::plural('Favorite', $comment->favorites_count) }}
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
