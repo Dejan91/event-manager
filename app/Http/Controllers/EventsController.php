@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Country;
 use App\Http\Requests\Events\StoreEvent;
 
 class EventsController extends Controller
@@ -87,8 +86,6 @@ class EventsController extends Controller
      */
     public function edit(Event $event)
     {
-        $this->authorize('update', $event);
-
         return view('event.modal.edit', compact('event'));
     }
 
