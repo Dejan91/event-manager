@@ -15,8 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Auth
 Auth::routes();
 
+// Home
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Sociallite
@@ -37,7 +39,7 @@ Route::get('role', 'RoleController@index')->middleware(['auth', 'role:Client']);
 Route::post('role/update', 'RoleController@update')->middleware(['auth', 'role:Client']);
 
 // Countries
-Route::get('country', 'CountriesController@index')->middleware(['auth', 'role:Admin|Event Manager']);
+Route::get('country', 'CountriesController@index')->middleware(['auth', 'role:Super Admin|Event Manager']);
 
 // Comments
 Route::post('/event/{event}/comments', 'CommentsController@store')->middleware('auth');
