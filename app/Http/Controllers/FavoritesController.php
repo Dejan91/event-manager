@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use Illuminate\Http\Request;
 
 class FavoritesController extends Controller
 {
-    public function store(Comment $comment)
+    public function store($class, $id)
     {
-        $comment->favorite();
+        $model = "App\\" . ucfirst($class);
+
+        $instance = $model::find($id);
+
+        $instance->favorite();
         
         return back();
     }

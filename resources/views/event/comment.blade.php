@@ -8,7 +8,7 @@
             </h5>
 
             <div>
-                <form method="POST" action="{{ $comment->path() . '/favorite' }}">
+                <form method="POST" action="{{ "/favorite/" . strtolower(class_basename($comment)) . "/{$comment->id}" }}">
                     @csrf
                     <button type="submit" class="btn btn-outline-secondary" {{ $comment->isFavorited() ? 'disabled' : '' }}>
                         {{ $comment->favorites_count }} {{ Str::plural('Favorite', $comment->favorites_count) }}

@@ -3,11 +3,16 @@
 namespace App;
 
 use App\Country;
+use App\Traits\Favoritable;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    use Favoritable;
+
     protected $fillable = ['user_id', 'country_id', 'title', 'description', 'image_path', 'start_date', 'end_date'];
+    
+    protected $with = ['favorites'];
 
     protected $dates = ['start_date', 'end_date'];
 
