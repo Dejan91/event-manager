@@ -11,7 +11,7 @@
                     <p class="card-text">{{ $event->description }}</p>
                     <div class="row">
                         <div class="col-md-6 align-self-end">
-                            Starts: {{ $event->start_date }} with ending on {{ $event->end_date }}
+                            Starts: {{ $event->start_date->format('Y-m-d') }} with ending on {{ $event->end_date->format('Y-m-d') }}
                         </div>
                     </div>
                 </div>

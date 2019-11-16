@@ -9,6 +9,8 @@ class Event extends Model
 {
     protected $fillable = ['user_id', 'country_id', 'title', 'description', 'image_path', 'start_date', 'end_date'];
 
+    protected $dates = ['start_date', 'end_date'];
+
     protected static function boot()
     {
         parent::boot();
