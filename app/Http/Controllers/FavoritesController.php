@@ -15,4 +15,16 @@ class FavoritesController extends Controller
         
         return back();
     }
+
+    public function destroy($class, $id)
+    {
+        $model = "App\\" . ucfirst($class);
+
+        $instance = $model::find($id);
+
+        $instance->unfavorite();
+
+        return back();
+    }
+    
 }

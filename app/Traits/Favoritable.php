@@ -16,10 +16,26 @@ trait Favoritable
 
     public function favorite()
     {
+        $attributes = ['user_id' => auth()->id()];
+
         if (! $this->isFavorited()) {
-            $this->favorites()->create(['user_id' => auth()->id()]);
+            $this->favorites()->create($attributes);
         }
     }
+
+    public function unfavorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        $this->favorites()->where($attributes)->delete();
+    }
+
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
+    }
+    
+    
 
     public function isFavorited()
     {

@@ -1,6 +1,10 @@
 <script>
+    import Favorite from './Favorite.vue';
+
     export default {
         props: ['attributes'],
+
+        components: { Favorite },
 
         data() {
             return {
@@ -17,7 +21,7 @@
 
                 this.editing = false;
 
-                // flash('Updated.');
+                flash('Comment updated.');
             },
             
             destroy() {
@@ -25,7 +29,7 @@
 
                 $(this.$el).fadeOut(400);
 
-                // flash('Your reply has been deleted.');
+                flash('Comment has been deleted.');
             }
         }
     }

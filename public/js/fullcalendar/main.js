@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             end: data.event.end_date
                         });
                         $('#createEventModal').modal('hide');
-                        showSuccessMessage(data);
+                        flash(data.success);
                     },
                     error: function (data){
                         showErrorMessage(data.responseJSON.errors);
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         success: function(data){
                             event.event.remove();
                             $('#createEventModal').modal('hide');
-                            showSuccessMessage(data);
+                            flash(data.success);
                         },
                         error: function (data){
                             showErrorMessage(data.responseJSON.errors);
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         contentType : 'application/json',
                         success: function(data){
                             $('#createEventModal').modal('hide');
-                            showSuccessMessage({success: 'Event Edited'});
+                            flash('Event updated');
                         }
                     });
                 });

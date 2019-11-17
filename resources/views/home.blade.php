@@ -18,6 +18,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/fullcalendar/main.js') }}"></script>
     <script>
         let user = {!! $user !!};
     </script>

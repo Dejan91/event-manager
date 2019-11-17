@@ -36,4 +36,5 @@ Route::patch('/comments/{comment}', 'CommentsController@update')->middleware('au
 Route::delete('/comments/{comment}', 'CommentsController@destroy')->middleware('auth');
 
 // Favorites
-Route::post('/favorite/{model}/{id}', 'FavoritesController@store');
+Route::post('/favorite/{model}/{id}', 'FavoritesController@store')->middleware('auth');
+Route::delete('/favorite/{model}/{id}', 'FavoritesController@destroy')->middleware('auth');

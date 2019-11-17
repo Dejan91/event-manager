@@ -35,7 +35,7 @@ class EventsController extends Controller
     {
         return view('event.show', [
             'event' => $event,
-            'comments' => $event->comments()->paginate(15)
+            'comments' => $event->comments()->paginate(10)
         ]);
     }
 

@@ -5,16 +5,11 @@
                 <h5 class="flex">
                     <a href="#">
                         {{ $comment->owner->name }}
-                    </a> said {{ $comment->created_at->diffForHumans() }}...
+                    </a>
                 </h5>
 
                 <div>
-                    <form method="POST" action="{{ "/favorite/" . strtolower(class_basename($comment)) . "/{$comment->id}" }}">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-secondary" {{ $comment->isFavorited() ? 'disabled' : '' }}>
-                            {{ $comment->favorites_count }} {{ Str::plural('Favorite', $comment->favorites_count) }}
-                        </button>
-                    </form>
+                    <favorite :comment="{{ $comment }}"></favorite>
                 </div>
             </div>
         </div>
@@ -30,7 +25,12 @@
                     <button class="btn btn-sm btn-link float-right" @click="editing = false">Cancel</button>
                 </div>                  
                 
-                <div class="col-md-12" v-else v-text="body" ></div>
+                <div v-else>
+                    <div class="col-md-12 mb-1 text-secondary">
+                        <span class="fas fa-clock"></span>  {{ $comment->created_at->diffForHumans() }}
+                    </div>                    
+                    <div class="col-md-12" v-text="body"></div>
+                </div>
             </div>
             @can('update', $comment)
                 <div class="row mt-3">

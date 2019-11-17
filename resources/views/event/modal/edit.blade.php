@@ -26,11 +26,11 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="start_date">Starting date</label>
-                <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $event->start_date }}">
+                <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $event->start_date->format('Y-m-d') }}">
             </div>
             <div class="form-group col-md-6">
                 <label for="end_date">Ending date</label>
-                <input type="date" name="end_date" id="end_date" class="form-control" value="{{ $event->end_date }}">
+                <input type="date" name="end_date" id="end_date" class="form-control" value="{{ $event->end_date->format('Y-m-d') }}">
             </div>
         </div>
         <div class="modal-footer">
