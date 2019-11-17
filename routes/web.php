@@ -32,8 +32,8 @@ Route::get('country', 'CountriesController@index')->middleware(['auth', 'role:Su
 
 // Comments
 Route::post('/event/{event}/comments', 'CommentsController@store')->middleware('auth');
-Route::put('/comments/edit/{comment}', 'CommentsController@update')->middleware('auth');
-Route::delete('/comments/delete/{comment}', 'CommentsController@destroy')->middleware('auth');
+Route::patch('/comments/{comment}', 'CommentsController@update')->middleware('auth');
+Route::delete('/comments/{comment}', 'CommentsController@destroy')->middleware('auth');
 
 // Favorites
 Route::post('/favorite/{model}/{id}', 'FavoritesController@store');

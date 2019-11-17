@@ -38,6 +38,18 @@ class CommentsController extends Controller
 
         $comment->delete();
 
+        if (request()->expectsJson()) {
+            return response(['status' => 'Comment deleted']);
+        }
+
         return back();
     }
+
+    public function update(Comment $comment)
+    {
+        $this->authorize('update', $comment);
+
+        $comment->update(request()->all());
+    }
+    
 }

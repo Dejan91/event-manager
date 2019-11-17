@@ -17,7 +17,7 @@
                             <p class="desc">{{ Str::limit($event->description, 50, '...') }}</p>
                             <ul>
                                 <li style="width:33%;">333  <span class="fa fa-male"></span></li>
-                                <li style="width:34%;"><a href="{{ $event->path() }}">details  <span class="fa fa-info-circle"></span></a></li>
+                                <li style="width:34%;"><a href="{{ $event->path() }}">Show More  <span class="fa fa-info-circle"></span></a></li>
                             </ul>
                         </div>
                         <div class="social">

@@ -9,11 +9,9 @@
                 <div class="card-body">
                     <h2 class="card-title">{{ $event->title }} at {{ $event->country->name }}</h2>
                     <p class="card-text">{{ $event->description }}</p>
-                    <div class="row">
-                        <div class="col-md-6 align-self-end">
-                            Starts: {{ $event->start_date->format('Y-m-d') }} with ending on {{ $event->end_date->format('Y-m-d') }}
-                        </div>
-                    </div>
+                    <br>
+                    <p><span class="font-weight-bold">Start: </span>{{ $event->start_date->format('Y-m-d') }}</p>
+                    <p><span class="font-weight-bold">End: </span>{{ $event->end_date->format('Y-m-d') }}</p>
                 </div>
             </div>
         
