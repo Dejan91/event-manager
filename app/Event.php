@@ -12,7 +12,7 @@ class Event extends Model
 
     protected $fillable = ['user_id', 'country_id', 'title', 'description', 'image_path', 'start_date', 'end_date'];
     
-    protected $with = ['favorites'];
+    protected $with = ['creator', 'favorites'];
 
     protected $dates = ['start_date', 'end_date'];
 
@@ -52,12 +52,32 @@ class Event extends Model
 
     public function addComment($comment)
     {
-        $this->comments()->create($comment);
+        return $this->comments()->create($comment);
     }
 
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
+    }
+
+    public function subscribe()
+    {
+        $this->subscription()->create([
+            'user_id' => auth()->id()
+        ]);
+    }
+
+    public function unsubscribe()
+    {
+        $this->subscription()
+            ->where('user_id', auth()->id())
+            ->delete();
+    }
+    
+    
+    public function subscription()
+    {
+        return $this->hasMany(EventSubscription::class);
     }
 
 }

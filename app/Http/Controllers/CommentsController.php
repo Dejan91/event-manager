@@ -19,10 +19,14 @@ class CommentsController extends Controller
             'body' => 'required'
         ]);
 
-        $event->addComment([
+        $comment = $event->addComment([
             'user_id' => auth()->id(),
             'body' => request('body')
         ]);
+
+        if (request()->expectsJson()) {
+            return $comment->load('owner');
+        }
         
         return back();
     }

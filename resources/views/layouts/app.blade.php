@@ -29,6 +29,15 @@
     <script src="{{ asset('js/fullcalendar/daygrid/main.js') }}"></script>
     <script src="{{ asset('js/fullcalendar/interaction/main.js') }}"></script>
 
+    <script>
+        window.App = {!!
+            json_encode([
+                'user' => Auth::user(),
+                'signedIn' => Auth::check()
+            ])
+        !!};
+    </script>
+
     <style>
         body { padding-bottom: 100px; }
         .level { display: flex; align-items: center; }
