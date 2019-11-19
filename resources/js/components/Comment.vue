@@ -1,5 +1,6 @@
 <script>
     import Favorite from './Favorite.vue';
+import { log } from 'util';
 
     export default {
         props: ['attributes'],

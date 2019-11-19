@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Filters\EventFilters;
 use App\Http\Requests\Events\StoreEvent;
-
 class EventsController extends Controller
 {
     /**
@@ -15,7 +14,7 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(EventFilters $filters)
-    {
+    {          
         $events = $this->getEvents($filters);
 
         if (request()->wantsJson()) {
