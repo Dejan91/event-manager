@@ -2,6 +2,7 @@
     <div>
         <span class="fas fa-users"></span>
         <span v-text="subscribersCount"></span>
+        <span class="mr-2"></span>
         <button @click="toggle" :class="classes" v-text="body"></button>
     </div>
 </template>
@@ -39,12 +40,16 @@ export default {
         subscribe() {
             axios.post(this.endpoint);
 
+            flash('Subscribed.');
+
             this.isSubscribed = true;
             this.subscribersCount++;
         },
 
         unsubscribe() {
             axios.delete(this.endpoint);
+
+            flash('Unsubscribed');
 
             this.isSubscribed = false;
             this.subscribersCount--;

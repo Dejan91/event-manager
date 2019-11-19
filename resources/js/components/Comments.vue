@@ -1,42 +1,56 @@
 <template>
     <div>
-        <div v-for="(comment, index) in items" v-bind:key="comment.id">
+        <div v-for="(comment, index) in items" :key="comment.id">
             <comment :data="comment" @deleted="remove(index)"></comment>
         </div>
 
-        <new-comment :endpoint="endpoint" @created="add"></new-comment>
+        <paginator :dataSet="dataSet" @changed="fetch"></paginator>
+
+        <new-comment @created="add"></new-comment>
     </div>
 </template>
 
 <script>
 import Comment from './Comment.vue';
 import NewComment from './NewComment.vue';
+import collection from '../mixins/collection';
 
 export default {
-    props: ['data'],
-
     components: { Comment, NewComment },
+
+    mixins: [collection],
 
     data() {
         return {
-            items: this.data,
-            endpoint: location.pathname.split("/")[2]
+            dataSet: false
         }
     },
 
-    methods: {
-        add(comment) {
-            this.items.push(comment);
+    created() {
+        this.fetch();
+    },
 
-            this.$emit('added');
+    methods: {
+        fetch(page) {
+            axios.get(this.url(page))
+                .then(this.refresh);
         },
 
-        remove(index) {
-            this.items.splice(index, 1);
+        url(page = 1) {
+            if (! page) {
+                let query = location.search.match(/page=(\d+)/);
 
-            this.$emit('removed');
+                page = query ? query[1] : 1;
+            }
 
-            flash('Comment was deleted.');
+            return location.pathname + '/comments?page=' + page;
+        },
+
+        refresh({data}) {
+            this.dataSet = data;
+            this.items = data.data;
+
+            window.scrollTo(0, 0);
         }
     }
 }

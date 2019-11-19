@@ -35,8 +35,7 @@ class EventsController extends Controller
     public function show(Event $event)
     {
         return view('event.show', [
-            'event' => $event->append(['isSubscribed', 'subscribersCount']),
-            'comments' => $event->comments()->paginate(10)
+            'event' => $event->append(['isSubscribed', 'subscribersCount'])
         ]);
     }
 

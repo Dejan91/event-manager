@@ -25,9 +25,10 @@
                     </div>
                 </div>
             
-                <comments :data="{{ $event->comments }}" 
-                    @added="commentsCount++"
-                    @removed="commentsCount--"></comments>
+                <comments 
+                    @added="commentsCount++" 
+                    @removed="commentsCount--">
+                </comments>
          
             </div>
             <div class="col-md-4">

@@ -31,6 +31,7 @@ Route::post('role/update', 'RoleController@update')->middleware(['auth', 'role:C
 Route::get('country', 'CountriesController@index')->middleware(['auth', 'role:Super Admin|Event Manager']);
 
 // Comments
+Route::get('/event/{event}/comments', 'CommentsController@index')->middleware('auth');
 Route::post('/event/{event}/comments', 'CommentsController@store')->middleware('auth');
 Route::patch('/comments/{comment}', 'CommentsController@update')->middleware('auth');
 Route::delete('/comments/{comment}', 'CommentsController@destroy')->middleware('auth');

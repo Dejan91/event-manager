@@ -25,7 +25,7 @@
                 
                 <div v-else>
                     <div class="col-md-12 mb-1 text-secondary">
-                        <span class="fas fa-clock"></span>  {{ data.created_at }}
+                        <span class="fas fa-clock mr-2"></span><span v-text="ago"></span>
                     </div>                    
                     <div class="col-md-12" v-text="body"></div>
                 </div>
@@ -41,43 +41,48 @@
 </template>
 
 <script>
-    import Favorite from './Favorite.vue';
+import Favorite from './Favorite.vue';
 import { log } from 'util';
+import moment from 'moment';
 
-    export default {
-        props: ['data'],
+export default {
+    props: ['data'],
 
-        components: { Favorite },
+    components: { Favorite },
 
-        data() {
-            return {
-                editing: false,
-                body: this.data.body
-            };
+    data() {
+        return {
+            editing: false,
+            body: this.data.body
+        };
+    },
+
+    computed: {
+        canUpdate() {
+            return this.authorize(user => this.data.user_id == user.id);
         },
 
-        computed: {
-            canUpdate() {
-                return this.authorize(user => this.data.user_id == user.id);
-            }
+        ago() {
+            return moment(this.data.created_at).fromNow();
+        }
+    },
+
+    methods: {
+        update() {
+            axios.patch('/comments/' + this.data.id, {
+                body: this.body
+            });
+
+            this.editing = false;
+
+            flash('Comment updated.');
         },
+        
+        destroy() {
+            axios.delete('/comments/' + this.data.id);
 
-        methods: {
-            update() {
-                axios.patch('/comments/' + this.data.id, {
-                    body: this.body
-                });
-
-                this.editing = false;
-
-                flash('Comment updated.');
-            },
-            
-            destroy() {
-                axios.delete('/comments/' + this.data.id);
-
-                this.$emit('deleted', this.data.id);
-            }
+            this.$emit('deleted', this.data.id);
         }
     }
+}
 </script>

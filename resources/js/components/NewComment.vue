@@ -18,8 +18,6 @@
 
 <script>
 export default {
-    props: ['endpoint'],
-
     data() {
         return {
             body: '',
@@ -29,7 +27,7 @@ export default {
 
     methods: {
         addComment() {
-            axios.post(this.currentEndpoint, { body: this.body })
+            axios.post(location.pathname + '/comments', { body: this.body })
                 .then((data) => {
                     this.body = '';
 

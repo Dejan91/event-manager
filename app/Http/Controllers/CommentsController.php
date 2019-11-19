@@ -7,10 +7,20 @@ use App\Comment;
 
 class CommentsController extends Controller
 {
+    /**
+     * Return all comments for given event.
+     * 
+     * @param Event $event
+     */
+    public function index(Event $event)
+    {
+        return $event->comments()->paginate(10);
+    }
 
     /**
      * Store a newly created comment in database.
-     *
+     * 
+     * @param Event $event     *
      * @return \Illuminate\Http\Response
      */
     public function store(Event $event)

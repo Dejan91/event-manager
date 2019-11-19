@@ -76,12 +76,9 @@ class Event extends Model
 
     public function getIsSubscribedAttribute()
     {
-        return $this->isSubscribed();
-    }
-
-    public function isSubscribed()
-    {
-        return !! $this->subscription()->where('user_id', auth()->id())->count();
+        return $this->subscription()
+            ->where('user_id', auth()->id())
+            ->exists();
     }
 
     public function getSubscribersCountAttribute()
