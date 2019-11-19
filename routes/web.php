@@ -38,3 +38,6 @@ Route::delete('/comments/{comment}', 'CommentsController@destroy')->middleware('
 // Favorites
 Route::post('/favorite/{model}/{id}', 'FavoritesController@store')->middleware('auth');
 Route::delete('/favorite/{model}/{id}', 'FavoritesController@destroy')->middleware('auth');
+
+// Subscriptions
+Route::post('/event/{event}/subscription', 'EventSubscriptionController@store')->middleware('auth');
