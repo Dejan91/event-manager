@@ -74,7 +74,7 @@
                                 <a class="dropdown-item" href="{{ url('/event') }}">
                                     All Events
                                 </a>
-                                <a class="dropdown-item" href="{{ url('/event?popular=1') }}">
+                                <a class="dropdown-item" href="{{ url('/event?commented=1') }}">
                                     Most Commented
                                 </a>
                             </div>

@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('remind:week-prior')
-        //     ->daily();
+        $schedule->command('remind:week-prior')
+            ->daily();
     }
 
     /**

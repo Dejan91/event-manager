@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use Carbon\Carbon;
 use App\Filters\EventFilters;
 use App\Http\Requests\Events\StoreEvent;
+
 class EventsController extends Controller
 {
     /**
@@ -14,10 +16,10 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(EventFilters $filters)
-    {          
+    {
         $events = $this->getEvents($filters);
 
-        if (request()->wantsJson()) {
+        if (request()->expectsJson()) {
             return $events;
         }
 
@@ -33,7 +35,7 @@ class EventsController extends Controller
     public function show(Event $event)
     {
         return view('event.show', [
-            'event' => $event,
+            'event' => $event->append(['isSubscribed', 'subscribersCount']),
             'comments' => $event->comments()->paginate(10)
         ]);
     }

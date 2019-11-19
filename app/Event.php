@@ -12,7 +12,7 @@ class Event extends Model
 
     protected $fillable = ['user_id', 'country_id', 'title', 'description', 'image_path', 'start_date', 'end_date'];
     
-    protected $with = ['creator', 'favorites'];
+    protected $with = ['creator', 'favorites', 'subscription'];
 
     protected $dates = ['start_date', 'end_date'];
 
@@ -62,9 +62,9 @@ class Event extends Model
 
     public function subscribe()
     {
-        $this->subscription()->create([
-            'user_id' => auth()->id()
-        ]);
+        if (! $this->isSubscribed()) {
+            $this->subscription()->create(['user_id' => auth()->id()]);   
+        }
     }
 
     public function unsubscribe()
@@ -73,7 +73,21 @@ class Event extends Model
             ->where('user_id', auth()->id())
             ->delete();
     }
-    
+
+    public function getIsSubscribedAttribute()
+    {
+        return $this->isSubscribed();
+    }
+
+    public function isSubscribed()
+    {
+        return !! $this->subscription()->where('user_id', auth()->id())->count();
+    }
+
+    public function getSubscribersCountAttribute()
+    {
+        return $this->subscription->count();
+    }
     
     public function subscription()
     {

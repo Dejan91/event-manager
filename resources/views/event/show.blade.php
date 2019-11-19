@@ -11,8 +11,17 @@
                         <h2 class="card-title">{{ $event->title }} at {{ $event->country->name }}</h2>
                         <p class="card-text">{{ $event->description }}</p>
                         <br>
-                        <p><span class="font-weight-bold">Start: </span>{{ $event->start_date->format('Y-m-d') }}</p>
-                        <p><span class="font-weight-bold">End: </span>{{ $event->end_date->format('Y-m-d') }}</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span class="font-weight-bold">Start: </span>{{ $event->start_date->format('Y-m-d') }}
+                            </div>
+                            <div class="col-md-6">
+                                <span class="font-weight-bold">End: </span>{{ $event->end_date->format('Y-m-d') }}
+                            </div>                            
+                        </div>
+                        <div class="float-right mt-2 mr-2">
+                            <subscribe-button :data="{{ $event }}"></subscribe-button>
+                        </div>
                     </div>
                 </div>
             
@@ -28,10 +37,6 @@
                             This event was published {{ $event->created_at->diffForHumans() }} by
                             <a href="#">{{ $event->creator->name }}</a>, and currently 
                             has <span v-text="commentsCount"></span> {{ Str::plural('comment', $event->comments_count) }}.
-                        </p>
-
-                        <p>
-                            {{-- <subscribe-button></subscribe-button> --}}
                         </p>
                     </div>
                 </div>

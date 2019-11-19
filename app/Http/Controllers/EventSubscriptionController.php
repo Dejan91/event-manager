@@ -10,5 +10,10 @@ class EventSubscriptionController extends Controller
     {
         $event->subscribe();
     }
-    
+
+    public function destroy(Event $event)
+    {
+        $event->unsubscribe();
+    }
+        
 }

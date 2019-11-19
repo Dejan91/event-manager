@@ -34,8 +34,6 @@ trait Favoritable
     {
         return $this->isFavorited();
     }
-    
-    
 
     public function isFavorited()
     {

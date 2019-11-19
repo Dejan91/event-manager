@@ -22,13 +22,14 @@ export default {
 
     data() {
         return {
-            body: ''
+            body: '',
+            currentEndpoint: this.endpoint + '/comments'
         };
     },
 
     methods: {
         addComment() {
-            axios.post(this.endpoint, { body: this.body })
+            axios.post(this.currentEndpoint, { body: this.body })
                 .then((data) => {
                     this.body = '';
 

@@ -20,7 +20,7 @@ export default {
     data() {
         return {
             items: this.data,
-            endpoint: location.pathname.split("/")[2] + '/comments'
+            endpoint: location.pathname.split("/")[2]
         }
     },
 
