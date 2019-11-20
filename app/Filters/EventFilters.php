@@ -19,13 +19,13 @@ class EventFilters extends Filters
     {
         $date = Carbon::parse($date)->format('Y-m-d');
         
-        $this->builder->where('start_date', '=', $date);
+        $this->builder->where('start_date', '>=', $date);
     }
 
     public function end($date)
     {
         $date = Carbon::parse($date)->format('Y-m-d');
 
-        $this->builder->where('end_date', '=', $date);
+        $this->builder->where('end_date', '<=', $date);
     }
 }

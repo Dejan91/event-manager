@@ -6,9 +6,6 @@ use App\Favorite;
 
 trait Favoritable
 {
-    /**
-     * Get all of the post's comments.
-     */
     public function favorites()
     {
         return $this->morphMany(Favorite::class, 'favoritable');

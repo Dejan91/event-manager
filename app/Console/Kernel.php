@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\WeekPriorEventReminder::class
+        Commands\WeekPriorEventReminder::class,
+        Commands\DayPriorEventReminder::class
     ];
 
     /**
@@ -28,7 +29,7 @@ class Kernel extends ConsoleKernel
             ->dailyAt('00:01');
 
         $schedule->command('remind:day-prior')
-            ->dailyAt('00:01');
+            ->dailyAt('00:10');
     }
 
     /**

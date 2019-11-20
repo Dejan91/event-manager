@@ -51,4 +51,25 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function mailTypes()
+    {
+        return $this->belongsToMany(MailType::class);
+    }
+
+    public function wantsWeeklyMail()
+    {
+        return !! $this->mailTypes->filter(function ($mailType) {
+            return $mailType->name === 'event_weekly';
+        })
+        ->count();
+    }
+
+    public function wantsDailyMail()
+    {
+        return !! $this->mailTypes->filter(function ($mailType) {
+            return $mailType->name === 'event_daily';
+        })
+        ->count();
+    }
+    
 }

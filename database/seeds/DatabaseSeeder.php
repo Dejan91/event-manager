@@ -1,5 +1,6 @@
 <?php
 
+use App\MailType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             CountryTableSeeder::class,
             EventTableSeeder::class,
+            MailTypeTableSeeder::class,
         ]);
     }
 }

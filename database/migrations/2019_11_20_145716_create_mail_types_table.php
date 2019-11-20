@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMailsTable extends Migration
+class CreateMailTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateMailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mails', function (Blueprint $table) {
+        Schema::create('mail_types', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->string('type')->unique();
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateMailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mails');
+        Schema::dropIfExists('mail_types');
     }
 }

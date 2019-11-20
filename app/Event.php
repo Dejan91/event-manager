@@ -4,11 +4,12 @@ namespace App;
 
 use App\Country;
 use App\Traits\Favoritable;
+use App\Traits\SubscribeToEvent;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    use Favoritable;
+    use Favoritable, SubscribeToEvent;
 
     protected $fillable = ['user_id', 'country_id', 'title', 'description', 'image_path', 'start_date', 'end_date'];
     
@@ -58,37 +59,6 @@ class Event extends Model
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
-    }
-
-    public function subscribe()
-    {
-        if (! $this->isSubscribed) {
-            $this->subscription()->create(['user_id' => auth()->id()]);   
-        }
-    }
-
-    public function unsubscribe()
-    {
-        $this->subscription()
-            ->where('user_id', auth()->id())
-            ->delete();
-    }
-
-    public function getIsSubscribedAttribute()
-    {
-        return $this->subscription()
-            ->where('user_id', auth()->id())
-            ->exists();
-    }
-
-    public function getSubscribersCountAttribute()
-    {
-        return $this->subscription->count();
-    }
-    
-    public function subscription()
-    {
-        return $this->hasMany(EventSubscription::class);
     }
 
 }

@@ -13,14 +13,14 @@ class CreateMailUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('mail_user', function (Blueprint $table) {
-            $table->bigInteger('mail_id')->unsigned();
+        Schema::create('mail_type_user', function (Blueprint $table) {
+            $table->bigInteger('mail_type_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 
-            $table->unique(['mail_id', 'user_id']);
+            $table->unique(['mail_type_id', 'user_id']);
 
-            $table->foreign('mail_id')->references('id')->on('mails');
+            $table->foreign('mail_type_id')->references('id')->on('mail_types');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -32,6 +32,6 @@ class CreateMailUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mail_user');
+        Schema::dropIfExists('mail_type_user');
     }
 }

@@ -13,7 +13,7 @@ class EventTableSeeder extends Seeder
     public function run()
     {
         factory('App\Event', 30)->create()->each(function($event) {
-            factory('App\Comment', 20)->create([
+            factory('App\Comment', rand(10, 26))->create([
                 'event_id' => $event->id,
                 ]);
         });
