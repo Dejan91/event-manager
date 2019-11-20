@@ -1,7 +1,7 @@
 @component('mail::message')
-# Greetings
+# Greetings,
 
-We are reminding you that event you subscribe to is going to start in 7 days.
+The event that you are interested to is going to start in 7 days.
 
 Thanks,<br>
 {{ config('app.name') }}

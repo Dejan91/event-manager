@@ -25,7 +25,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('remind:week-prior')
-            ->daily();
+            ->dailyAt('00:01');
+
+        $schedule->command('remind:day-prior')
+            ->dailyAt('00:01');
     }
 
     /**

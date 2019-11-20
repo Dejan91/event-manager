@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Event;
-use App\Jobs\SendEmailWeekPrior;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Mail\WeekPriorEventMail;
@@ -26,16 +25,6 @@ class WeekPriorEventReminder extends Command
     protected $description = 'Send reminder email week prior to event start to subscribers';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -43,13 +32,15 @@ class WeekPriorEventReminder extends Command
     public function handle()
     {
         $events = Event::all()->filter(function ($event) {
-            return $event->end_date > Carbon::now()->addDay(7);
+            return Carbon::parse($event->start_date)->format('y m d') == Carbon::now()->addDay(7)->format('y m d') && $event->subscription->count();
         });
 
-        $emails = $events->map(function ($event) {
-            return $event->creator->email;
+        $events->each(function ($event) {
+            $event->subscription->each(function ($sub) {
+                if ($sub->user->wantsWeeklyMail) {
+                    Mail::to($sub->user->email)->send(new WeekPriorEventMail());
+                }
+            });
         });
-
-        Mail::to($emails)->send(new WeekPriorEventMail());
     }
 }

@@ -62,7 +62,7 @@ class Event extends Model
 
     public function subscribe()
     {
-        if (! $this->isSubscribed()) {
+        if (! $this->isSubscribed) {
             $this->subscription()->create(['user_id' => auth()->id()]);   
         }
     }

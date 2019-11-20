@@ -2254,11 +2254,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     subscribe: function subscribe() {
       axios.post(this.endpoint);
+      flash('Subscribed.');
       this.isSubscribed = true;
       this.subscribersCount++;
     },
     unsubscribe: function unsubscribe() {
       axios["delete"](this.endpoint);
+      flash('Unsubscribed');
       this.isSubscribed = false;
       this.subscribersCount--;
     }
@@ -39248,7 +39250,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "nav",
-    { staticClass: "mt-5", attrs: { "aria-label": "Page navigation example" } },
+    { staticClass: "mt-2", attrs: { "aria-label": "Page navigation example" } },
     [
       _vm.shouldPaginate
         ? _c("ul", { staticClass: "pagination" }, [
@@ -52155,9 +52157,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/event.scss */"./resources/sass/event.scss");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/event.scss */"./resources/sass/event.scss");
 
 
 /***/ })
