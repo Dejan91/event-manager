@@ -9,12 +9,18 @@ trait SubscribeToEvent
     public function subscribe()
     {
         if (! $this->isSubscribed) {
-            $this->subscription()->create(['user_id' => auth()->id()]);   
+            $subscription = $this->subscription()
+                ->create(['user_id' => auth()->id()]);
+
+            $this->subscribeUserToEventMails($subscription);
+    
         }
     }
 
     public function unsubscribe()
     {
+        $this->unsubscribeUserFromEventMails();        
+
         $this->subscription()
             ->where('user_id', auth()->id())
             ->delete();
@@ -36,4 +42,26 @@ trait SubscribeToEvent
     {
         return $this->hasMany(EventSubscription::class);
     }
+
+    public function subscribeUserToEventMails($subscription)
+    {
+        $subscription->user->mailTypes()->attach([
+            'mail_type_id' => 1,
+        ]);
+
+        $subscription->user->mailTypes()->attach([
+            'mail_type_id' => 2,
+        ]);
+    }
+
+    public function unsubscribeUserFromEventMails()
+    {
+        $this->subscription()
+            ->where('user_id', auth()->id())
+            ->first()
+            ->user
+            ->mailTypes()
+            ->detach();
+    }
+
 }

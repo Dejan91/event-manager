@@ -1,6 +1,6 @@
 <?php
 
-use App\MailType;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

@@ -40,6 +40,10 @@ Route::delete('/comments/{comment}', 'CommentsController@destroy')->middleware('
 Route::post('/favorite/{model}/{id}', 'FavoritesController@store')->middleware(['auth', 'role:Client']);
 Route::delete('/favorite/{model}/{id}', 'FavoritesController@destroy')->middleware(['auth', 'role:Client']);
 
-// Subscriptions
+// Event Subscriptions
 Route::post('/event/{event}/subscription', 'EventSubscriptionController@store')->middleware('auth');
 Route::delete('/event/{event}/subscription', 'EventSubscriptionController@destroy')->middleware('auth');
+
+// Event Mail Preferences
+Route::get('/mails/{user}', 'MailPreferenceController@show')->middleware('auth');
+Route::post('/mails', 'MailPreferenceController@update')->middleware('auth');

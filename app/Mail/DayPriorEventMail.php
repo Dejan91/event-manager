@@ -2,14 +2,22 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class WeekPriorEventMail extends Mailable
+class DayPriorEventMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 
     /**
      * Build the message.
@@ -18,6 +26,6 @@ class WeekPriorEventMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.event.week-prior');
+        return $this->markdown('emails.event.day-prior');
     }
 }
