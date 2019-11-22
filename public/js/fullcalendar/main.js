@@ -26,8 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         searchingText: 'Searching...',
                         data: loadCountries()
                     });
+                },
+                error: function (data) {
+                    $('.modal-content').html(verifyMailHTML());
+                    $('#createEventModal').modal('show');
                 }
             });
+
+            sendVerificationEmailModal();
 
             $(document).off('click', '#createEvent');
             $(document).on('click', '#createEvent', function (e) {
@@ -75,6 +81,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             searchingText: 'Searching...',
                             data: loadCountries()
                         });
+                    },
+                    error: function (data) {
+                        $('.modal-content').html(verifyMailHTML());
+                        $('#createEventModal').modal('show');
                     }
                 });
 
@@ -203,4 +213,41 @@ function showSuccessMessage(msg) {
     setTimeout(function() {
         $('#message').fadeOut("slow");
     }, 5000 );
+}
+
+function sendVerificationEmailModal() {
+    $(document).off('click', '#resendVerification');
+    $(document).on('click', '#resendVerification', function (e) {
+        e.preventDefault();
+
+        $('#createEventModal').modal('hide');
+
+        $.ajax({
+            type:'POST',
+            url: 'email/resend',
+            success: function(data){
+                flash('Verification email resent.');
+            },
+            error: function (data){
+                alert('There was an error resending your verification email.');
+            }
+        });
+    });
+}
+
+function verifyMailHTML() {
+    return `
+        <div class="card">
+            <div class="card-header">Verify Your Email Address</div>
+
+            <div class="card-body">
+
+                <p>Before proceeding, please check your email for a verification link</p>
+                <p>If you did not receive the email</p>
+                <form class="d-inline" method="POST" action="">
+                    <button type="submit" id="resendVerification" class="btn btn-link p-0 m-0 align-baseline">Click here to request another</button>.
+                </form>
+            </div>
+        </div>
+    `;
 }

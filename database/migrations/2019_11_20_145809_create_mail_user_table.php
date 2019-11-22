@@ -21,7 +21,7 @@ class CreateMailUserTable extends Migration
             $table->unique(['mail_type_id', 'user_id']);
 
             $table->foreign('mail_type_id')->references('id')->on('mail_types');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

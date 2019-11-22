@@ -38,7 +38,7 @@ class WeekPriorEventReminder extends Command
         $events->each(function ($event) {
             $event->subscription->each(function ($sub) {
                 if ($sub->user->wantsWeeklyMail()) {
-                    Mail::to($sub->user->email)->send(new WeekPriorEventMail());
+                    Mail::to($sub->user->email)->send(new WeekPriorEventMail($sub->user));
                     sleep(5);
                 }
             });

@@ -2,15 +2,16 @@
 
 namespace App;
 
+use App\Traits\PreferMails;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, PreferMails;
 
     protected $with = ['roles'];
 
@@ -49,27 +50,6 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-
-    public function mailTypes()
-    {
-        return $this->belongsToMany(MailType::class);
-    }
-
-    public function wantsWeeklyMail()
-    {
-        return !! $this->mailTypes->filter(function ($mailType) {
-            return $mailType->name === 'event_weekly';
-        })
-        ->count();
-    }
-
-    public function wantsDailyMail()
-    {
-        return !! $this->mailTypes->filter(function ($mailType) {
-            return $mailType->name === 'event_daily';
-        })
-        ->count();
     }
     
 }

@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            MailTypeTableSeeder::class,
             RoleTableSeeder::class,
             UserTableSeeder::class,
             CountryTableSeeder::class,
             EventTableSeeder::class,
-            MailTypeTableSeeder::class,
         ]);
     }
 }

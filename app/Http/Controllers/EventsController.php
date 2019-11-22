@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use Carbon\Carbon;
 use App\Filters\EventFilters;
 use App\Http\Requests\Events\StoreEvent;
 
