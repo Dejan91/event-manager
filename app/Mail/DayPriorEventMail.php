@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\User;
+use App\UnsubscribeToken;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -14,9 +15,13 @@ class DayPriorEventMail extends Mailable
 
     public $user;
 
+    public $unsubscribeToken;
+
     public function __construct(User $user)
     {
         $this->user = $user;
+
+        $this->unsubscribeToken = UnsubscribeToken::generateFor($user);
     }
 
     /**

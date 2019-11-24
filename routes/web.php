@@ -48,6 +48,6 @@ Route::delete('/event/{event}/subscription', 'EventSubscriptionController@destro
 Route::get('/users/{user}/profile/edit', 'UsersController@edit')->middleware('auth', 'verified')->name('profile.edit');
 
 // Event Mail Preferences
-Route::get('/users/{user}/mails/edit', 'MailPreferenceController@show')->middleware('auth', 'verified')->name('profile.mail.edit');
+Route::get('/users/{user}/mails/edit', 'MailPreferenceController@edit')->middleware('auth', 'verified')->name('profile.mail.edit');
 Route::post('/users/{user}/mails/update', 'MailPreferenceController@update')->middleware('auth', 'verified')->name('profile.mail.update');
-Route::get('/users/{user}/mails/delete', 'MailPreferenceController@destroy')->middleware('auth', 'verified')->name('profile.mail.delete');
+Route::get('/users/{user}/mails/delete/{unsubscribeToken}', 'MailPreferenceController@destroy')->middleware('auth', 'verified')->name('profile.mail.delete');

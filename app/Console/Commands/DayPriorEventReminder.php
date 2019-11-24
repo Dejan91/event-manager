@@ -39,7 +39,7 @@ class DayPriorEventReminder extends Command
             $event->subscription->each(function ($sub) {
                 if ($sub->user->wantsDailyMail()) {
                     Mail::to($sub->user->email)->send(new DayPriorEventMail($sub->user));
-                    sleep(5);
+                    sleep(10);
                 }
             });
         });

@@ -51,5 +51,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function unsubscribeToken()
+    {
+        return $this->hasMany(UnsubscribeToken::class);
+    }
     
 }

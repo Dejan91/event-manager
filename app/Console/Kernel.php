@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
             ->dailyAt('00:01');
 
         $schedule->command('remind:day-prior')
-            ->dailyAt('00:10');
+            ->dailyAt('01:00');
     }
 
     /**
