@@ -1,12 +1,13 @@
 <template>
     <div class="alert alert-success alert-flash" role="alert" v-show="show">
         {{ body }}
+        <i class="fas fa-check-circle ml-1"></i>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['message'],
+    props: ['message', 'type'],
 
     data() {
         return {
@@ -34,7 +35,7 @@ export default {
         hide() {
             setTimeout(() => {
                 this.show = false;
-            }, 3000);
+            }, 4000);
         }
     }
 }
@@ -43,7 +44,8 @@ export default {
 <style scoped>
     .alert-flash {
         position: fixed;
-        right: 25px;
-        bottom: 25px;
+        right: 30px;
+        bottom: 30px;
+        font-size: 20px;
     }
 </style>

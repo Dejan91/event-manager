@@ -68,4 +68,11 @@ trait PreferMails
                     ]);
         }
     }
+
+    public function unsubscribeFromAllMails()
+    {
+        $this->mailTypes()
+            ->detach();
+    }
+    
 }

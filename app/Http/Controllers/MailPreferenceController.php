@@ -30,7 +30,15 @@ class MailPreferenceController extends Controller
             $user->subscribeToWeeklyMails() : 
             $user->unsubscribeFromWeeklyMails();
 
-        return back();
-       
+        return back();       
     }
+
+    public function destroy(User $user)
+    {
+        $user->unsubscribeFromAllMails();
+
+        return redirect()->route('/home')
+                ->withFlash('Unsubscribed from all mails');
+    }
+    
 }

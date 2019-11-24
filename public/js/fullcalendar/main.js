@@ -27,9 +27,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         data: loadCountries()
                     });
                 },
-                error: function (data) {
-                    $('.modal-content').html(verifyMailHTML());
-                    $('#createEventModal').modal('show');
+                error: function (error) {
+                    if (verificationEmailError(error)) {
+                        $('.modal-content').html(verifyMailHTML());
+                        $('#createEventModal').modal('show');
+                    }
                 }
             });
 
@@ -59,8 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         $('#createEventModal').modal('hide');
                         flash(data.success);
                     },
-                    error: function (data){
-                        showErrorMessage(data.responseJSON.errors);
+                    error: function (error){
+                        showErrorMessage(error.responseJSON.errors);
                     }
                 });
             });
@@ -82,9 +84,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             data: loadCountries()
                         });
                     },
-                    error: function (data) {
-                        $('.modal-content').html(verifyMailHTML());
-                        $('#createEventModal').modal('show');
+                    error: function (error) {
+                        if (verificationEmailError(error)) {
+                            $('.modal-content').html(verifyMailHTML());
+                            $('#createEventModal').modal('show');
+                        }
                     }
                 });
 
@@ -100,8 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             $('#createEventModal').modal('hide');
                             flash(data.success);
                         },
-                        error: function (data){
-                            showErrorMessage(data.responseJSON.errors);
+                        error: function (error){
+                            showErrorMessage(error.responseJSON.errors);
                         }
                     });
                 });
@@ -228,7 +232,7 @@ function sendVerificationEmailModal() {
             success: function(data){
                 flash('Verification email resent.');
             },
-            error: function (data){
+            error: function (error){
                 alert('There was an error resending your verification email.');
             }
         });
@@ -237,17 +241,24 @@ function sendVerificationEmailModal() {
 
 function verifyMailHTML() {
     return `
-        <div class="card">
-            <div class="card-header">Verify Your Email Address</div>
-
-            <div class="card-body">
-
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Verify Your Email Address</h5>
+            </div>
+            <div class="modal-body">
                 <p>Before proceeding, please check your email for a verification link</p>
                 <p>If you did not receive the email</p>
-                <form class="d-inline" method="POST" action="">
-                    <button type="submit" id="resendVerification" class="btn btn-link p-0 m-0 align-baseline">Click here to request another</button>.
-                </form>
+                <button type="submit" id="resendVerification" class="btn btn-link p-0 m-0 align-baseline">Click here to request another</button>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     `;
+}
+
+function verificationEmailError(error) {
+    if (error.responseJSON.message === "Your email address is not verified.") {
+        return true;
+    }
+    return false;
 }

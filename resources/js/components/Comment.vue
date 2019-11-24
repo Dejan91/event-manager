@@ -71,17 +71,38 @@ export default {
         update() {
             axios.patch('/comments/' + this.data.id, {
                 body: this.body
+            })
+            .then(response => {
+                this.editing = false;
+
+                flash('Comment updated.');
+            })
+            .catch(error => {
+                if (this.verificationEmailError(error)) {
+                    emailVerificationModal();
+                }
             });
-
-            this.editing = false;
-
-            flash('Comment updated.');
         },
         
         destroy() {
-            axios.delete('/comments/' + this.data.id);
+            axios.delete('/comments/' + this.data.id)
+                .then(response => {
+                    this.$emit('deleted', this.data.id);
+                    flash('Comment deleted');
+                })
+                .catch(error => {
+                    if (this.verificationEmailError(error)) {
+                        emailVerificationModal();
+                    }
+                });
 
-            this.$emit('deleted', this.data.id);
+        },
+
+        verificationEmailError(error) {
+            if (error.response.data.message === "Your email address is not verified.") {
+                return true;
+            }
+            return false;
         }
     }
 }

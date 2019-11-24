@@ -64,21 +64,12 @@
                                 <a class="nav-link" href="{{ url('/role') }}">Upgrade to Event Manager</a>
                             </li>
                         @endrole
-                        
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                Browse <span class="caret"></span>
-                            </a>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('/event') }}">
-                                    All Events
-                                </a>
-                                <a class="dropdown-item" href="{{ url('/event?commented=1') }}">
-                                    Most Commented
-                                </a>
-                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/event') }}">All Events</a>
                         </li>
+
+                        @yield('filters')
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -122,6 +113,8 @@
         </main>
 
         <flash message="{{ session('flash') }}"></flash>
+        
+        <email-verification-modal></email-verification-modal>
 
     </div>
 @yield('scripts')

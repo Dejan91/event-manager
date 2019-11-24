@@ -38,21 +38,32 @@ export default {
         },
 
         subscribe() {
-            axios.post(this.endpoint);
-
-            flash('Subscribed.');
-
+            axios.post(this.endpoint)
+                .then()
+                .catch(error => {
+                    if (this.verificationEmailError(error)) {
+                        emailVerificationModal();
+                    }
+                });
             this.isSubscribed = true;
-            this.subscribersCount++;
+            this.subscribersCount++;            
         },
 
         unsubscribe() {
-            axios.delete(this.endpoint);
-
-            flash('Unsubscribed');
-
+            axios.delete(this.endpoint)
+                .then()
+                .catch(error => {
+                    console.log(error);
+                });
             this.isSubscribed = false;
-            this.subscribersCount--;
+            this.subscribersCount--;            
+        },
+
+        verificationEmailError(error) {
+            if (error.response.data.message === "Your email address is not verified.") {
+                return true;
+            }
+            return false;
         }
     }
 }

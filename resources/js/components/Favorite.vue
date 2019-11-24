@@ -32,17 +32,36 @@ export default {
         },
 
         favorite() {
-            axios.post(this.endpoint);
+            axios.post(this.endpoint)
+                .then()
+                .catch(error => {
+                    if (this.verificationEmailError(error)) {
+                        emailVerificationModal();
+                    }
+                });
 
-            this.isFavorited = true;
-            this.favoritesCount++;
+                this.isFavorited = true;
+                this.favoritesCount++;
         },
 
         unfavorite() {
-            axios.delete(this.endpoint);
+            axios.delete(this.endpoint)
+                .then()
+                .catch(error => {
+                    if (this.verificationEmailError(error)) {
+                        emailVerificationModal();
+                    }
+                });
 
             this.isFavorited = false;
             this.favoritesCount--;
+        },
+
+        verificationEmailError(error) {
+            if (error.response.data.message === "Your email address is not verified.") {
+                return true;
+            }
+            return false;
         }
     }
 }
