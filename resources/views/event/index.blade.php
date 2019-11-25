@@ -18,6 +18,9 @@
 <div class="container">
     <div class="row">
         <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+            <div class="mt-2 mb-2">
+                <range-picker></range-picker>
+            </div>
             <ul class="event-list">
                 @foreach ($events as $event)
                     <li>

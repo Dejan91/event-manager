@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    let countries = loadCountries();
+
     let calendar = new FullCalendar.Calendar(calendarEl, {
         plugins: [ 'dayGrid', 'interaction' ],
 
@@ -14,17 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (! userHavePermission()) {
                return;
             }
-
+            
             $.ajax({
                 type: 'GET',
                 url: '/event/create',
+                data: { 
+                    start_date: info.dateStr
+                },
                 success: function (data) {
                     $('.modal-content').html(data);
                     $('#createEventModal').modal('show');
                     new SlimSelect({
                         select: '#country',
                         searchingText: 'Searching...',
-                        data: loadCountries()
+                        data: countries
                     });
                 },
                 error: function (error) {
@@ -81,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         new SlimSelect({
                             select: '#country',
                             searchingText: 'Searching...',
-                            data: loadCountries()
+                            data: countries
                         });
                     },
                     error: function (error) {

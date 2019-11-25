@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use Carbon\Carbon;
 use App\Filters\EventFilters;
 use App\Http\Requests\Events\StoreEvent;
 
@@ -45,7 +46,9 @@ class EventsController extends Controller
      */
     public function create()
     {
-        return view('event.modal.create');
+        $startDate = request('start_date');
+
+        return view('event.modal.create', compact('startDate'));
     }
 
     /**

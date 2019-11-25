@@ -30,7 +30,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="start_date">Starting date</label>
-                <input type="date" name="start_date" id="start_date" class="form-control">
+                <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $startDate ?? '' }}">
             </div>
             <div class="form-group col-md-6">
                 <label for="end_date">Ending date</label>
