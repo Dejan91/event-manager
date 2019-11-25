@@ -83,11 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     success: function (data) {
                         $('.modal-content').html(data);
                         $('#createEventModal').modal('show');
-                        new SlimSelect({
+                        let select = new SlimSelect({
                             select: '#country',
                             searchingText: 'Searching...',
                             data: countries
                         });
+                        select.set(event.event.extendedProps.country_id);
                     },
                     error: function (error) {
                         if (verificationEmailError(error)) {
@@ -172,6 +173,7 @@ function loadEvents() {
                     id: event.id,
                     title: event.title,
                     description: event.description,
+                    country_id: event.country_id,
                     start: event.start_date,
                     end: event.end_date
                 }
