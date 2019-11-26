@@ -21,7 +21,7 @@ class ProfilesAvatarController extends Controller
         $avatar_path = request()->file('avatar')->store('user_avatars', 'public');
 
         $path = request()->file('avatar')->hashName('public/user_thumbs/');
-        $thumb = Image::make(request()->file('avatar'))->resize(25, 25);
+        $thumb = Image::make(request()->file('avatar'))->resize(50, 50);
         $thumb_path = Str::after($path, 'public/');
 
         Storage::put($path, $thumb->encode());

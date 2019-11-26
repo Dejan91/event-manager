@@ -18,9 +18,34 @@
 <div class="container">
     <div class="row">
         <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
-            <div class="mt-2 mb-2">
+            <div class="row col-sm-12 mt-2 mb-2">
                 <range-picker></range-picker>
             </div>
+
+            <form class="form-inline mt-3 mb-3" action="" method="GET">
+                <div class="form-group mr-2">
+                    <input type="text" class="form-control" id="title" placeholder="Title">
+                </div>
+                <div class="form-group mr-2">
+                    <input type="text" class="form-control" id="description" placeholder="Description">
+                </div>
+                <div class="form-group mr-2">
+                    <input type="text" class="form-control" id="country" placeholder="Country">
+                </div>
+                <button type="submit" id="search" class="btn btn-primary">Search</button>
+            </form>
+
+            <script>
+                $(document).ready(function() {
+                    $('#search').on('click', function(e) {
+                        e.preventDefault();
+
+
+                    });
+                });
+            </script>
+
+
             <ul class="event-list">
                 @foreach ($events as $event)
                     <li>
