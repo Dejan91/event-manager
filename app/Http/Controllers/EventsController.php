@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use Carbon\Carbon;
 use App\Filters\EventFilters;
 use App\Http\Requests\Events\StoreEvent;
 
@@ -30,7 +29,7 @@ class EventsController extends Controller
      * Return single event
      *
      * @param Event $event
-     * @return \Illuminate\Http\JsonResponse
+     * @return bool
      */
     public function show(Event $event)
     {

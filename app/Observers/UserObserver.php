@@ -29,7 +29,7 @@ class UserObserver
      * @param  \App\User  $user
      * @return void
      */
-    public function deleteting(User $user)
+    public function deleting(User $user)
     {
         $user->mailTypes()
             ->detach();

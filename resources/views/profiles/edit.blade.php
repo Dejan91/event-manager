@@ -48,7 +48,7 @@
                                                                     <div class="invalid-feedback">
                                                                         {{ $message }}
                                                                     </div>
-                                                                @enderror  
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -61,7 +61,7 @@
                                                                     <div class="invalid-feedback">
                                                                         {{ $message }}
                                                                     </div>
-                                                                @enderror 
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -81,26 +81,13 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
-                                                                    <label>Current Password</label>
-                                                                    <input class="form-control {{ $errors->has('old_password') ? 'is-invalid' : '' }}" type="password" name="old_password">
-                                                                    @error('old_password')
-                                                                        <div class="invalid-feedback">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
                                                                     <label>New Password</label>
                                                                     <input class="form-control {{ $errors->has('new_password') ? 'is-invalid' : '' }}" type="password" name="new_password">
                                                                     @error('new_password')
                                                                         <div class="invalid-feedback">
                                                                             {{ $message }}
                                                                         </div>
-                                                                    @enderror 
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -113,7 +100,7 @@
                                                                         <div class="invalid-feedback">
                                                                             {{ $message }}
                                                                         </div>
-                                                                    @enderror 
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -124,7 +111,7 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                            </div> 
+                                            </div>
                                     </div>
                                 </div>
                             </div>

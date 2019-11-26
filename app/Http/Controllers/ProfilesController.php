@@ -29,21 +29,19 @@ class ProfilesController extends Controller
             ->withFlash('Profile updated');
     }
 
+    /**
+     * @param User $user
+     * @return mixed
+     */
     public function changePassword(User $user)
     {
         request()->validate([
-            'old_password' => 'required',
             'new_password' => 'required|min:5',
             'repeat_password' => 'required|same:new_password',
         ]);
 
-        if (! Hash::check(request('old_password'), $user->password)) {
-            return back()
-                ->withErrors('Wrong password', 'old_password');
-        }
-
         $user->update([
-            'password' => request('new_password'),
+            'password' => Hash::make(request('new_password')),
         ]);
 
         return back()
