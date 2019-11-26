@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class UserObserver
 {
@@ -33,6 +34,9 @@ class UserObserver
     {
         $user->mailTypes()
             ->detach();
+
+        Storage::delete('public/' . $user->getOriginal('avatar_path'));
+        Storage::delete('public/' . $user->getOriginal('thumb_path'));
     }
 
 }

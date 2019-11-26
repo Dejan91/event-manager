@@ -92,7 +92,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('profile.edit', [auth()->user()]) }}">
-                                        Profile
+                                        Profile <span class="pull-right"><img src="{{ Auth::user()->thumb_path }}" height="25px" width="25px"></span>
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -117,7 +117,7 @@
         </main>
 
         <flash message="{{ session('flash') }}"></flash>
-        
+
         <email-verification-modal></email-verification-modal>
 
     </div>

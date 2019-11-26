@@ -12,7 +12,7 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-auto mb-3">
                                         <div class="mx-auto" style="width: 140px;">
-                                            <img src="{{ $user->avatar }}" alt="" width="140px" height="140px">
+                                            <img src="{{ $user->avatar_path }}" alt="" width="140px" height="140px">
                                         </div>
                                     </div>
                                     <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
@@ -20,12 +20,6 @@
                                             <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ $user->name }}</h4>
                                             <span class="badge badge-secondary">{{ $user->roles->first()->name }}</span>
                                             <div class="text-muted"><small>Joined {{ \Carbon\Carbon::parse($user->created_at)->format('d-M-Y') }}</small></div>
-                                            <div class="mt-2">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fa fa-fw fa-camera"></i>
-                                                    <span>Change Photo</span>
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +105,37 @@
                                                         </div>
                                                     </form>
                                                 </div>
+
+                                                <div class="col-12 col-sm-6 mb-3">
+                                                    <form action="{{ route('profile.changeAvatar', [$user]) }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <div class="mb-2"><b>Change Avatar</b></div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Choose Picture</label>
+                                                                    <input class="form-control-file {{ $errors->has('avatar') ? 'is-invalid' : '' }}" type="file" name="avatar">
+                                                                    @error('avatar')
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col d-flex justify-content-end">
+                                                                <button class="btn btn-primary" type="submit">
+                                                                    <i class="fa fa-fw fa-camera"></i>
+                                                                    <span>Change Photo</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
+
                                     </div>
                                 </div>
                             </div>

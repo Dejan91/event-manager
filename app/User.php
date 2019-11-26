@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'provider_id', 'provider', 'access_token'
+        'name', 'email', 'password', 'avatar_path', 'thumb_path', 'provider_id', 'provider', 'access_token'
     ];
 
     /**
@@ -42,6 +42,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function getAvatarPathAttribute($avatar)
+    {
+        return asset($avatar ? 'storage/' . $avatar : 'images/users_avatars/default.png');
+    }
+
+    public function getThumbPathAttribute($thumb)
+    {
+        return asset($thumb ? 'storage/' . $thumb : 'images/users_thumbs/default.png');
+    }
+
     public function events()
     {
         return $this->hasMany(Event::class);
@@ -56,5 +66,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UnsubscribeToken::class);
     }
-    
+
 }

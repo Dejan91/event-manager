@@ -49,6 +49,9 @@ Route::get('/users/{user}/profile/edit', 'ProfilesController@edit')->middleware(
 Route::post('/users/{user}/profile/update', 'ProfilesController@update')->middleware('auth', 'verified')->name('profile.update');
 Route::post('/users/{user}/password/update', 'ProfilesController@changePassword')->middleware('auth', 'verified')->name('profile.changePassword');
 
+// Profile Avatars
+Route::patch('/users/{user}/avatar/update', 'ProfilesAvatarController@update')->middleware('auth', 'verified')->name('profile.changeAvatar');
+
 // Event Mail Preferences
 Route::get('/users/{user}/mails/edit', 'MailPreferenceController@edit')->middleware('auth', 'verified')->name('profile.mail.edit');
 Route::post('/users/{user}/mails/update', 'MailPreferenceController@update')->middleware('auth', 'verified')->name('profile.mail.update');

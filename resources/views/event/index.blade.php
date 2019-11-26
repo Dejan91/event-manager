@@ -33,7 +33,7 @@
                             <h2 class="title">{{ Str::limit($event->title, 30, '...') }}</h2>
                             <p class="desc">{{ Str::limit($event->description, 100, '...') }}</p>
                             <ul>
-                                <li style="width:33%;">333  <span class="fa fa-male"></span></li>
+                                <li style="width:33%;">{{ $event->subscribersCount }}  <span class="fa fa-male"></span></li>
                                 <li style="width:34%;"><a href="{{ $event->path() }}">Show More  <span class="fa fa-info-circle"></span></a></li>
                             </ul>
                         </div>
@@ -44,7 +44,7 @@
                             </ul>
                         </div>
                     </li>
-                @endforeach               
+                @endforeach
             </ul>
         </div>
     </div>

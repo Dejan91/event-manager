@@ -12,7 +12,7 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-auto mb-3">
                                         <div class="mx-auto" style="width: 140px;">
-                                            <img src="{{ $user->avatar }}" alt="" width="140px" height="140px">
+                                            <img src="{{ $user->avatar_path }}" alt="" width="140px" height="140px">
                                         </div>
                                     </div>
                                     <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
@@ -20,12 +20,6 @@
                                             <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ $user->name }}</h4>
                                             <span class="badge badge-secondary">{{ $user->roles->first()->name }}</span>
                                             <div class="text-muted"><small>Joined {{ \Carbon\Carbon::parse($user->created_at)->format('d-M-Y') }}</small></div>
-                                            <div class="mt-2">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fa fa-fw fa-camera"></i>
-                                                    <span>Change Photo</span>
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
