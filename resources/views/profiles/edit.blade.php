@@ -147,10 +147,16 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="px-xl-3">
-                                <button class="btn btn-block btn-secondary">
+                                <button class="btn btn-block btn-secondary"
+                                        onclick="event.preventDefault();
+                                             document.getElementById('logout-button').submit();">
                                     <i class="fa fa-sign-out"></i>
                                     <span>Logout</span>
                                 </button>
+
+                                <form id="logout-button" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                     </div>

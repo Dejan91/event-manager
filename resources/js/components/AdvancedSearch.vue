@@ -2,9 +2,11 @@
     <form class="mt-3 mb-3" action="" method="GET">
         <div class="row">
             <div class="form-group mr-2">
+                <label for="start">Start</label>
                 <input type="date" class="form-control" v-model="start" id="start" placeholder="Start">
             </div>
             <div class="form-group mr-2">
+                <label for="end">End</label>
                 <input type="date" class="form-control" v-model="end" id="end" placeholder="End">
             </div>
         </div>
@@ -19,7 +21,7 @@
                 <input type="text" class="form-control" v-model="country" id="country" placeholder="Country">
             </div>
             <div class="form-group">
-                <button @click.prevent="submitSearch" type="submit" id="search" class="btn btn-primary">Search</button>
+                <button @click.prevent="submitSearch" type="submit" id="search" class="btn btn-primary">Filter</button>
             </div>
         </div>
     </form>
@@ -38,6 +40,7 @@ export default {
             country: ''
         };
     },
+
 
     methods: {
         submitSearch() {
@@ -62,6 +65,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-</style>

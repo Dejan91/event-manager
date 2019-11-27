@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $('#commentSearch').off('click');
-    $('#commentSearch').on('click', function (e) {
+    $(document).off('click', '#commentSearch');
+    $(document).on('click', '#commentSearch', function(e) {
         e.preventDefault();
 
         if (window.location.search === '') {

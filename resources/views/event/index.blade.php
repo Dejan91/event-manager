@@ -24,6 +24,7 @@
 
             <ul class="event-list">
                 @foreach ($events as $event)
+                    <single-event :data="{{ $event }}"></single-event>
                     <li>
                         <time datetime="2014-07-31 1600">
                             <span class="day">{{ $event->start_date->format('d') }}</span>

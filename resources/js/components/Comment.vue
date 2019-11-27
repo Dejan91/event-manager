@@ -42,7 +42,6 @@
 
 <script>
 import Favorite from './Favorite.vue';
-import { log } from 'util';
 import moment from 'moment';
 
 export default {
