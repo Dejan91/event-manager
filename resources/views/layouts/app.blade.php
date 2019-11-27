@@ -68,8 +68,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/event') }}">All Events</a>
                         </li>
-
-                        @yield('filters')
                     </ul>
 
                     <!-- Right Side Of Navbar -->

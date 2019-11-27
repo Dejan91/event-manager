@@ -13,16 +13,14 @@
 <script>
 import Comment from './Comment.vue';
 import NewComment from './NewComment.vue';
-import collection from '../mixins/collection';
 
 export default {
     components: { Comment, NewComment },
 
-    mixins: [collection],
-
     data() {
         return {
-            dataSet: false
+            dataSet: false,
+            items: []
         }
     },
 
@@ -51,6 +49,18 @@ export default {
             this.items = data.data;
 
             window.scrollTo(0, 0);
+        },
+
+        add(item) {
+            this.items.push(item);
+
+            this.$emit('added');
+        },
+
+        remove(index) {
+            this.items.splice(index, 1);
+
+            this.$emit('removed');
         }
     }
 }

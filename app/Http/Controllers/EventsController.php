@@ -22,7 +22,7 @@ class EventsController extends Controller
             return $events;
         }
 
-        return view('event.index', compact('events'));
+        return view('event.index');
     }
 
     /**

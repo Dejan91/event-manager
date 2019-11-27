@@ -1,0 +1,50 @@
+<template>
+    <div class="container">
+        <div class="row">
+            <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+                <div class="row ml-1">
+                    <advanced-search @filtered="rerender"></advanced-search>
+                </div>
+
+                <ul class="event-list" v-for="event in items" :key="event.id">
+                    <single-event :data="event"></single-event>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import AdvancedSearch from '../components/AdvancedSearch';
+
+export default {
+    components: { AdvancedSearch },
+
+    data() {
+        return {
+            items: []
+        }
+    },
+
+    created() {
+        this.fetch();
+    },
+
+    methods: {
+        fetch() {
+            axios.get('/event')
+                .then(({ data }) => {
+                    this.items = data;
+                })
+                .catch(error => {
+                    alert(error);
+                });
+        },
+
+        rerender(data) {
+            console.log(data);
+            this.items = data;
+        }
+    }
+}
+</script>

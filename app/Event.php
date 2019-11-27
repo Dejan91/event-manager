@@ -27,7 +27,7 @@ class Event extends Model
      */
     protected $with = ['creator', 'favorites', 'subscription'];
 
-    protected $appends = ['favoritesCount', 'isFavorited'];
+    protected $appends = ['favoritesCount', 'isFavorited', 'subscribersCount'];
 
     /**
      * @var array
