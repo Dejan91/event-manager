@@ -25,14 +25,18 @@ class EventFilters extends Filters
 
     public function end($date)
     {
-        $date = Carbon::parse($date)->format('Y-m-d');
+        if ($date) {
+            $date = Carbon::parse($date)->format('Y-m-d');
 
-        $this->builder->where('end_date', '<=', $date);
+            $this->builder->where('end_date', '<=', $date);
+        } else {
+            $this->builder->where('end_date', '<=', Carbon::now()->addYear());
+        }
     }
 
     public function title($title)
     {
-        $this->builder->where('title','LIKE',"%{$title}%");
+        $this->builder->where('title', 'LIKE', "%{$title}%");
     }
 
     public function description($description)
@@ -48,8 +52,10 @@ class EventFilters extends Filters
 
     public function country($country)
     {
-        $country = Country::where('name', 'LIKE', "%{$country}%")->first();
+        $countries = Country::where('name', 'LIKE', "%{$country}%")->get()->map(function ($country) {
+            return $country->id;
+        });
 
-        $this->builder->where('country_id', $country->id);
+        $this->builder->whereIn('country_id', $countries);
     }
 }

@@ -7,7 +7,7 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ url('/event?commented=1') }}">
+            <a class="dropdown-item" id="commentSearch" href="">
                 Most Commented
             </a>
         </div>
@@ -18,33 +18,9 @@
 <div class="container">
     <div class="row">
         <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
-            <div class="row col-sm-12 mt-2 mb-2">
-                <range-picker></range-picker>
+            <div class="row ml-1">
+                <advanced-search></advanced-search>
             </div>
-
-            <form class="form-inline mt-3 mb-3" action="" method="GET">
-                <div class="form-group mr-2">
-                    <input type="text" class="form-control" id="title" placeholder="Title">
-                </div>
-                <div class="form-group mr-2">
-                    <input type="text" class="form-control" id="description" placeholder="Description">
-                </div>
-                <div class="form-group mr-2">
-                    <input type="text" class="form-control" id="country" placeholder="Country">
-                </div>
-                <button type="submit" id="search" class="btn btn-primary">Search</button>
-            </form>
-
-            <script>
-                $(document).ready(function() {
-                    $('#search').on('click', function(e) {
-                        e.preventDefault();
-
-
-                    });
-                });
-            </script>
-
 
             <ul class="event-list">
                 @foreach ($events as $event)
@@ -53,6 +29,7 @@
                             <span class="day">{{ $event->start_date->format('d') }}</span>
                             <span class="month">{{ $event->start_date->format('M') }}</span>
                         </time>
+
                         <img alt="My 24th Birthday!" src="{{ $event->image_path }}" />
                         <div class="info">
                             <h2 class="title">{{ Str::limit($event->title, 30, '...') }}</h2>
@@ -74,4 +51,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/event/main.js') }}"></script>
 @endsection

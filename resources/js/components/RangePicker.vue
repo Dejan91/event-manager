@@ -13,7 +13,11 @@ export default {
             let start = moment(values[0]).format('DD-MM-YYYY');
             let end = moment(values[1]).format('DD-MM-YYYY');
 
-            window.location = `/event?start=${start}&end=${end}`;
+            if (window.location.search === '') {
+                window.location = `/event?start=${start}&end=${end}`;
+            } else {
+                window.location = window.location + `&start=${start}&end=${end}`;
+            }
         }
     }
 }

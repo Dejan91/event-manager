@@ -7,12 +7,12 @@
 
 <script>
 export default {
-    props: ['comment'],
+    props: ['model', 'instance'],
 
     data() {
         return {
-            favoritesCount: this.comment.favoritesCount,
-            isFavorited: this.comment.isFavorited
+            favoritesCount: this.model.favoritesCount,
+            isFavorited: this.model.isFavorited
         }
     },
 
@@ -22,7 +22,7 @@ export default {
         },
 
         endpoint() {
-            return "/favorite/comment/" + this.comment.id;
+            return `/favorite/${this.instance}/${this.model.id}`;
         }
     },
 

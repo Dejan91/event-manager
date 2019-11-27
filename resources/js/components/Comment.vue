@@ -7,13 +7,13 @@
                 </h5>
 
                 <div>
-                    <favorite :comment="data"></favorite>
+                    <favorite :model="data" instance="comment"></favorite>
                 </div>
             </div>
         </div>
 
         <div class="card-body">
-            
+
             <div class="row">
                 <div class="col-md-12" v-if="editing">
                     <div class="form-group">
@@ -21,12 +21,12 @@
                     </div>
                     <button class="btn btn-sm btn-primary float-right" @click="update">Update</button>
                     <button class="btn btn-sm btn-link float-right" @click="editing = false">Cancel</button>
-                </div>                  
-                
+                </div>
+
                 <div v-else>
                     <div class="col-md-12 mb-1 text-secondary">
                         <span class="fas fa-clock mr-2"></span><span v-text="ago"></span>
-                    </div>                    
+                    </div>
                     <div class="col-md-12" v-text="body"></div>
                 </div>
             </div>
@@ -83,7 +83,7 @@ export default {
                 }
             });
         },
-        
+
         destroy() {
             axios.delete('/comments/' + this.data.id)
                 .then(response => {

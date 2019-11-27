@@ -17,26 +17,29 @@
                             </div>
                             <div class="col-md-6">
                                 <span class="font-weight-bold">End: </span>{{ $event->end_date->format('Y-m-d') }}
-                            </div>                            
+                            </div>
+                        </div>
+                        <div class="float-left mt-2">
+                            <subscribe-button :data="{{ $event }}"></subscribe-button>
                         </div>
                         <div class="float-right mt-2 mr-2">
-                            <subscribe-button :data="{{ $event }}"></subscribe-button>
+                            <favorite :model="{{ $event }}" instance="event"></favorite>
                         </div>
                     </div>
                 </div>
-            
-                <comments 
-                    @added="commentsCount++" 
+
+                <comments
+                    @added="commentsCount++"
                     @removed="commentsCount--">
                 </comments>
-         
+
             </div>
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <p>
                             This event was published {{ $event->created_at->diffForHumans() }} by
-                            <a href="#">{{ $event->creator->name }}</a>, and currently 
+                            <a href="#">{{ $event->creator->name }}</a>, and currently
                             has <span v-text="commentsCount"></span> {{ Str::plural('comment', $event->comments_count) }}.
                         </p>
                     </div>
