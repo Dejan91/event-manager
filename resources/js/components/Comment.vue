@@ -3,9 +3,9 @@
         <div class="card-header">
             <div class="level">
                 <h5 class="flex">
-                    <a href="#" v-text="data.owner.name"></a>
+                    <img v-bind:src="data.owner.thumb_path" width="50px" height="50px">
+                    <a href="#" class="ml-2" v-text="data.owner.name"></a>
                 </h5>
-
                 <div>
                     <favorite :model="data" instance="comment"></favorite>
                 </div>

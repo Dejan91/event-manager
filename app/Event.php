@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Country;
 use App\Traits\Favoritable;
 use App\Traits\SubscribeToEvent;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +10,15 @@ use Illuminate\Database\Eloquent\Model;
  * Class Event
  * @package App
  *
- * @property int user_id
+ * @property int     user_id
+ * @property int     country_id
+ * @property string  title
+ * @property string  description
+ * @property string  image_path
+ * @property string  start_date
+ * @property string  end_date
+ * @property User    creator
+ * @property Country country
  */
 class Event extends Model
 {
@@ -20,31 +27,54 @@ class Event extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'country_id', 'title', 'description', 'image_path', 'start_date', 'end_date'];
+    protected $fillable = [
+        'user_id',
+        'country_id',
+        'title',
+        'description',
+        'image_path',
+        'start_date',
+        'end_date',
+    ];
 
     /**
      * @var array
      */
-    protected $with = ['creator', 'favorites', 'subscription'];
+    protected $with = [
+        'creator',
+        'favorites',
+        'subscription',
+    ];
 
-    protected $appends = ['favoritesCount', 'isFavorited', 'subscribersCount'];
+    protected $appends = [
+        'favoritesCount',
+        'isFavorited',
+        'subscribersCount',
+    ];
 
     /**
      * @var array
      */
-    protected $dates = ['start_date', 'end_date'];
+    protected $dates = [
+        'start_date',
+        'end_date',
+    ];
 
     protected static function boot()
     {
         parent::boot();
 
-        static::addGlobalScope('commentCount', function ($builder) {
-            $builder->withCount('comments');
-        });
+        static::addGlobalScope(
+            'commentCount',
+            function ($builder) {
+                $builder->withCount('comments');
+            }
+        );
     }
 
     /**
      * @param $image
+     *
      * @return string
      */
     public function getImagePathAttribute($image)
@@ -86,6 +116,7 @@ class Event extends Model
 
     /**
      * @param $comment
+     *
      * @return Model
      */
     public function addComment($comment)
@@ -96,11 +127,11 @@ class Event extends Model
     /**
      * @param $query
      * @param $filters
+     *
      * @return mixed
      */
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
     }
-
 }

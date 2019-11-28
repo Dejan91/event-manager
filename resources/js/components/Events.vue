@@ -1,11 +1,8 @@
 <template>
     <div class="container">
+        <advanced-search @filtered="rerender"></advanced-search>
         <div class="row">
             <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
-                <div class="row ml-1">
-                    <advanced-search @filtered="rerender"></advanced-search>
-                </div>
-
                 <ul class="event-list" v-for="event in items" :key="event.id">
                     <single-event :data="event"></single-event>
                 </ul>
@@ -16,9 +13,10 @@
 
 <script>
 import AdvancedSearch from '../components/AdvancedSearch';
+import SingleEvent from "./SingleEvent";
 
 export default {
-    components: { AdvancedSearch },
+    components: { AdvancedSearch, SingleEvent },
 
     data() {
         return {
@@ -42,7 +40,6 @@ export default {
         },
 
         rerender(data) {
-            console.log(data);
             this.items = data;
         }
     }

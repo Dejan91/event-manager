@@ -1,12 +1,8 @@
 window._ = require('lodash');
 
-import VMdDateRangePicker from "v-md-date-range-picker";
-
 let Vue = require('vue');
 
 window.Vue = Vue;
-
-Vue.use(VMdDateRangePicker);
 
 window.axios = require('axios');
 

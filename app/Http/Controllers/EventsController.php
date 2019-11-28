@@ -29,13 +29,17 @@ class EventsController extends Controller
      * Return single event
      *
      * @param Event $event
+     *
      * @return bool
      */
     public function show(Event $event)
     {
-        return view('event.show', [
-            'event' => $event->append(['isSubscribed', 'subscribersCount'])
-        ]);
+        return view(
+            'event.show',
+            [
+                'event' => $event->append(['isSubscribed', 'subscribersCount']),
+            ]
+        );
     }
 
     /**
@@ -63,26 +67,32 @@ class EventsController extends Controller
             $image_path = request()->file('event_image')->store('event_images', 'public');
         }
 
-        $event = Event::create([
-            'user_id' => auth()->id(),
-            'title' => request('title'),
-            'country_id' => request('country'),
-            'description' => request('description'),
-            'image_path' => $image_path,
-            'start_date' => request('start_date'),
-            'end_date' => request('end_date')
-        ]);
+        $event = Event::create(
+            [
+                'user_id'     => auth()->id(),
+                'title'       => request('title'),
+                'country_id'  => request('country'),
+                'description' => request('description'),
+                'image_path'  => $image_path,
+                'start_date'  => request('start_date'),
+                'end_date'    => request('end_date'),
+            ]
+        );
 
-        return response()->json([
-            'success' => 'Event Created',
-            'event' => $event,
-        ], 200);
+        return response()->json(
+            [
+                'success' => 'Event Created',
+                'event'   => $event,
+            ],
+            200
+        );
     }
 
     /**
      * Show pre populated form for editing event
      *
      * @param Event $event
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Event $event)
@@ -94,7 +104,9 @@ class EventsController extends Controller
      * Update existing resource in storage.
      *
      * @param Event $event
+     *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Event $event)
     {
@@ -102,15 +114,19 @@ class EventsController extends Controller
 
         $event->update(request()->all());
 
-        return response()->json([
-            'success' => 'Event Updated',
-        ], 204);
+        return response()->json(
+            [
+                'success' => 'Event Updated',
+            ],
+            204
+        );
     }
 
     /**
      * Delete existing resource in storage.
      *
      * @param Event $event
+     *
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
@@ -120,9 +136,11 @@ class EventsController extends Controller
 
         $event->delete();
 
-        return response()->json([
-            'success' => 'Event Deleted',
-        ]);
+        return response()->json(
+            [
+                'success' => 'Event Deleted',
+            ]
+        );
     }
 
     public function getEvents($filters)
