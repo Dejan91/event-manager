@@ -3,8 +3,8 @@
 
 The event that you are interested in is going to start tomorrow.
 
-{{-- Click <a href="{{ route('profile.mail.edit', [$user]) }}">here</a> to manage your email preferences. --}}
-Click <a href="{{ url("http://event-manager.test//users/{$user->id}/mails/edit") }}">here</a> to manage your email preferences.
+ Click <a href="{{ route('profile.mail.edit', [$user]) }}">here</a> to manage your email preferences.
+{{--Click <a href="{{ url("http://event-manager.test//users/{$user->id}/mails/edit") }}">here</a> to manage your email preferences.--}}
 
 <p>Or</p>
 
