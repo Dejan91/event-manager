@@ -4,9 +4,8 @@ namespace App\Console\Commands;
 
 use App\Event;
 use Carbon\Carbon;
+use App\Jobs\DailyMail;
 use Illuminate\Console\Command;
-use App\Mail\DayPriorEventMail;
-use Illuminate\Support\Facades\Mail;
 
 class DayPriorEventReminder extends Command
 {
@@ -32,13 +31,13 @@ class DayPriorEventReminder extends Command
     public function handle()
     {
         $events = Event::all()->filter(function ($event) {
-            return Carbon::parse($event->start_date)->format('y m d') <= Carbon::now()->addDay(1)->format('y m d') && $event->subscription->count();
+            return Carbon::parse($event->start_date)->format('y m d') <= Carbon::now()->addDay()->format('y m d') && $event->subscription->count();
         });
 
         $events->each(function ($event) {
             $event->subscription->each(function ($sub) {
                 if ($sub->user->wantsDailyMail()) {
-                    Mail::to($sub->user->email)->send(new DayPriorEventMail($sub->user));
+                    DailyMail::dispatch($sub);
                     sleep(10);
                 }
             });

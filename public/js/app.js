@@ -2195,7 +2195,9 @@ __webpack_require__.r(__webpack_exports__);
     favorite: function favorite() {
       var _this = this;
 
-      axios.post(this.endpoint).then()["catch"](function (error) {
+      axios.post(this.endpoint).then(function () {
+        return console.log('Favourited');
+      })["catch"](function (error) {
         if (_this.verificationEmailError(error)) {
           emailVerificationModal();
         }
@@ -2206,7 +2208,9 @@ __webpack_require__.r(__webpack_exports__);
     unfavorite: function unfavorite() {
       var _this2 = this;
 
-      axios["delete"](this.endpoint).then()["catch"](function (error) {
+      axios["delete"](this.endpoint).then(function () {
+        return console.log('Unfavourited');
+      })["catch"](function (error) {
         if (_this2.verificationEmailError(error)) {
           emailVerificationModal();
         }

@@ -4,9 +4,8 @@ namespace App\Console\Commands;
 
 use App\Event;
 use Carbon\Carbon;
+use App\Jobs\WeeklyMail;
 use Illuminate\Console\Command;
-use App\Mail\WeekPriorEventMail;
-use Illuminate\Support\Facades\Mail;
 
 class WeekPriorEventReminder extends Command
 {
@@ -38,7 +37,7 @@ class WeekPriorEventReminder extends Command
         $events->each(function ($event) {
             $event->subscription->each(function ($sub) {
                 if ($sub->user->wantsWeeklyMail()) {
-                    Mail::to($sub->user->email)->send(new WeekPriorEventMail($sub->user));
+                    WeeklyMail::dispatch($sub);
                     sleep(10);
                 }
             });

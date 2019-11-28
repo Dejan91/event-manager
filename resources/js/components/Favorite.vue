@@ -33,7 +33,7 @@ export default {
 
         favorite() {
             axios.post(this.endpoint)
-                .then()
+                .then(() => console.log('Favourited'))
                 .catch(error => {
                     if (this.verificationEmailError(error)) {
                         emailVerificationModal();
@@ -46,7 +46,7 @@ export default {
 
         unfavorite() {
             axios.delete(this.endpoint)
-                .then()
+                .then(() => console.log('Unfavourited'))
                 .catch(error => {
                     if (this.verificationEmailError(error)) {
                         emailVerificationModal();
