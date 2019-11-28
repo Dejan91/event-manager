@@ -30,17 +30,24 @@ class DayPriorEventReminder extends Command
      */
     public function handle()
     {
-        $events = Event::all()->filter(function ($event) {
-            return Carbon::parse($event->start_date)->format('y m d') <= Carbon::now()->addDay()->format('y m d') && $event->subscription->count();
-        });
+        $events = Event::all()->filter(
+            function ($event) {
+                return Carbon::parse($event->start_date)->format('y m d') <= Carbon::now()->addDay()->format('y m d') &&
+                       $event->subscription->count();
+            }
+        );
 
-        $events->each(function ($event) {
-            $event->subscription->each(function ($sub) {
-                if ($sub->user->wantsDailyMail()) {
-                    DailyMail::dispatch($sub);
-                    sleep(10);
-                }
-            });
-        });
+        $events->each(
+            function ($event) {
+                $event->subscription->each(
+                    function ($sub) {
+                        if ($sub->user->wantsDailyMail()) {
+                            DailyMail::dispatch($sub);
+                            sleep(10);
+                        }
+                    }
+                );
+            }
+        );
     }
 }
