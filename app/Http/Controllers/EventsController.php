@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use App\Filters\EventFilters;
+use App\Events\EventsRepository;
 use App\Http\Requests\Events\StoreEvent;
 
 class EventsController extends Controller
@@ -14,9 +14,9 @@ class EventsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @return \Illuminate\Http\Response
      */
-    public function index(EventFilters $filters)
+    public function index(EventsRepository $repository)
     {
-        $events = $this->getEvents($filters);
+        $events = Event::latest()->filter($repository);
 
         if (request()->expectsJson()) {
             return $events;
@@ -141,12 +141,5 @@ class EventsController extends Controller
                 'success' => 'Event Deleted',
             ]
         );
-    }
-
-    public function getEvents($filters)
-    {
-        $events = Event::latest()->filter($filters);
-
-        return $events->get();
     }
 }

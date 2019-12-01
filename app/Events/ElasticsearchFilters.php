@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filters;
+namespace App\Events;
 
 use Illuminate\Http\Request;
 
@@ -8,15 +8,12 @@ use Illuminate\Http\Request;
  * Class Filters
  * @package App\Filters
  */
-abstract class Filters
+abstract class ElasticsearchFilters
 {
     /**
      * @var Request
      */
-    /**
-     * @var Request
-     */
-    protected $request, $builder;
+    protected $request;
 
     /**
      * @var array
@@ -38,19 +35,19 @@ abstract class Filters
      *
      * @return Request
      */
-    public function apply($builder)
+    public function apply()
     {
-        $this->builder = $builder;
+        $items = [];
 
         foreach ($this->getFilters() as $filter => $value) {
             if (method_exists($this, $filter)) {
-                $this->$filter($value);
+                $items[] = $this->$filter($value);
             }
         }
 
-        return $this->builder->get();
+        return $items;
     }
-
+    
     /**
      * @return array
      */

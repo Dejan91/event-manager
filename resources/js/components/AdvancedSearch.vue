@@ -48,17 +48,18 @@ export default {
 
     computed: {
         endpoint() {
-            this.start
-                ? this.start = moment(this.start).format('YYYY-MM-DD')
-                : this.start = '';
+            return '/event?title=' + this.title;
+            // this.start
+            //     ? this.start = moment(this.start).format('YYYY-MM-DD')
+            //     : this.start = '';
 
-            this.end
-                ? this.end = moment(this.end).format('YYYY-MM-DD')
-                : this.end = '';
+            // this.end
+            //     ? this.end = moment(this.end).format('YYYY-MM-DD')
+            //     : this.end = '';
 
-            return this.commented
-                ? `/event?title=${this.title}&description=${this.description}&country=${this.country}&start=${this.start}&end=${this.end}&commented=1`
-                : `/event?title=${this.title}&description=${this.description}&country=${this.country}&start=${this.start}&end=${this.end}`;
+            // return this.commented
+            //     ? `/event?title=${this.title}&description=${this.description}&country=${this.country}&start=${this.start}&end=${this.end}&commented=1`
+            //     : `/event?title=${this.title}&description=${this.description}&country=${this.country}&start=${this.start}&end=${this.end}`;
         }
     },
 
@@ -67,6 +68,7 @@ export default {
         submitSearch() {
             axios.get(this.endpoint)
                 .then(response => {
+                    console.log(response);
                     this.$emit('filtered', response.data);
                 })
                 .catch(error => {

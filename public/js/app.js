@@ -1887,9 +1887,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     endpoint: function endpoint() {
-      this.start ? this.start = moment__WEBPACK_IMPORTED_MODULE_0___default()(this.start).format('YYYY-MM-DD') : this.start = '';
-      this.end ? this.end = moment__WEBPACK_IMPORTED_MODULE_0___default()(this.end).format('YYYY-MM-DD') : this.end = '';
-      return this.commented ? "/event?title=".concat(this.title, "&description=").concat(this.description, "&country=").concat(this.country, "&start=").concat(this.start, "&end=").concat(this.end, "&commented=1") : "/event?title=".concat(this.title, "&description=").concat(this.description, "&country=").concat(this.country, "&start=").concat(this.start, "&end=").concat(this.end);
+      return '/event?title=' + this.title; // this.start
+      //     ? this.start = moment(this.start).format('YYYY-MM-DD')
+      //     : this.start = '';
+      // this.end
+      //     ? this.end = moment(this.end).format('YYYY-MM-DD')
+      //     : this.end = '';
+      // return this.commented
+      //     ? `/event?title=${this.title}&description=${this.description}&country=${this.country}&start=${this.start}&end=${this.end}&commented=1`
+      //     : `/event?title=${this.title}&description=${this.description}&country=${this.country}&start=${this.start}&end=${this.end}`;
     }
   },
   methods: {
@@ -52514,9 +52520,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/event.scss */"./resources/sass/event.scss");
+__webpack_require__(/*! /home/vagrant/www/event-manager/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/event.scss */"./resources/sass/event.scss");
 
 
 /***/ })

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Search\Searchable;
 use App\Traits\Favoritable;
 use App\Traits\SubscribeToEvent;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Event extends Model
 {
-    use Favoritable, SubscribeToEvent;
+    use Favoritable, 
+        SubscribeToEvent,
+        Searchable;
 
     /**
      * @var array
@@ -130,8 +133,8 @@ class Event extends Model
      *
      * @return mixed
      */
-    public function scopeFilter($query, $filters)
+    public function scopeFilter($query, $repository)
     {
-        return $filters->apply($query);
+        return $repository->apply($query);
     }
 }
