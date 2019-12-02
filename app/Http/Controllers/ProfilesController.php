@@ -13,6 +13,14 @@ class ProfilesController extends Controller
 {
     /**
      * @param User $user
+     */
+    public function show(User $user)
+    {
+        return view('profiles.show', compact('user'));
+    }
+
+    /**
+     * @param User $user
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException

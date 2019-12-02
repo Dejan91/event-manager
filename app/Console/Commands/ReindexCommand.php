@@ -34,7 +34,7 @@ class ReindexCommand extends Command
 
     public function handle()
     {
-        $this->info('Indexing all articles. This might take a while...');
+        $this->info('Indexing all events. This might take a while...');
 
         foreach (Event::cursor() as $article)
         {

@@ -4,5 +4,5 @@ namespace App\Events;
 
 interface EventsRepository
 {
-    public function apply();
+    public function apply($query);
 }

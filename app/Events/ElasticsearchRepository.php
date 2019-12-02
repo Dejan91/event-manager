@@ -24,15 +24,20 @@ class ElasticsearchRepository extends ElasticsearchFilters implements EventsRepo
 
     public function __construct(Client $elasticsearch, Request $request)
     {
+        parent::__construct($request);
+
         $this->elasticsearch = $elasticsearch;
 
         $this->request = $request;
     }
 
+    public function all()
+    {
+        $this->events[] = Event::latest()->get();
+    }
+
     public function title($title)
     {
-        $title = $title ?: '';
-
         $model = new Event;
 
         $items = $this->elasticsearch->search([
@@ -49,13 +54,13 @@ class ElasticsearchRepository extends ElasticsearchFilters implements EventsRepo
             ],
         ]);
 
-        return $this->buildCollection($items);
+        $this->events[] = $this->buildCollection($items);
     }
 
     public function description($description)
     {
-        $description = $description ?: '';
         $model = new Event;
+
         $items = $this->elasticsearch->search([
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
@@ -70,7 +75,7 @@ class ElasticsearchRepository extends ElasticsearchFilters implements EventsRepo
             ],
         ]);
 
-        return $this->buildCollection($items);
+        $this->events[] = $this->buildCollection($items);
     }
 
     private function buildCollection($items)

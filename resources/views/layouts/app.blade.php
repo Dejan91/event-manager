@@ -85,12 +85,12 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <span><img src="{{ Auth::user()->thumb_path }}" height="40px" width="40px"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile.edit', [auth()->user()]) }}">
-                                        Profile <span class="pull-right"><img src="{{ Auth::user()->thumb_path }}" height="25px" width="25px"></span>
+                                    <a class="dropdown-item" href="{{ route('profile.show', [auth()->user()]) }}">
+                                        Profile
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

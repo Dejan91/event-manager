@@ -24,6 +24,7 @@
                                     </div>
                                 </div>
                                 <ul class="nav nav-tabs">
+                                    <li class="nav-item"><a href="{{ route('profile.show', [$user]) }}" class="nav-link">Profile</a></li>
                                     <li class="nav-item"><a href="{{ route('profile.edit', [$user]) }}" class="nav-link">Settings</a></li>
                                     <li class="nav-item"><a href="{{ route('profile.mail.edit', [$user]) }}" class="active nav-link">Mail preferences</a></li>
                                 </ul>

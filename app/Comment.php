@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\Favoritable;
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,7 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Comment extends Model
 {
-    use Favoritable;
+    use Favoritable,
+        RecordsActivity;
 
     /**
      * @var array

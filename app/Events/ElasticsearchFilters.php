@@ -20,6 +20,8 @@ abstract class ElasticsearchFilters
      */
     protected $filters = [];
 
+    protected $events = [];
+
     /**
      * Filters constructor.
      *
@@ -30,29 +32,31 @@ abstract class ElasticsearchFilters
         $this->request = $request;
     }
 
-    /**
-     * @param $builder
-     *
+    /**     *
      * @return Request
      */
-    public function apply()
+    public function apply($query)
     {
-        $items = [];
+        $this->events = [];
 
         foreach ($this->getFilters() as $filter => $value) {
             if (method_exists($this, $filter)) {
-                $items[] = $this->$filter($value);
+                $this->$filter($value);
             }
         }
 
-        return $items;
+        return $this->events[0];
     }
-    
+
     /**
      * @return array
      */
     public function getFilters()
     {
+        if ($this->request->getRequestUri() === '/event') {
+            return ['all' => 'all'];
+        }
+
         return $this->request->only($this->filters);
     }
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Search\Searchable;
 use App\Traits\Favoritable;
+use App\Traits\RecordsActivity;
 use App\Traits\SubscribeToEvent;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,21 +12,22 @@ use Illuminate\Database\Eloquent\Model;
  * Class Event
  * @package App
  *
- * @property int     user_id
- * @property int     country_id
- * @property string  title
- * @property string  description
- * @property string  image_path
- * @property string  start_date
- * @property string  end_date
- * @property User    creator
+ * @property int user_id
+ * @property int country_id
+ * @property string title
+ * @property string description
+ * @property string image_path
+ * @property string start_date
+ * @property string end_date
+ * @property User creator
  * @property Country country
  */
 class Event extends Model
 {
-    use Favoritable, 
+    use Favoritable,
         SubscribeToEvent,
-        Searchable;
+        Searchable,
+        RecordsActivity;
 
     /**
      * @var array
@@ -67,12 +69,13 @@ class Event extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(
-            'commentCount',
-            function ($builder) {
-                $builder->withCount('comments');
-            }
-        );
+        static::addGlobalScope('commentCount', function ($builder) {
+            $builder->withCount('comments');
+        });
+
+        static::deleting(function ($event) {
+            $event->comments()->delete();
+        });
     }
 
     /**

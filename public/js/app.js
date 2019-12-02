@@ -1873,6 +1873,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1887,7 +1923,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     endpoint: function endpoint() {
-      return '/event?title=' + this.title; // this.start
+      var params = {
+        start: this.start,
+        end: this.end,
+        title: this.title,
+        description: this.description,
+        country: this.country // commented: this.commented
+
+      };
+      var query = Object.getOwnPropertyNames(params).map(function (key) {
+        return params[key] !== '' && key + '=' + params[key];
+      }).filter(function (el) {
+        return el !== false;
+      }).join('&');
+      return query ? '?' + query : query; // this.start
       //     ? this.start = moment(this.start).format('YYYY-MM-DD')
       //     : this.start = '';
       // this.end
@@ -2636,7 +2685,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nlabel[data-v-1b0282d6]{\n    font-weight: 600;\n}\n.custom-control[data-v-1b0282d6]{\n    font-weight: normal;\n}\n.dropdown-toggle[data-v-1b0282d6]{\n    padding-left: 10px;\n    border-radius: 0px !important;\n}\n.dropdown.dropdown-lg .dropdown-menu[data-v-1b0282d6] {\n    padding: 15px;\n}\n.input-group .form-control[data-v-1b0282d6]{\n    width: 100%;\n    border-radius: 0.25rem !important;\n}\n.dropdown.dropdown-lg .dropdown-menu[data-v-1b0282d6]{\n    min-width: 320px;\n}\n.dropdown-menu[data-v-1b0282d6]{\n    box-shadow: 1px 4px 8px -1px #c1c1c1;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*body {*/\n/*    padding-top: 50px;*/\n/*}*/\n/*.dropdown.dropdown-lg .dropdown-menu {*/\n/*    margin-top: -1px;*/\n/*    padding: 6px 20px;*/\n/*}*/\n/*.input-group-btn .btn-group {*/\n/*    display: flex !important;*/\n/*}*/\n/*.btn-group .btn {*/\n/*    border-radius: 0;*/\n/*    margin-left: -1px;*/\n/*}*/\n/*.btn-group .btn:last-child {*/\n/*    border-top-right-radius: 4px;*/\n/*    border-bottom-right-radius: 4px;*/\n/*}*/\n/*.btn-group .form-horizontal .btn[type=\"submit\"] {*/\n/*    border-top-left-radius: 4px;*/\n/*    border-bottom-left-radius: 4px;*/\n/*}*/\n/*.form-horizontal .form-group {*/\n/*    margin-left: 0;*/\n/*    margin-right: 0;*/\n/*}*/\n/*.form-group .form-control:last-child {*/\n/*    border-top-left-radius: 4px;*/\n/*    border-bottom-left-radius: 4px;*/\n/*}*/\n\n/*@media screen and (min-width: 768px) {*/\n/*    #adv-search {*/\n/*        width: 500px;*/\n/*        margin: 0 auto;*/\n/*    }*/\n/*    .dropdown.dropdown-lg {*/\n/*        position: static !important;*/\n/*    }*/\n/*    .dropdown.dropdown-lg .dropdown-menu {*/\n/*        min-width: 500px;*/\n/*    }*/\n/*}*/\n", ""]);
 
 // exports
 
@@ -38546,7 +38595,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "form",
-    { staticClass: "mt-3 mb-3 ml-3", attrs: { action: "", method: "GET" } },
+    { staticClass: "mt-3 mb-3 ml-4", attrs: { action: "", method: "GET" } },
     [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "form-group mr-2" }, [
@@ -38969,13 +39018,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("advanced-search", { on: { filtered: _vm.rerender } }),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _c("advanced-search", { on: { filtered: _vm.rerender } }),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "[ col-xs-12 col-sm-offset-2 col-sm-8 ]" },
@@ -38989,10 +39038,10 @@ var render = function() {
           }),
           0
         )
-      ])
-    ],
-    1
-  )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52520,9 +52569,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/event.scss */"./resources/sass/event.scss");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/event.scss */"./resources/sass/event.scss");
 
 
 /***/ })

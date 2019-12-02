@@ -45,6 +45,7 @@ Route::post('/event/{event}/subscription', 'EventSubscriptionController@store')-
 Route::delete('/event/{event}/subscription', 'EventSubscriptionController@destroy')->middleware('auth', 'verified');
 
 // Users Profile
+Route::get('/users/{user}/profile', 'ProfilesController@show')->middleware('auth', 'verified')->name('profile.show');
 Route::get('/users/{user}/profile/edit', 'ProfilesController@edit')->middleware('auth', 'verified')->name('profile.edit');
 Route::post('/users/{user}/profile/update', 'ProfilesController@update')->middleware('auth', 'verified')->name('profile.update');
 Route::post('/users/{user}/password/update', 'ProfilesController@changePassword')->middleware('auth', 'verified')->name('profile.changePassword');
