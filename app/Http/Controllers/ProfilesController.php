@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Activity;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -13,10 +14,14 @@ class ProfilesController extends Controller
 {
     /**
      * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(User $user)
     {
-        return view('profiles.show', compact('user'));
+        return view('profiles.show', [
+            'user' => $user,
+            'activities' => Activity::feed($user),
+        ]);
     }
 
     /**

@@ -74,7 +74,7 @@ class Event extends Model
         });
 
         static::deleting(function ($event) {
-            $event->comments()->delete();
+            $event->comments->each->delete();
         });
     }
 

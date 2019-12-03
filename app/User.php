@@ -108,4 +108,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UnsubscribeToken::class);
     }
+
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
+    }
 }

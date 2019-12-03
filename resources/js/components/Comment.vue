@@ -1,5 +1,5 @@
 <template>
-    <div class="card mt-3">
+    <div :id="id" class="card mt-3">
         <div class="card-header">
             <div class="level">
                 <h5 class="flex">
@@ -57,6 +57,10 @@ export default {
     },
 
     computed: {
+        id() {
+            return `comment-${this.data.id}`;
+        },
+
         canUpdate() {
             return this.authorize(user => this.data.user_id == user.id);
         },

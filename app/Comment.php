@@ -53,10 +53,18 @@ class Comment extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    /**
      * @return string
      */
     public function path()
     {
-        return "/comment/{$this->id}";
+        return $this->event->path() . "#comment-{$this->id}";
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Favorite extends Model
 {
+    use RecordsActivity;
+
     /**
      * @var array
      */
@@ -26,6 +29,11 @@ class Favorite extends Model
      * Get all of the owning commentable models.
      */
     public function commentable()
+    {
+        return $this->morphTo();
+    }
+
+    public function favoritable()
     {
         return $this->morphTo();
     }

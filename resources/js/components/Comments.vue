@@ -1,8 +1,11 @@
 <template>
     <div>
-        <div v-for="(comment, index) in items" :key="comment.id">
-            <comment :data="comment" @deleted="remove(index)"></comment>
-        </div>
+        <comment
+            v-for="(comment, index) in items"
+            :key="comment.id"
+            :data="comment"
+            @deleted="remove(index)">
+        </comment>
 
         <paginator :dataSet="dataSet" @changed="fetch"></paginator>
 
