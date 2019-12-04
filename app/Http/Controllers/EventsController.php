@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use Exception;
+use Illuminate\View\View;
+use Illuminate\Http\Response;
 use App\Events\EventsRepository;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\Events\StoreEvent;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EventsController extends Controller
 {
     /**
      * Return all events
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
+     * @return Response
      */
     public function index(EventsRepository $repository)
     {
@@ -30,7 +36,7 @@ class EventsController extends Controller
      *
      * @param Event $event
      *
-     * @return bool
+     * @return Factory|View
      */
     public function show(Event $event)
     {
@@ -45,7 +51,7 @@ class EventsController extends Controller
     /**
      * Show form for creating new event
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -57,7 +63,7 @@ class EventsController extends Controller
     /**
      * Store a newly created event in database.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function store(StoreEvent $request)
     {
@@ -93,7 +99,7 @@ class EventsController extends Controller
      *
      * @param Event $event
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Event $event)
     {
@@ -105,8 +111,8 @@ class EventsController extends Controller
      *
      * @param Event $event
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function update(Event $event)
     {
@@ -127,8 +133,8 @@ class EventsController extends Controller
      *
      * @param Event $event
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
+     * @return JsonResponse
+     * @throws Exception
      */
     public function destroy(Event $event)
     {

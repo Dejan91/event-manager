@@ -1,70 +1,46 @@
 <template>
-<!--    <div class="col-xs-12 col-sm-offset-2 col-sm-8 mb-3">-->
-<!--        <div class="input-group" id="adv-search">-->
-<!--            <input type="text" class="form-control" placeholder="Search for snippets" />-->
-<!--            <div class="input-group-btn">-->
-<!--                <div class="btn-group" role="group">-->
-<!--                    <div class="dropdown dropdown-lg">-->
-<!--                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class=""></span></button>-->
-<!--                        <div class="dropdown-menu dropdown-menu-right" role="menu">-->
-<!--                            <form class="form-horizontal" role="form">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="filter">Filter by</label>-->
-<!--                                    <select class="form-control">-->
-<!--                                        <option value="0" selected>All Snippets</option>-->
-<!--                                        <option value="1">Featured</option>-->
-<!--                                        <option value="2">Most popular</option>-->
-<!--                                        <option value="3">Top rated</option>-->
-<!--                                        <option value="4">Most commented</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="contain">Author</label>-->
-<!--                                    <input class="form-control" type="text" />-->
-<!--                                </div>-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="contain">Contains the words</label>-->
-<!--                                    <input class="form-control" type="text" />-->
-<!--                                </div>-->
-<!--                                <button type="submit" class="btn btn-primary"><span class="fas fa-search" aria-hidden="true"></span></button>-->
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <button type="button" class="btn btn-primary"><span class="fas fa-search" aria-hidden="true"></span></button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-    <form class="mt-3 mb-3 ml-4" action="" method="GET">
-        <div class="row">
-            <div class="form-group mr-2">
-                <label for="start">Start</label>
-                <input type="date" class="form-control" v-model="start" id="start" placeholder="Start">
-            </div>
-            <div class="form-group mr-2">
-                <label for="end">End</label>
-                <input type="date" class="form-control" v-model="end" id="end" placeholder="End">
-            </div>
-            <div class="d-flex align-items-center ml-5 custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="commented" v-model="commented">
-                <label class="custom-control-label" for="commented">Most Commented</label>
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 mb-3">
+        <div class="input-group" id="adv-search">
+            <input @keydown.enter="searchByTitle" type="text" class="form-control" v-model="firstTitle" placeholder="Search by title" />
+            <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                    <div class="dropdown dropdown-lg">
+                        <button  type="button" id="dlDropDown" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class=""></span></button>
+                        <div class="dropdown-menu dropdown-menu-right" role="menu">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group mr-2">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" v-model="title" id="title" placeholder="Title">
+                                </div>
+                                <div class="form-group mr-2">
+                                    <label for="description">Description</label>
+                                    <input type="text" class="form-control" v-model="description" id="description" placeholder="Description">
+                                </div>
+                                <div class="form-group mr-2">
+                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" v-model="country" id="country" placeholder="Country">
+                                </div>
+                                <div class="form-group mr-2">
+                                    <label for="start">Start</label>
+                                    <input type="date" class="form-control" v-model="start" id="start" placeholder="Start">
+                                </div>
+                                <div class="form-group mr-2">
+                                    <label for="end">End</label>
+                                    <input type="date" class="form-control" v-model="end" id="end" placeholder="End">
+                                </div>
+                                <div class="custom-checkbox ml-4 mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="commented" v-model="commented">
+                                    <label class="custom-control-label" for="commented">Most Commented</label>
+                                </div>
+                                <button @click.prevent="filter" type="submit" class="btn btn-primary"><span class="fas fa-search" aria-hidden="true"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                    <button @click.prevent="searchByTitle" type="submit" class="btn btn-primary"><span class="fas fa-search" aria-hidden="true"></span></button>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group mr-2">
-                <input type="text" class="form-control" v-model="title" id="title" placeholder="Title">
-            </div>
-            <div class="form-group mr-2">
-                <input type="text" class="form-control" v-model="description" id="description" placeholder="Description">
-            </div>
-            <div class="form-group mr-2">
-                <input type="text" class="form-control" v-model="country" id="country" placeholder="Country">
-            </div>
-            <div class="form-group">
-                <button @click.prevent="submitSearch" type="submit" id="search" class="btn btn-primary">Filter</button>
-            </div>
-        </div>
-    </form>
+    </div>
 </template>
 
 <script>
@@ -73,6 +49,7 @@ import moment from 'moment';
 export default {
     data() {
         return {
+            firstTitle: '',
             start: '',
             end: '',
             title: '',
@@ -116,13 +93,25 @@ export default {
     },
 
     methods: {
-        submitSearch() {
+        filter() {
+            $("#dlDropDown").dropdown("toggle");
+
             axios.get(this.endpoint)
                 .then(response => {
                     this.$emit('filtered', response.data);
                 })
                 .catch(error => {
-                    alert('There was an error filtering events.');
+                    alert('Sorry there was an error filtering events.');
+                });
+        },
+
+        searchByTitle() {
+            axios.get(`/event?title=${this.firstTitle}`)
+                .then(response => {
+                    this.$emit('filtered', response.data);
+                })
+                .catch(error => {
+                    alert('Sorry there was an error while searching.');
                 });
         }
     }
@@ -130,47 +119,47 @@ export default {
 </script>
 
 <style scoped>
-    /*body {*/
-    /*    padding-top: 50px;*/
-    /*}*/
-    /*.dropdown.dropdown-lg .dropdown-menu {*/
-    /*    margin-top: -1px;*/
-    /*    padding: 6px 20px;*/
-    /*}*/
-    /*.input-group-btn .btn-group {*/
-    /*    display: flex !important;*/
-    /*}*/
-    /*.btn-group .btn {*/
-    /*    border-radius: 0;*/
-    /*    margin-left: -1px;*/
-    /*}*/
-    /*.btn-group .btn:last-child {*/
-    /*    border-top-right-radius: 4px;*/
-    /*    border-bottom-right-radius: 4px;*/
-    /*}*/
-    /*.btn-group .form-horizontal .btn[type="submit"] {*/
-    /*    border-top-left-radius: 4px;*/
-    /*    border-bottom-left-radius: 4px;*/
-    /*}*/
-    /*.form-horizontal .form-group {*/
-    /*    margin-left: 0;*/
-    /*    margin-right: 0;*/
-    /*}*/
-    /*.form-group .form-control:last-child {*/
-    /*    border-top-left-radius: 4px;*/
-    /*    border-bottom-left-radius: 4px;*/
-    /*}*/
+    body {
+        padding-top: 50px;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        margin-top: -1px;
+        padding: 6px 20px;
+    }
+    .input-group-btn .btn-group {
+        display: flex !important;
+    }
+    .btn-group .btn {
+        border-radius: 0;
+        margin-left: -1px;
+    }
+    .btn-group .btn:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    .btn-group .form-horizontal .btn[type="submit"] {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .form-horizontal .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .form-group .form-control:last-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
 
-    /*@media screen and (min-width: 768px) {*/
-    /*    #adv-search {*/
-    /*        width: 500px;*/
-    /*        margin: 0 auto;*/
-    /*    }*/
-    /*    .dropdown.dropdown-lg {*/
-    /*        position: static !important;*/
-    /*    }*/
-    /*    .dropdown.dropdown-lg .dropdown-menu {*/
-    /*        min-width: 500px;*/
-    /*    }*/
-    /*}*/
+    @media screen and (min-width: 768px) {
+        #adv-search {
+            width: 730px;
+            margin: 0 auto;
+        }
+        .dropdown.dropdown-lg {
+            position: static !important;
+        }
+        .dropdown.dropdown-lg .dropdown-menu {
+            min-width: 730px;
+        }
+    }
 </style>

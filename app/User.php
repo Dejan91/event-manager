@@ -3,11 +3,10 @@
 namespace App;
 
 use App\Traits\PreferMails;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User
@@ -17,13 +16,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string password
  * @property string avatar_path
  * @property string thumb_path
- * @property int    provider_id
+ * @property int provider_id
  * @property string provider
  * @property string access_token
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasRoles, PreferMails;
+    use Notifiable,
+        HasRoles,
+        PreferMails;
 
     /**
      * @var array
@@ -109,6 +110,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(UnsubscribeToken::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function activity()
     {
         return $this->hasMany(Activity::class);

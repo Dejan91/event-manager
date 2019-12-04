@@ -6,6 +6,7 @@ use App\Search\Searchable;
 use App\Traits\Favoritable;
 use App\Traits\RecordsActivity;
 use App\Traits\SubscribeToEvent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string end_date
  * @property User creator
  * @property Country country
+ *
+ * @method static Builder|$this latest()
+ * @method static Builder|$this filter($repository)
  */
 class Event extends Model
 {
