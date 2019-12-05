@@ -10,22 +10,19 @@ use App\EventSubscription;
  */
 trait SubscribeToEvent
 {
-    /**
-     *
-     */
     public function subscribe()
     {
         if (!$this->isSubscribed) {
-            $this->subscription()->create(['user_id' => auth()->id()]);
+            $this->subscription()
+                ->create(['user_id' => auth()->id()]);
         }
     }
 
-    /**
-     *
-     */
     public function unsubscribe()
     {
-        $this->subscription()->where('user_id', auth()->id())->delete();
+        $this->subscription()
+            ->where('user_id', auth()->id())
+            ->delete();
     }
 
     /**
@@ -33,7 +30,9 @@ trait SubscribeToEvent
      */
     public function getIsSubscribedAttribute()
     {
-        return $this->subscription()->where('user_id', auth()->id())->exists();
+        return $this->subscription()
+            ->where('user_id', auth()->id())
+            ->exists();
     }
 
     /**
@@ -41,7 +40,8 @@ trait SubscribeToEvent
      */
     public function getSubscribersCountAttribute()
     {
-        return $this->subscription->count();
+        return $this->subscription
+            ->count();
     }
 
     /**

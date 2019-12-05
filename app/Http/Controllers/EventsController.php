@@ -17,8 +17,8 @@ class EventsController extends Controller
     /**
      * Return all events
      *
-     * @return Factory|View
-     * @return Response
+     * @param EventsRepository $repository
+     * @return Event|Factory|\Illuminate\Database\Eloquent\Builder|View
      */
     public function index(EventsRepository $repository)
     {

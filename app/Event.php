@@ -6,8 +6,8 @@ use App\Search\Searchable;
 use App\Traits\Favoritable;
 use App\Traits\RecordsActivity;
 use App\Traits\SubscribeToEvent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class Event
@@ -131,7 +131,15 @@ class Event extends Model
      */
     public function addComment($comment)
     {
-        return $this->comments()->create($comment);
+        $comment =  $this->comments()->create($comment);
+
+        $this->subscription
+            ->filter(function ($sub) use ($comment) {
+                return $sub->user_id !== $comment->user_id;
+            })
+            ->each->notify($comment);
+
+        return $comment;
     }
 
     /**

@@ -82,6 +82,8 @@
                                 </li>
                             @endif
                         @else
+                            <user-notifications></user-notifications>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span><img src="{{ Auth::user()->thumb_path }}" height="40px" width="40px"></span>

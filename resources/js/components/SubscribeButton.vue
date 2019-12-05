@@ -3,7 +3,7 @@
         <span class="fas fa-users"></span>
         <span v-text="subscribersCount"></span>
         <span class="mr-2"></span>
-        <button @click="toggle" :class="classes" v-text="body"></button>
+        <button @click="toggle" :class="classes">Interested</button>
     </div>
 </template>
 
@@ -20,15 +20,11 @@ export default {
 
     computed: {
         classes() {
-            return ['btn', this.isSubscribed ? 'btn-danger' : 'btn-primary'];
+            return ['btn', this.isSubscribed ? 'btn-primary' : 'btn-outline-primary'];
         },
 
         endpoint() {
             return `/event/${this.data.id}/subscription`;
-        },
-
-        body() {
-            return this.isSubscribed ? 'Not Interested' : 'Interested';
         }
     },
 
@@ -46,7 +42,7 @@ export default {
                     }
                 });
             this.isSubscribed = true;
-            this.subscribersCount++;            
+            this.subscribersCount++;
         },
 
         unsubscribe() {
@@ -56,7 +52,7 @@ export default {
                     console.log(error);
                 });
             this.isSubscribed = false;
-            this.subscribersCount--;            
+            this.subscribersCount--;
         },
 
         verificationEmailError(error) {

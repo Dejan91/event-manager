@@ -49,10 +49,10 @@ trait PreferMails
     {
         if (!$this->wantsDailyMail()) {
             $this->mailTypes()->attach(
-                    [
-                        'mail_type_id' => 1,
-                    ]
-                );
+                [
+                    'mail_type_id' => 1,
+                ]
+            );
         }
     }
 
@@ -63,11 +63,11 @@ trait PreferMails
     {
         if ($this->wantsDailyMail()) {
             $this->mailTypes()->detach(
-                    [
-                        'mail_type_id' => 1,
-                        'user_id'      => auth()->id(),
-                    ]
-                );
+                [
+                    'mail_type_id' => 1,
+                    'user_id' => auth()->id(),
+                ]
+            );
         }
     }
 
@@ -78,10 +78,10 @@ trait PreferMails
     {
         if (!$this->wantsWeeklyMail()) {
             $this->mailTypes()->attach(
-                    [
-                        'mail_type_id' => 2,
-                    ]
-                );
+                [
+                    'mail_type_id' => 2,
+                ]
+            );
         }
     }
 
@@ -92,11 +92,11 @@ trait PreferMails
     {
         if ($this->wantsWeeklyMail()) {
             $this->mailTypes()->detach(
-                    [
-                        'mail_type_id' => 2,
-                        'user_id'      => auth()->id(),
-                    ]
-                );
+                [
+                    'mail_type_id' => 2,
+                    'user_id' => auth()->id(),
+                ]
+            );
         }
     }
 

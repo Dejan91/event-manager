@@ -50,6 +50,10 @@ Route::get('/users/{user}/profile/edit', 'ProfilesController@edit')->middleware(
 Route::post('/users/{user}/profile/update', 'ProfilesController@update')->middleware('auth', 'verified')->name('profile.update');
 Route::post('/users/{user}/password/update', 'ProfilesController@changePassword')->middleware('auth', 'verified')->name('profile.changePassword');
 
+// Users Notifications
+Route::get('/users/{user}/profile/notifications', 'UserNotificationsController@index')->middleware('auth', 'verified')->name('notification.index');
+Route::delete('/users/{user}/profile/notifications/{notification}', 'UserNotificationsController@destroy')->middleware('auth', 'verified')->name('notification.delete');
+
 // Profile Avatars
 Route::patch('/users/{user}/avatar/update', 'ProfilesAvatarController@update')->middleware('auth', 'verified')->name('profile.changeAvatar');
 
