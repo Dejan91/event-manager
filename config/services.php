@@ -14,11 +14,6 @@ return [
     |
     */
 
-    'search' => [
-        'engine' => env('SEARCH_ENGINE', 'Eloquent'),
-        'hosts' => explode(',', env('ELASTICSEARCH_HOSTS')),
-    ],
-    
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

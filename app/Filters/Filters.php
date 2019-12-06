@@ -48,7 +48,7 @@ abstract class Filters
             }
         }
 
-        return $this->builder->get();
+        return $this->builder;
     }
 
     /**

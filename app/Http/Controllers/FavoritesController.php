@@ -22,7 +22,7 @@ class FavoritesController extends Controller
 
         $instance->favorite();
 
-        return back();
+        return response(null, 204);
     }
 
     /**
@@ -39,6 +39,6 @@ class FavoritesController extends Controller
 
         $instance->unfavorite();
 
-        return back();
+        return response(null, 204);
     }
 }

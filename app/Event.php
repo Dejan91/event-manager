@@ -2,10 +2,10 @@
 
 namespace App;
 
-use App\Search\Searchable;
 use App\Traits\Favoritable;
 use App\Traits\RecordsActivity;
 use App\Traits\SubscribeToEvent;
+use App\Events\EventHasNewComment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -30,7 +30,6 @@ class Event extends Model
 {
     use Favoritable,
         SubscribeToEvent,
-        Searchable,
         RecordsActivity;
 
     /**
@@ -133,13 +132,17 @@ class Event extends Model
     {
         $comment =  $this->comments()->create($comment);
 
-        $this->subscription
-            ->filter(function ($sub) use ($comment) {
-                return $sub->user_id !== $comment->user_id;
-            })
-            ->each->notify($comment);
+        $this->notifySubscribers($comment);
 
         return $comment;
+    }
+
+    protected function notifySubscribers($comment)
+    {
+        $this->subscription
+            ->where('user_id', '!=', $comment->user_id)
+            ->each
+            ->notify($comment);
     }
 
     /**
@@ -148,8 +151,8 @@ class Event extends Model
      *
      * @return mixed
      */
-    public function scopeFilter($query, $repository)
+    public function scopeFilter($query, $filters)
     {
-        return $repository->apply($query);
+        return $filters->apply($query);
     }
 }

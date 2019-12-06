@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
 
 class EventTableSeeder extends Seeder
 {
@@ -12,10 +13,17 @@ class EventTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Event', 30)->create()->each(function($event) {
-            factory('App\Comment', rand(10, 26))->create([
-                'event_id' => $event->id,
+        $users = User::role('Client')->get()->random(20);
+
+        foreach ($users as $user) {
+            Auth::login($user);
+
+            factory('App\Event', rand(1, 2))->create()->each(function($event) {
+                factory('App\Comment', rand(10, 26))->create([
+                    'user_id' => auth()->id(),
+                    'event_id' => $event->id,
                 ]);
-        });
+            });
+        }
     }
 }

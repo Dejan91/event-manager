@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Event;
 use Exception;
 use Illuminate\View\View;
-use Illuminate\Http\Response;
-use App\Events\EventsRepository;
+use App\Inspections\Spam;
+use App\Filters\EventFilters;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\Events\StoreEvent;
@@ -17,12 +17,11 @@ class EventsController extends Controller
     /**
      * Return all events
      *
-     * @param EventsRepository $repository
      * @return Event|Factory|\Illuminate\Database\Eloquent\Builder|View
      */
-    public function index(EventsRepository $repository)
+    public function index(EventFilters $filters)
     {
-        $events = Event::latest()->filter($repository);
+        $events = Event::latest()->filter($filters)->get();
 
         if (request()->expectsJson()) {
             return $events;
@@ -40,12 +39,9 @@ class EventsController extends Controller
      */
     public function show(Event $event)
     {
-        return view(
-            'event.show',
-            [
+        return view('event.show', [
                 'event' => $event->append(['isSubscribed', 'subscribersCount']),
-            ]
-        );
+            ]);
     }
 
     /**
@@ -65,7 +61,7 @@ class EventsController extends Controller
      *
      * @return JsonResponse
      */
-    public function store(StoreEvent $request)
+    public function store(StoreEvent $request, Spam $spam)
     {
         $image_path = null;
 
@@ -73,8 +69,7 @@ class EventsController extends Controller
             $image_path = request()->file('event_image')->store('event_images', 'public');
         }
 
-        $event = Event::create(
-            [
+        $event = Event::create([
                 'user_id'     => auth()->id(),
                 'title'       => request('title'),
                 'country_id'  => request('country'),
@@ -82,8 +77,9 @@ class EventsController extends Controller
                 'image_path'  => $image_path,
                 'start_date'  => request('start_date'),
                 'end_date'    => request('end_date'),
-            ]
-        );
+            ]);
+
+        $spam->detect(request('description'));
 
         return response()->json(
             [
@@ -148,4 +144,5 @@ class EventsController extends Controller
             ]
         );
     }
+
 }

@@ -1,16 +1,16 @@
 <template>
     <div class="mt-3">
         <div class="form-group">
-            <textarea class="form-control" 
-                      name="body" 
-                      id="body" 
-                      rows="5" 
+            <textarea class="form-control"
+                      name="body"
+                      id="body"
+                      rows="5"
                       placeholder="Have something to say?"
-                      required 
+                      required
                       v-model="body"></textarea>
         </div>
 
-        <button type="submit" 
+        <button type="submit"
                 class="btn btn-primary"
                 @click="addComment">Post</button>
     </div>
@@ -34,6 +34,9 @@ export default {
                     flash('Your comment has been posted.');
 
                     this.$emit('created', data.data);
+                })
+                .catch(error => {
+                    flash(error.response.data, 'danger');
                 });
         }
     }

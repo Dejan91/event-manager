@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (! userHavePermission()) {
                return;
             }
-            
+
             $.ajax({
                 type: 'GET',
                 url: '/event/create',
-                data: { 
+                data: {
                     start_date: info.dateStr
                 },
                 success: function (data) {
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 $(document).off('click', '#eventDetails');
                 $(document).on('click', '#eventDetails', function (e) {
                     e.preventDefault();
-                    
+
                     window.location = "/event/" + event.event.id;
                 });
             }

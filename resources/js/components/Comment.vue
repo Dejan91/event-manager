@@ -83,6 +83,8 @@ export default {
             .catch(error => {
                 if (this.verificationEmailError(error)) {
                     emailVerificationModal();
+                } else {
+                    flash(error.response.data, 'danger');
                 }
             });
         },

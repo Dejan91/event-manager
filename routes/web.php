@@ -37,8 +37,8 @@ Route::patch('/comments/{comment}', 'CommentsController@update')->middleware('au
 Route::delete('/comments/{comment}', 'CommentsController@destroy')->middleware('auth', 'verified');
 
 // Favorites
-Route::post('/favorite/{model}/{id}', 'FavoritesController@store')->middleware(['auth', 'verified', 'role:Client']);
-Route::delete('/favorite/{model}/{id}', 'FavoritesController@destroy')->middleware(['auth', 'verified', 'role:Client']);
+Route::post('/favorite/{model}/{id}', 'FavoritesController@store')->middleware('auth', 'verified');
+Route::delete('/favorite/{model}/{id}', 'FavoritesController@destroy')->middleware('auth', 'verified');
 
 // Event Subscriptions
 Route::post('/event/{event}/subscription', 'EventSubscriptionController@store')->middleware('auth', 'verified');
