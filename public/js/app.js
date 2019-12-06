@@ -2136,7 +2136,7 @@ __webpack_require__.r(__webpack_exports__);
       window.scrollTo(0, 0);
     },
     add: function add(item) {
-      this.items.push(item);
+      this.items.unshift(item);
       this.$emit('added');
     },
     remove: function remove(index) {
@@ -2401,6 +2401,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -56804,6 +56805,8 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("new-comment", { on: { created: _vm.add } }),
+      _vm._v(" "),
       _vm._l(_vm.items, function(comment, index) {
         return _c("comment", {
           key: comment.id,
@@ -56819,9 +56822,7 @@ var render = function() {
       _c("paginator", {
         attrs: { dataSet: _vm.dataSet },
         on: { changed: _vm.fetch }
-      }),
-      _vm._v(" "),
-      _c("new-comment", { on: { created: _vm.add } })
+      })
     ],
     2
   )
@@ -57082,8 +57083,8 @@ var render = function() {
         attrs: {
           name: "body",
           id: "body",
-          rows: "5",
-          placeholder: "Have something to say?",
+          rows: "2",
+          placeholder: "Leave a comment",
           required: ""
         },
         domProps: { value: _vm.body },
@@ -57105,7 +57106,7 @@ var render = function() {
         attrs: { type: "submit" },
         on: { click: _vm.addComment }
       },
-      [_vm._v("Post")]
+      [_vm._v("Post\n    ")]
     )
   ])
 }
@@ -57272,7 +57273,7 @@ var render = function() {
           [
             _c("a", { attrs: { href: "#" } }, [
               _c("span", { staticClass: "fa fa-heart" }, [
-                _vm._v(_vm._s(_vm.event.favorites_count))
+                _vm._v(_vm._s(_vm.event.favoritesCount))
               ])
             ])
           ]

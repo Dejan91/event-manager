@@ -17,7 +17,7 @@
         </div>
                <div class="social">
            <ul>
-               <li id="favoriteEvent" class="facebook" style="width:33%;"><a href="#"><span class="fa fa-heart">{{ event.favorites_count }}</span></a></li>
+               <li id="favoriteEvent" class="facebook" style="width:33%;"><a href="#"><span class="fa fa-heart">{{ event.favoritesCount }}</span></a></li>
                <li class="twitter" style="width:34%;"><a href="#"><span class="fa fa-comment">{{ event.comments_count }}</span></a></li>
            </ul>
         </div>

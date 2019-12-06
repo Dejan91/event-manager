@@ -4,15 +4,17 @@
             <textarea class="form-control"
                       name="body"
                       id="body"
-                      rows="5"
-                      placeholder="Have something to say?"
+                      rows="2"
+                      placeholder="Leave a comment"
                       required
-                      v-model="body"></textarea>
+                      v-model="body">
+            </textarea>
         </div>
 
         <button type="submit"
                 class="btn btn-primary"
-                @click="addComment">Post</button>
+                @click="addComment">Post
+        </button>
     </div>
 </template>
 

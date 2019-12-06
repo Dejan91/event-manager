@@ -1,5 +1,7 @@
 <template>
     <div>
+        <new-comment @created="add"></new-comment>
+
         <comment
             v-for="(comment, index) in items"
             :key="comment.id"
@@ -8,8 +10,6 @@
         </comment>
 
         <paginator :dataSet="dataSet" @changed="fetch"></paginator>
-
-        <new-comment @created="add"></new-comment>
     </div>
 </template>
 
@@ -55,7 +55,7 @@ export default {
         },
 
         add(item) {
-            this.items.push(item);
+            this.items.unshift(item);
 
             this.$emit('added');
         },

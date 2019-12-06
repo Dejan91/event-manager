@@ -21,7 +21,9 @@ class CommentsController extends Controller
      */
     public function index(Event $event)
     {
-        return $event->comments()->paginate(10);
+        return $event->comments()
+            ->latest()
+            ->paginate(10);
     }
 
     /**
@@ -50,6 +52,7 @@ class CommentsController extends Controller
     /**
      * @param Comment $comment
      *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Comment $comment)
