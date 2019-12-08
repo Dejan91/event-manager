@@ -1,40 +1,33 @@
 <template>
-    <div :id="id" class="card mt-3">
-        <div class="card-header">
-            <div class="level">
-                <h5 class="flex">
-                    <img v-bind:src="data.owner.thumb_path" width="50px" height="50px">
-                    <a href="#" class="ml-2" v-text="data.owner.name"></a>
-                </h5>
-                <div>
-                    <favorite :model="data" instance="comment"></favorite>
-                </div>
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-sm-1">
+                <a href="#">
+                    <img v-bind:src="data.owner.thumb_path" class="mt-3" id="userAvatar" width="50px" height="50px">
+                </a>
             </div>
-        </div>
-
-        <div class="card-body">
-
-            <div class="row">
-                <div class="col-md-12" v-if="editing">
+            <div class="col-sm-10">
+                <div class="card-body" v-if="editing">
                     <div class="form-group">
                         <textarea class="form-control" v-model="body"></textarea>
                     </div>
-                    <button class="btn btn-sm btn-primary float-right" @click="update">Update</button>
-                    <button class="btn btn-sm btn-link float-right" @click="editing = false">Cancel</button>
+                    <a class="d-inline anchor" id="cancel" @click="editing = false">Cancel</a>
+                    <a class="d-inline ml-2 anchor" id="update" @click="update">Update</a>
                 </div>
-
-                <div v-else>
-                    <div class="col-md-12 mb-1 text-secondary">
-                        <span class="fas fa-clock mr-2"></span><span v-text="ago"></span>
+                <div class="card-body" v-else>
+                    <a href="#" id="owner">
+                        <h5 class="card-title d-inline" v-text="data.owner.name"></h5>
+                    </a>
+                    <small class="text-muted d-inline ml-2" v-text="ago"></small>
+                    <p class="card-text mt-1" v-text="body"></p>
+                    <div class="ml-auto" v-if="canUpdate">
+                        <a class="d-inline anchor" @click="editing = true">Edit</a>
+                        <a class="d-inline ml-2 anchor" id="delete" @click="destroy">Delete</a>
                     </div>
-                    <div class="col-md-12" v-text="body"></div>
                 </div>
             </div>
-            <div class="row mt-3" v-if="canUpdate">
-                <div class="ml-auto">
-                    <button class="btn btn-secondary btn-sm " @click="editing = true">Edit</button>
-                    <button class="btn btn-sm btn-danger ml-1 mr-3" @click="destroy">Delete</button>
-                </div>
+            <div class="col-sm-1">
+                <favorite :model="data" instance="comment"></favorite>
             </div>
         </div>
     </div>
@@ -112,3 +105,36 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .card {
+        border: none;
+        background-color: #f8fafc;
+    }
+
+    .anchor:hover {
+        cursor: pointer;
+        text-decoration: underline !important;
+    }
+
+    #delete {
+        color: red;
+    }
+
+    #cancel {
+        color: blue;
+    }
+
+    #update {
+        color: rgb(199, 153, 3);
+    }
+
+    #userAvatar {
+        border-radius: 50%;
+    }
+
+    #owner {
+        text-decoration: none;
+        color: black;
+    }
+</style>

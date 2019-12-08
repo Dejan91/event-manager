@@ -16994,3 +16994,7 @@ readers do not read off random characters that represent icons */
   width: auto;
 }
 
+#userAvatar {
+  border-radius: 50%;
+}
+

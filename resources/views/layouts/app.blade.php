@@ -36,13 +36,6 @@
             ])
         !!};
     </script>
-
-    <style>
-        body { padding-bottom: 100px; }
-        .level { display: flex; align-items: center; }
-        .flex { flex: 1; }
-        [v-cloak] { display: none; }
-    </style>
 </head>
 <body>
     <div id="app">
@@ -86,7 +79,7 @@
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <span><img src="{{ Auth::user()->thumb_path }}" alt="User Thumbnail" height="35px" width="35px"></span>
+                                    <span><img src="{{ Auth::user()->thumb_path }}" alt="User Thumbnail" id="userAvatar" height="35px" width="35px"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

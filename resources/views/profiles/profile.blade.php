@@ -12,7 +12,7 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-auto mb-3">
                                             <div class="mx-auto" style="width: 140px;">
-                                                <img src="{{ $user->avatar_path }}" alt="" width="140px" height="140px">
+                                                <img src="{{ $user->avatar_path }}" alt="user_avatar" id="userAvatar" width="140px" height="140px">
                                             </div>
                                         </div>
                                         <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">

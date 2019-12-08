@@ -1,11 +1,11 @@
 <template>
-    <div class="mt-3">
+    <div class="mt-3 mb-3">
         <div class="form-group">
             <textarea class="form-control"
                       name="body"
                       id="body"
                       rows="2"
-                      placeholder="Leave a comment"
+                      placeholder="Post your comment here"
                       required
                       v-model="body">
             </textarea>

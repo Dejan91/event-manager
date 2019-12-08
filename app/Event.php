@@ -5,7 +5,6 @@ namespace App;
 use App\Traits\Favoritable;
 use App\Traits\RecordsActivity;
 use App\Traits\SubscribeToEvent;
-use App\Events\EventHasNewComment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 

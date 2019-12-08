@@ -1,10 +1,13 @@
 <template>
     <li class="nav-item dropdown" v-if="notifications.length" >
-        <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown mt-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="badge badge-danger ml-2 mb-2">{{ notifications.length }}</span>
             <i class="fas fa-bell fa-lg"></i>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a v-for="notification in notifications"
+            <a 
+               v-for="notification in notifications"
+               :key="notification.id"
                class="dropdown-item"
                :href="notification.data.link"
                v-text="notification.data.message"
