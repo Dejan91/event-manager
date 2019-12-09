@@ -1996,6 +1996,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2022,6 +2024,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     ago: function ago() {
       return moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data.created_at).fromNow();
+    },
+    ownerPath: function ownerPath() {
+      return "/users/".concat(this.data.owner.id, "/profile");
     }
   },
   methods: {
@@ -2433,8 +2438,19 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$emit('created', data.data);
       })["catch"](function (error) {
-        flash(error.response.data, 'danger');
+        if (_this.verificationEmailError(error)) {
+          emailVerificationModal();
+        } else {
+          flash(error.response.data.message, 'danger');
+        }
       });
+    },
+    verificationEmailError: function verificationEmailError(error) {
+      if (error.response.data.message === "Your email address is not verified.") {
+        return true;
+      }
+
+      return false;
     }
   }
 });
@@ -7186,7 +7202,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-54ded044] {\n    border: none;\n    background-color: #f8fafc;\n}\n.anchor[data-v-54ded044]:hover {\n    cursor: pointer;\n    text-decoration: underline !important;\n}\n#delete[data-v-54ded044] {\n    color: red;\n}\n#cancel[data-v-54ded044] {\n    color: blue;\n}\n#update[data-v-54ded044] {\n    color: rgb(199, 153, 3);\n}\n#userAvatar[data-v-54ded044] {\n    border-radius: 50%;\n}\n#owner[data-v-54ded044] {\n    text-decoration: none;\n    color: black;\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-54ded044] {\n    border: none;\n    background-color: #f8fafc;\n}\n.anchor[data-v-54ded044]:hover {\n    cursor: pointer;\n    text-decoration: underline !important;\n}\n.nopadding[data-v-54ded044] {\n    padding-left: 0;\n}\n#delete[data-v-54ded044] {\n    color: red;\n}\n#cancel[data-v-54ded044] {\n    color: blue;\n}\n#update[data-v-54ded044] {\n    color: rgb(199, 153, 3);\n}\n#userAvatar[data-v-54ded044] {\n    border-radius: 50%;\n}\n#owner[data-v-54ded044] {\n    text-decoration: none;\n    color: black;\n}\n#owner[data-v-54ded044]:hover {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -56710,7 +56726,7 @@ var render = function() {
   return _c("div", { staticClass: "card mb-3" }, [
     _c("div", { staticClass: "row no-gutters" }, [
       _c("div", { staticClass: "col-sm-1" }, [
-        _c("a", { attrs: { href: "#" } }, [
+        _c("a", { attrs: { href: _vm.ownerPath } }, [
           _c("img", {
             staticClass: "mt-3",
             attrs: {
@@ -56725,7 +56741,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-10" }, [
         _vm.editing
-          ? _c("div", { staticClass: "card-body" }, [
+          ? _c("div", { staticClass: "card-body nopadding" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("textarea", {
                   directives: [
@@ -56773,12 +56789,13 @@ var render = function() {
                 [_vm._v("Update")]
               )
             ])
-          : _c("div", { staticClass: "card-body" }, [
-              _c("a", { attrs: { href: "#", id: "owner" } }, [
-                _c("h5", {
-                  staticClass: "card-title d-inline",
-                  domProps: { textContent: _vm._s(_vm.data.owner.name) }
-                })
+          : _c("div", { staticClass: "card-body nopadding" }, [
+              _c("a", { attrs: { href: _vm.ownerPath, id: "owner" } }, [
+                _c("h6", { staticClass: "card-title d-inline" }, [
+                  _c("strong", {
+                    domProps: { textContent: _vm._s(_vm.data.owner.name) }
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("small", {
@@ -70625,10 +70642,10 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/event.scss */"./resources/sass/event.scss");
-module.exports = __webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/activity.scss */"./resources/sass/activity.scss");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/event.scss */"./resources/sass/event.scss");
+module.exports = __webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/activity.scss */"./resources/sass/activity.scss");
 
 
 /***/ })

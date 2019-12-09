@@ -7,6 +7,7 @@ use App\Event;
 use App\Observers\UserObserver;
 use App\Observers\EventObserver;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         Event::observe(EventObserver::class);
+
+        Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     }
 }

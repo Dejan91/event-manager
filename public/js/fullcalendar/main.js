@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             user_id: data.event.user_id,
                             title: data.event.title,
                             description: data.event.description,
+                            country: data.event.country,
                             start: data.event.start_date,
                             end: data.event.end_date
                         });
@@ -122,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     let title = $('#title').val();
                     let description = $('#description').val();
+                    let country = $('#country').val();
                     let start_date = $('#start_date').val();
                     let end_date = $('#end_date').val();
 
@@ -131,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         data: JSON.stringify({
                             title,
                             description,
+                            country,
                             start_date,
                             end_date
                         }),
@@ -138,6 +141,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         success: function(data){
                             $('#createEventModal').modal('hide');
                             flash('Event updated');
+                        },
+                        error: function (error){
+                            showErrorMessage(error.responseJSON.errors);
                         }
                     });
                 });

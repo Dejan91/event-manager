@@ -38,8 +38,19 @@ export default {
                     this.$emit('created', data.data);
                 })
                 .catch(error => {
-                    flash(error.response.data, 'danger');
+                    if (this.verificationEmailError(error)) {
+                        emailVerificationModal();
+                    } else {
+                        flash(error.response.data.message, 'danger');
+                    }
                 });
+        },
+
+        verificationEmailError(error) {
+            if (error.response.data.message === "Your email address is not verified.") {
+                return true;
+            }
+            return false;
         }
     }
 }

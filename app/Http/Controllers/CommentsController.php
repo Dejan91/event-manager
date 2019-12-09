@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\Comment;
-use App\Inspections\Spam;
+use App\Http\Requests\Comments\CreateCommentRequest;
 
 /**
  * Class CommentsController
@@ -30,23 +30,12 @@ class CommentsController extends Controller
      * Store a newly created comment in database.
      *
      * @param Event $event
-     * @param Spam $spam
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param CreateCommentRequest $form
+     * @return mixed
      */
-    public function store(Event $event)
+    public function store(Event $event, CreateCommentRequest $request)
     {
-        try {
-            $this->validateComment();
-
-            $comment = $event->addComment([
-                'user_id' => auth()->id(),
-                'body'    => request('body'),
-            ]);
-        } catch (\Exception $e) {
-            return response('Sorry, your comment could not be saved at this time', 422);
-        }
-
-        return $comment->load('owner');
+        return $request->persist($event);
     }
 
     /**
@@ -60,7 +49,7 @@ class CommentsController extends Controller
         $this->authorize('update', $comment);
 
         try {
-            $this->validateComment();
+            request()->validate(['body' => 'required|spamfree']);
 
             $comment->update(request()->all());
         } catch (\Exception $e) {
@@ -84,12 +73,5 @@ class CommentsController extends Controller
         $comment->delete();
 
         return response(['status' => 'Comment deleted']);
-    }
-
-    protected function validateComment()
-    {
-        request()->validate(['body' => 'required']);
-
-        resolve(Spam::class)->detect(request('body'));
     }
 }

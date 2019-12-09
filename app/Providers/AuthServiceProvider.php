@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
-use App\Comment;
+use App\User;
 use App\Event;
-use App\Policies\CommentPolicy;
-use App\Policies\EventPolicy;
+use App\Comment;
 use App\Policies\UserPolicy;
+use App\Policies\EventPolicy;
+use App\Policies\CommentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

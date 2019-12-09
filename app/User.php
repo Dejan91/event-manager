@@ -3,10 +3,10 @@
 namespace App;
 
 use App\Traits\PreferMails;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User
@@ -116,5 +116,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function activity()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function lastComment()
+    {
+        return $this->hasOne(Comment::class)->latest();
+    }
+
+    /**
+     * @return string
+     */
+    public function path()
+    {
+        return "/users/{$this->id}/profile";
     }
 }

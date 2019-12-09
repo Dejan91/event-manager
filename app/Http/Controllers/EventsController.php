@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Event;
 use Exception;
 use Illuminate\View\View;
-use App\Inspections\Spam;
 use App\Filters\EventFilters;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\Factory;
@@ -61,7 +60,7 @@ class EventsController extends Controller
      *
      * @return JsonResponse
      */
-    public function store(StoreEvent $request, Spam $spam)
+    public function store(StoreEvent $request)
     {
         $image_path = null;
 
@@ -78,8 +77,6 @@ class EventsController extends Controller
                 'start_date'  => request('start_date'),
                 'end_date'    => request('end_date'),
             ]);
-
-        $spam->detect(request('description'));
 
         return response()->json(
             [
@@ -110,18 +107,15 @@ class EventsController extends Controller
      * @return JsonResponse
      * @throws AuthorizationException
      */
-    public function update(Event $event)
+    public function update(Event $event, StoreEvent $request)
     {
         $this->authorize('update', $event);
 
         $event->update(request()->all());
 
-        return response()->json(
-            [
+        return response()->json([
                 'success' => 'Event Updated',
-            ],
-            204
-        );
+            ], 204);
     }
 
     /**
@@ -138,11 +132,9 @@ class EventsController extends Controller
 
         $event->delete();
 
-        return response()->json(
-            [
+        return response()->json([
                 'success' => 'Event Deleted',
-            ]
-        );
+            ]);
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use App\Traits\Favoritable;
 use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
@@ -58,6 +59,14 @@ class Comment extends Model
     public function event()
     {
         return $this->belongsTo(Event::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function wasJustPublished()
+    {
+        return $this->created_at->gt(Carbon::now()->subMinute());
     }
 
     /**

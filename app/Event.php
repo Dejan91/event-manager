@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\Favoritable;
+use Laravel\Scout\Searchable;
 use App\Traits\RecordsActivity;
 use App\Traits\SubscribeToEvent;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,8 @@ class Event extends Model
 {
     use Favoritable,
         SubscribeToEvent,
-        RecordsActivity;
+        RecordsActivity,
+        Searchable;
 
     /**
      * @var array

@@ -24,8 +24,8 @@ class StoreEvent extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:2',
-            'description' => 'required|min:10',
+            'title' => 'required|min:2|spamfree',
+            'description' => 'required|min:10|spamfree',
             'country' => 'required',
             'event_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'start_date' => 'required',
