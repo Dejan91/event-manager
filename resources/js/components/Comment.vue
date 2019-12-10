@@ -6,7 +6,7 @@
                     <img v-bind:src="data.owner.thumb_path" class="mt-3" id="userAvatar" width="50px" height="50px">
                 </a>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-11">
                 <div class="card-body nopadding" v-if="editing">
                     <div class="form-group">
                         <textarea class="form-control" v-model="body"></textarea>
@@ -21,15 +21,19 @@
                         </h6>
                     </a>
                     <small class="text-muted d-inline ml-2" v-text="ago"></small>
-                    <p class="card-text mt-1" v-text="body"></p>
-                    <div class="ml-auto" v-if="canUpdate">
-                        <a class="d-inline anchor" @click="editing = true">Edit</a>
-                        <a class="d-inline ml-2 anchor" id="delete" @click="destroy">Delete</a>
+                    <div id="commentSection">
+                        <p class="card-text mt-1" v-text="body"></p>
+                        <div>
+                            <div class="d-inline">
+                                <favorite :model="data" instance="comment" size=""></favorite>
+                            </div>
+                            <div class="d-inline" v-if="canUpdate">
+                                <a class="d-inline ml-2 anchor" @click="editing = true">Edit</a>
+                                <a class="d-inline ml-2 anchor" id="delete" @click="destroy">Delete</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-1">
-                <favorite :model="data" instance="comment"></favorite>
             </div>
         </div>
     </div>
@@ -127,6 +131,12 @@ export default {
         padding-left: 0;
     }
 
+    #commentSection {
+        background-color: #eaeaea;
+        border-radius: 0 20px 20px 15px;
+        padding: 5px 10px;
+    }
+
     #delete {
         color: red;
     }
@@ -150,5 +160,23 @@ export default {
 
     #owner:hover {
         cursor: pointer;
+    }
+
+    @media (max-width: 1199px) {
+        .nopadding {
+            padding-left: 10px;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .nopadding {
+            padding-left: 20px;
+        }
+    }
+
+    @media (max-width: 575px) {
+        .nopadding {
+            padding-left: 0px;
+        }
     }
 </style>

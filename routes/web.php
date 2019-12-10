@@ -14,6 +14,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('login/{driver}', 'Auth\SocialAuthController@redirectToProvider')->name('social.oauth');
 Route::get('login/{driver}/callback', 'Auth\SocialAuthController@handleProviderCallback')->name('social.callback');
 
+// Search
+Route::get('/event/search', 'SearchController@show');
+
 // Events
 Route::get('/event', 'EventsController@index')->middleware('auth');
 Route::get('event/create', 'EventsController@create')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager']);
@@ -28,7 +31,7 @@ Route::get('role', 'RoleController@index')->middleware(['auth', 'verified', 'rol
 Route::post('role/update', 'RoleController@update')->middleware(['auth', 'verified', 'role:Client']);
 
 // Countries
-Route::get('country', 'CountriesController@index')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager']);
+Route::get('country', 'CountriesController@index')->middleware(['auth', 'verified']);
 
 // Comments
 Route::get('/event/{event}/comments', 'CommentsController@index')->middleware('auth');

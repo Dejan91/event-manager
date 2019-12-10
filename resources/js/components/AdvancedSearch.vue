@@ -106,7 +106,7 @@ export default {
         },
 
         searchByTitle() {
-            axios.get(`/event?title=${this.firstTitle}`)
+            axios.get(`/event/search?q=${this.firstTitle}`)
                 .then(response => {
                     this.$emit('filtered', response.data);
                 })

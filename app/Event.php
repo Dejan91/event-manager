@@ -55,6 +55,9 @@ class Event extends Model
         'subscription',
     ];
 
+    /**
+     * @var array
+     */
     protected $appends = [
         'favoritesCount',
         'isFavorited',

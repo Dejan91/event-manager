@@ -23,7 +23,7 @@
                             <subscribe-button :data="{{ $event }}"></subscribe-button>
                         </div>
                         <div class="float-right mt-2 mr-2">
-                            <favorite :model="{{ $event }}" instance="event"></favorite>
+                            <favorite :model="{{ $event }}" instance="event" size="fa-lg"></favorite>
                         </div>
                     </div>
                 </div>

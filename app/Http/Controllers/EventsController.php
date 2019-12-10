@@ -23,7 +23,7 @@ class EventsController extends Controller
         $events = Event::latest()->filter($filters)->get();
 
         if (request()->expectsJson()) {
-            return $events;
+            return $events->load('country');
         }
 
         return view('event.index');

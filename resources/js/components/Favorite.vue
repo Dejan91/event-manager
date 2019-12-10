@@ -1,24 +1,25 @@
 <template>
-    <button type="submit" :class="classes" @click="toggle">
-        <span class="far fa-heart"></span>
-        <span v-text="favoritesCount"></span>
-    </button>
+    <div class="d-inline" @click="toggle">
+        <span :class="classes" id="heart"></span>
+        <span v-text="favoritesCount" id="count"></span>
+    </div>
 </template>
 
 <script>
 export default {
-    props: ['model', 'instance'],
+    props: ['model', 'instance', 'size'],
 
     data() {
         return {
             favoritesCount: this.model.favoritesCount,
-            isFavorited: this.model.isFavorited
+            isFavorited: this.model.isFavorited,
+            favoriteSize: this.size,
         }
     },
 
     computed: {
         classes() {
-            return ['btn', this.isFavorited ? 'btn-primary' : 'btn-outline-secondary'];
+            return [this.isFavorited ? 'fas' : 'far', 'fa-heart', this.favoriteSize];
         },
 
         endpoint() {
@@ -64,3 +65,17 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    #heart {
+        color: #3490dc;
+    }
+
+    #count {
+        color: rgb(66, 66, 66);
+    }
+
+    div:hover {
+        cursor: pointer;
+    }
+</style>

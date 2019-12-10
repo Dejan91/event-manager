@@ -18,7 +18,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/fullcalendar/core/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/fullcalendar/daygrid/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/event.css') }}">
     <link rel="stylesheet" href="{{ asset('css/activity.css') }}">
 
     <!-- Scripts -->
