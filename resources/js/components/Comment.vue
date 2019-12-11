@@ -11,7 +11,7 @@
                     <div class="form-group">
                         <textarea class="form-control" v-model="body"></textarea>
                     </div>
-                    <a class="d-inline anchor" id="cancel" @click="editing = false">Cancel</a>
+                    <button class="d-inline anchor btn btn-link" id="cancel" @click="editing = false">Cancel</button>
                     <a class="d-inline ml-2 anchor" id="update" @click="update">Update</a>
                 </div>
                 <div class="card-body nopadding" v-else>
@@ -22,7 +22,7 @@
                     </a>
                     <small class="text-muted d-inline ml-2" v-text="ago"></small>
                     <div id="commentSection">
-                        <p class="card-text mt-1" v-text="body"></p>
+                        <p class="card-text mt-1" v-html="body"></p>
                         <div>
                             <div class="d-inline">
                                 <favorite :model="data" instance="comment" size=""></favorite>
@@ -84,6 +84,7 @@ export default {
                 flash('Comment updated.');
             })
             .catch(error => {
+                console.log(error);
                 if (this.verificationEmailError(error)) {
                     emailVerificationModal();
                 } else {
@@ -107,10 +108,7 @@ export default {
         },
 
         verificationEmailError(error) {
-            if (error.response.data.message === "Your email address is not verified.") {
-                return true;
-            }
-            return false;
+            return error.response.data.message === "Your email address is not verified.";
         }
     }
 }

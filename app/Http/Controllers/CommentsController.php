@@ -30,12 +30,15 @@ class CommentsController extends Controller
      * Store a newly created comment in database.
      *
      * @param Event $event
-     * @param CreateCommentRequest $form
+     * @param CreateCommentRequest $request
      * @return mixed
      */
     public function store(Event $event, CreateCommentRequest $request)
     {
-        return $request->persist($event);
+        return $event->addComment([
+            'user_id' => auth()->id(),
+            'body'    => request('body'),
+        ])->load('owner');
     }
 
     /**

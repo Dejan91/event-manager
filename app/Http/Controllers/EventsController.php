@@ -16,14 +16,14 @@ class EventsController extends Controller
     /**
      * Return all events
      *
-     * @return Event|Factory|\Illuminate\Database\Eloquent\Builder|View
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index(EventFilters $filters)
     {
         $events = Event::latest()->filter($filters)->get();
 
         if (request()->expectsJson()) {
-            return $events->load('country');
+            return $events;
         }
 
         return view('event.index');
@@ -68,23 +68,12 @@ class EventsController extends Controller
             $image_path = request()->file('event_image')->store('event_images', 'public');
         }
 
-        $event = Event::create([
-                'user_id'     => auth()->id(),
-                'title'       => request('title'),
-                'country_id'  => request('country'),
-                'description' => request('description'),
-                'image_path'  => $image_path,
-                'start_date'  => request('start_date'),
-                'end_date'    => request('end_date'),
-            ]);
+        $event = $request->persist($image_path);
 
-        return response()->json(
-            [
+        return response()->json([
                 'success' => 'Event Created',
                 'event'   => $event,
-            ],
-            200
-        );
+            ],200);
     }
 
     /**

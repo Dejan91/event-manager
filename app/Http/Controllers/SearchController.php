@@ -6,10 +6,8 @@ use App\Event;
 
 class SearchController extends Controller
 {
-    public function show()
+    public function show($query = '')
     {
-        $search = request('q');
-
-        return Event::search($search)->get();
+        return Event::search($query)->get();
     }
 }

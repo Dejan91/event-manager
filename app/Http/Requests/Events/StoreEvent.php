@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Events;
 
+use App\Event;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreEvent extends FormRequest
@@ -31,5 +32,19 @@ class StoreEvent extends FormRequest
             'start_date' => 'required',
             'end_date' => 'required',
         ];
+    }
+
+
+    public function persist($image_path)
+    {
+        return Event::create([
+            'user_id'     => auth()->id(),
+            'title'       => request('title'),
+            'country_id'  => request('country'),
+            'description' => request('description'),
+            'image_path'  => $image_path,
+            'start_date'  => request('start_date'),
+            'end_date'    => request('end_date'),
+        ]);
     }
 }

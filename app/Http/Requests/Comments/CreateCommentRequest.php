@@ -45,15 +45,8 @@ class CreateCommentRequest extends FormRequest
         ];
     }
 
-    /**
-     * @param $event
-     * @return mixed
-     */
     public function persist($event)
     {
-        return $event->addComment([
-            'user_id' => auth()->id(),
-            'body'    => request('body'),
-        ])->load('owner');
+
     }
 }

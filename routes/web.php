@@ -15,7 +15,7 @@ Route::get('login/{driver}', 'Auth\SocialAuthController@redirectToProvider')->na
 Route::get('login/{driver}/callback', 'Auth\SocialAuthController@handleProviderCallback')->name('social.callback');
 
 // Search
-Route::get('/event/search', 'SearchController@show');
+Route::get('/event/search/{query?}', 'SearchController@show')->middleware('auth');
 
 // Events
 Route::get('/event', 'EventsController@index')->middleware('auth');
@@ -64,3 +64,6 @@ Route::patch('/users/{user}/avatar/update', 'ProfilesAvatarController@update')->
 Route::get('/users/{user}/mails/edit', 'MailPreferenceController@edit')->middleware('auth', 'verified')->name('profile.mail.edit');
 Route::post('/users/{user}/mails/update', 'MailPreferenceController@update')->middleware('auth', 'verified')->name('profile.mail.update');
 Route::get('/users/{user}/mails/delete/{unsubscribeToken}', 'MailPreferenceController@destroy')->middleware('auth', 'verified')->name('profile.mail.delete');
+
+// Users controller
+Route::get('api/users', 'Api\UsersController@index');

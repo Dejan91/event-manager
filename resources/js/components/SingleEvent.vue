@@ -16,9 +16,10 @@
                         </a>
                     </h5>
                     <p>{{ startDateDayLetter }} &centerdot; {{ country }}</p>
-                    <p class="d-inline">{{ event.subscribersCount }} people interested</p> 
+                    <p class="d-inline">{{ event.subscribersCount }} people interested</p>
                     <p class="d-inline float-right">
-                        <favorite :model="data" instance="event" size=""></favorite>
+                        <favorite :model="data" instance="event" size="">
+                        </favorite>
                     </p>
                 </div>
             </div>
@@ -114,7 +115,7 @@
         color: rgb(77, 77, 77);
         font-size: 20px;
         font-weight: 500;
-    }    
+    }
 
     #eventImage {
         background-color: black;

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head')
+    <link rel="stylesheet" href="{{ asset('css/jquery.atwho.css') }}">
+@endsection
+
 @section('content')
 <event-view :initial-comments-count="{{ $event->comments_count }}" inline-template>
     <div class="container">

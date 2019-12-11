@@ -7,6 +7,7 @@ use Laravel\Scout\Searchable;
 use App\Traits\RecordsActivity;
 use App\Traits\SubscribeToEvent;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\EventReceivedNewComment;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -53,6 +54,7 @@ class Event extends Model
         'creator',
         'favorites',
         'subscription',
+        'country',
     ];
 
     /**
@@ -136,17 +138,9 @@ class Event extends Model
     {
         $comment =  $this->comments()->create($comment);
 
-        $this->notifySubscribers($comment);
+        event(new EventReceivedNewComment($comment));
 
         return $comment;
-    }
-
-    protected function notifySubscribers($comment)
-    {
-        $this->subscription
-            ->where('user_id', '!=', $comment->user_id)
-            ->each
-            ->notify($comment);
     }
 
     /**

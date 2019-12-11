@@ -70,6 +70,16 @@ class Comment extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function mentionedUsers()
+    {
+        preg_match_all('/\@([^\s\.]+)/', $this->body, $matches);
+
+        return $matches[1];
+    }
+
+    /**
      * @return string
      */
     public function path()
