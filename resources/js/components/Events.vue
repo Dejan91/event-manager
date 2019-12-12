@@ -19,7 +19,11 @@
                         Trending Events
                     </div>
                     <div class="card-body">
-                        <p>lorem ipsum</p>
+                        <trending-event 
+                            v-for="trending in trendings" 
+                            :key="trending.path"
+                            :data="trending">
+                        </trending-event>
                     </div>
                 </div>
             </div>
@@ -29,14 +33,16 @@
 
 <script>
 import AdvancedSearch from '../components/AdvancedSearch';
-import SingleEvent from "./SingleEvent";
+import SingleEvent from './SingleEvent';
+import TrendingEvent from './TrendingEvent';
 
 export default {
-    components: { AdvancedSearch, SingleEvent },
+    components: { AdvancedSearch, SingleEvent, TrendingEvent },
 
     data() {
         return {
-            items: []
+            items: [],
+            trendings: [],
         }
     },
 
@@ -47,8 +53,9 @@ export default {
     methods: {
         fetch() {
             axios.get('/event')
-                .then(({ data }) => {
-                    this.items = data;
+                .then((data) => {
+                    this.items = data.data.events;
+                    this.trendings = data.data.trending;
                 })
                 .catch(error => {
                     alert(error);

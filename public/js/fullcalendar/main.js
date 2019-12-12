@@ -174,7 +174,7 @@ function loadEvents() {
        url: '/event',
        dataType: "json",
        success: function (events) {
-            result = events.map(event => {
+            result = events.events.map(event => {
                 return {
                     id: event.id,
                     title: event.title,

@@ -65,7 +65,7 @@
 
 <style scoped>
     .card {
-        width: 47%;
+        width: 48%;
         margin: 30px auto 0;
     }
 
@@ -128,18 +128,21 @@
 
     @media (max-width: 1199px) {
         .card {
-            width: 47%;
-            margin: 30px auto 0;
+            width: 80%;
         }
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
         .card {
-            width: 90%;
+            width: 96%;
         }
     }
 
     @media (max-width: 575px) {
+        .card {
+            width: 96%;
+        }
+        
         #title {
             padding: 0px 20px 20px 20px;
         }

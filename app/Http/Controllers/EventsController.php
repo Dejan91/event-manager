@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\View\View;
 use App\Filters\EventFilters;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\Events\StoreEvent;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -18,12 +19,17 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index(EventFilters $filters)
+    public function index(EventFilters $filters, Trending $trending)
     {
         $events = Event::latest()->filter($filters)->get();
 
+        // $trending = array_map('json_decode', Redis::zrevrange('trending_events', 0, 9));
+
         if (request()->expectsJson()) {
-            return $events;
+            return [
+                'events' => $events,
+                'trending' => $trending->get(),
+            ];
         }
 
         return view('event.index');
@@ -38,6 +44,11 @@ class EventsController extends Controller
      */
     public function show(Event $event)
     {
+        Redis::zincrby('trending_events', 1, json_encode([
+            'title' => $event->title,
+            'path'  => $event->path(),
+        ]));
+
         return view('event.show', [
                 'event' => $event->append(['isSubscribed', 'subscribersCount']),
             ]);
