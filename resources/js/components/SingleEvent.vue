@@ -65,9 +65,8 @@
 
 <style scoped>
     .card {
-        width: 30%;
-        margin-left: 2%;
-        margin-top: 30px;
+        width: 47%;
+        margin: 30px auto 0;
     }
 
     .card-body {

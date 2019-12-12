@@ -2,13 +2,26 @@
     <div class="container">
         <div class="row">
             <advanced-search @filtered="rerender"></advanced-search>
-
-            <div class="row">
-                <single-event 
-                    v-for="event in items" 
-                    :data="event" 
-                    :key="event.id">
-                </single-event>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <div class="row">
+                    <single-event
+                        v-for="event in items"
+                        :data="event"
+                        :key="event.id">
+                    </single-event>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Trending Events
+                    </div>
+                    <div class="card-body">
+                        <p>lorem ipsum</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -48,3 +61,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .card {
+        margin-top: 20px;
+    }
+</style>

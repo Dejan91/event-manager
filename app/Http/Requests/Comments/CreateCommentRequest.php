@@ -44,9 +44,4 @@ class CreateCommentRequest extends FormRequest
             'body' => 'required|spamfree',
         ];
     }
-
-    public function persist($event)
-    {
-
-    }
 }
