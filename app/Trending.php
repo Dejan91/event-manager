@@ -13,10 +13,12 @@ class Trending
 
     public function push($event)
     {
-        Redis::zincrby($this->cacheKey(), 1, json_encode([
-            'title' => $event->title,
-            'path'  => $event->path(),
-        ]));
+        if (! $event->userVisitedEvent()) {
+            Redis::zincrby($this->cacheKey(), 1, json_encode([
+                'title' => $event->title,
+                'path'  => $event->path(),
+            ]));
+        }
     }
 
     protected function cacheKey()

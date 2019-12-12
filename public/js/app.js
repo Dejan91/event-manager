@@ -3142,7 +3142,7 @@ __webpack_require__.r(__webpack_exports__);
 
       $("#dlDropDown").dropdown("toggle");
       axios.get(this.endpoint).then(function (response) {
-        _this.$emit('filtered', response.data);
+        _this.$emit('filtered', response.data.events);
       })["catch"](function (error) {
         flash(error.message, 'danger');
       });

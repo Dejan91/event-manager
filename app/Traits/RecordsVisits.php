@@ -8,9 +8,10 @@ trait RecordsVisits
 {
     public function recordVisit()
     {
-        Redis::incr($this->visitsCacheKey());
-
-        return $this;
+        if (! $this->userVisitedEvent()) {
+            Redis::incr($this->userCacheKey());
+            Redis::incr($this->visitsCacheKey());
+        }
     }
 
     public function visits()
@@ -23,8 +24,19 @@ trait RecordsVisits
         return "events.{$this->id}.visits";
     }
 
+    protected function userCacheKey()
+    {
+        return 'user.' . auth()->id() . 'event.' . $this->id;
+    }
+
+    public function userVisitedEvent()
+    {
+        return Redis::get($this->userCacheKey()) >= 1;
+    }
+
     public function getVisitsCountAttribute()
     {
         return $this->visits();
     }
+    
 }

@@ -86,7 +86,7 @@ export default {
 
             axios.get(this.endpoint)
                 .then(response => {
-                    this.$emit('filtered', response.data);
+                    this.$emit('filtered', response.data.events);
                 })
                 .catch(error => {
                     flash(error.message , 'danger');
