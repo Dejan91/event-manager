@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\Favoritable;
 use Laravel\Scout\Searchable;
+use App\Traits\RecordsVisits;
 use App\Traits\RecordsActivity;
 use App\Traits\SubscribeToEvent;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,7 @@ class Event extends Model
     use Favoritable,
         SubscribeToEvent,
         RecordsActivity,
+        RecordsVisits,
         Searchable;
 
     /**
@@ -61,9 +63,10 @@ class Event extends Model
      * @var array
      */
     protected $appends = [
+        'visitsCount',
         'favoritesCount',
-        'isFavorited',
         'subscribersCount',
+        'isFavorited',
     ];
 
     /**
@@ -153,4 +156,5 @@ class Event extends Model
     {
         return $filters->apply($query);
     }
+
 }

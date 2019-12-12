@@ -3820,6 +3820,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8581,7 +8585,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-2bb07d17] {\n    width: 48%;\n    margin: 30px auto 0;\n}\n.card-body[data-v-2bb07d17] {\n    padding: 10px 10px 10px 10px;\n}\n#title[data-v-2bb07d17] {\n    padding-left: 0;\n}\n#title h5[data-v-2bb07d17] {\n    margin: 0;\n}\n#title p[data-v-2bb07d17] {\n    margin: 0;\n    line-height: 18px;\n    color: rgb(146, 146, 146);\n}\n#title a[data-v-2bb07d17] {\n    text-decoration: none;\n    color: black;\n}\n#title a[data-v-2bb07d17]:hover {\n    text-decoration: underline;\n}\n#date[data-v-2bb07d17] {\n    padding-right: 10px;\n    text-align: center;\n    line-height: 22px;\n}\n#date p[data-v-2bb07d17] {\n    margin-bottom: 0;\n}\n#month[data-v-2bb07d17] {\n    color: red;\n}\n#day[data-v-2bb07d17] {\n    color: rgb(77, 77, 77);\n    font-size: 20px;\n    font-weight: 500;\n}\n#eventImage[data-v-2bb07d17] {\n    background-color: black;\n    -webkit-transition: .3s ease-in-out;\n    transition: .3s ease-in-out;\n    opacity: 0.8;\n}\n#eventImage[data-v-2bb07d17]:hover {\n    opacity: 1;\n}\n@media (max-width: 1199px) {\n.card[data-v-2bb07d17] {\n        width: 80%;\n}\n}\n@media (max-width: 991px) {\n.card[data-v-2bb07d17] {\n        width: 96%;\n}\n}\n@media (max-width: 575px) {\n.card[data-v-2bb07d17] {\n        width: 96%;\n}\n#title[data-v-2bb07d17] {\n        padding: 0px 20px 20px 20px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-2bb07d17] {\n    width: 48%;\n    margin: 30px auto 0;\n}\n.card-body[data-v-2bb07d17] {\n    padding: 10px 10px 10px 10px;\n}\n.fa-eye[data-v-2bb07d17] {\n    color: #3490dc;\n}\n#counter[data-v-2bb07d17] {\n    color: rgb(66, 66, 66);\n}\n#title[data-v-2bb07d17] {\n    padding-left: 0;\n}\n#title h5[data-v-2bb07d17] {\n    margin: 0;\n}\n#title p[data-v-2bb07d17] {\n    margin: 0;\n    line-height: 18px;\n    color: rgb(146, 146, 146);\n}\n#title a[data-v-2bb07d17] {\n    text-decoration: none;\n    color: black;\n}\n#title a[data-v-2bb07d17]:hover {\n    text-decoration: underline;\n}\n#date[data-v-2bb07d17] {\n    padding-right: 10px;\n    text-align: center;\n    line-height: 22px;\n}\n#date p[data-v-2bb07d17] {\n    margin-bottom: 0;\n}\n#month[data-v-2bb07d17] {\n    color: red;\n}\n#day[data-v-2bb07d17] {\n    color: rgb(77, 77, 77);\n    font-size: 20px;\n    font-weight: 500;\n}\n#eventImage[data-v-2bb07d17] {\n    background-color: black;\n    -webkit-transition: .3s ease-in-out;\n    transition: .3s ease-in-out;\n    opacity: 0.8;\n}\n#eventImage[data-v-2bb07d17]:hover {\n    opacity: 1;\n}\n@media (max-width: 1199px) {\n.card[data-v-2bb07d17] {\n        width: 80%;\n}\n}\n@media (max-width: 991px) {\n.card[data-v-2bb07d17] {\n        width: 96%;\n}\n}\n@media (max-width: 575px) {\n.card[data-v-2bb07d17] {\n        width: 96%;\n}\n#title[data-v-2bb07d17] {\n        padding: 0px 20px 20px 20px;\n}\n}\n", ""]);
 
 // exports
 
@@ -59208,12 +59212,29 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card shadow-sm" }, [
-    _c("a", { attrs: { id: "eventImage", href: "/event/" + _vm.event.id } }, [
-      _c("img", {
-        staticClass: "card-img-top",
-        attrs: { src: _vm.event.image_path, alt: "event-image" }
-      })
-    ]),
+    _c(
+      "a",
+      {
+        attrs: { id: "eventImage", href: "/event/" + _vm.event.id },
+        on: {
+          click: function($event) {
+            _vm.event.visitsCount++
+          },
+          mouseup: function($event) {
+            if ("button" in $event && $event.button !== 1) {
+              return null
+            }
+            _vm.event.visitsCount++
+          }
+        }
+      },
+      [
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: { src: _vm.event.image_path, alt: "event-image" }
+        })
+      ]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c("div", { staticClass: "row" }, [
@@ -59229,13 +59250,30 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-10", attrs: { id: "title" } }, [
           _c("h5", { staticClass: "card-title" }, [
-            _c("a", { attrs: { href: "/event/" + _vm.event.id } }, [
-              _vm._v(
-                "\n                        " +
-                  _vm._s(_vm.event.title.substring(0, 28) + "...") +
-                  "\n                    "
-              )
-            ])
+            _c(
+              "a",
+              {
+                attrs: { href: "/event/" + _vm.event.id },
+                on: {
+                  click: function($event) {
+                    _vm.event.visitsCount++
+                  },
+                  mouseup: function($event) {
+                    if ("button" in $event && $event.button !== 1) {
+                      return null
+                    }
+                    _vm.event.visitsCount++
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.event.title.substring(0, 28) + "...") +
+                    "\n                    "
+                )
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("p", [
@@ -59244,6 +59282,15 @@ var render = function() {
           _vm._v(" "),
           _c("p", { staticClass: "d-inline" }, [
             _vm._v(_vm._s(_vm.event.subscribersCount) + " people interested")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "d-inline ml-5" }, [
+            _c("i", { staticClass: "far fa-eye" }),
+            _vm._v(" "),
+            _c("span", {
+              attrs: { id: "counter" },
+              domProps: { textContent: _vm._s(_vm.event.visitsCount) }
+            })
           ]),
           _vm._v(" "),
           _c(

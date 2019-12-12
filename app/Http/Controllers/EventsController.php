@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use Exception;
+use App\Trending;
 use Illuminate\View\View;
 use App\Filters\EventFilters;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\Events\StoreEvent;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -22,8 +22,6 @@ class EventsController extends Controller
     public function index(EventFilters $filters, Trending $trending)
     {
         $events = Event::latest()->filter($filters)->get();
-
-        // $trending = array_map('json_decode', Redis::zrevrange('trending_events', 0, 9));
 
         if (request()->expectsJson()) {
             return [
@@ -42,12 +40,11 @@ class EventsController extends Controller
      *
      * @return Factory|View
      */
-    public function show(Event $event)
+    public function show(Event $event, Trending $trending)
     {
-        Redis::zincrby('trending_events', 1, json_encode([
-            'title' => $event->title,
-            'path'  => $event->path(),
-        ]));
+        $trending->push($event);
+
+        $event->recordVisit();
 
         return view('event.show', [
                 'event' => $event->append(['isSubscribed', 'subscribersCount']),

@@ -1,6 +1,6 @@
 <template>
     <div class="card shadow-sm">
-        <a id="eventImage" :href="'/event/'+event.id">
+        <a id="eventImage" :href="'/event/'+event.id" @click="event.visitsCount ++" @mouseup.middle="event.visitsCount ++">
             <img :src="event.image_path" class="card-img-top" alt="event-image">
         </a>
         <div class="card-body">
@@ -11,12 +11,16 @@
                 </div>
                 <div id="title" class="col-10">
                     <h5 class="card-title">
-                        <a :href="'/event/'+event.id">
+                        <a :href="'/event/'+event.id" @click="event.visitsCount ++" @mouseup.middle="event.visitsCount ++">
                             {{ event.title.substring(0, 28)+"..." }}
                         </a>
                     </h5>
                     <p>{{ startDateDayLetter }} &centerdot; {{ country }}</p>
                     <p class="d-inline">{{ event.subscribersCount }} people interested</p>
+                    <p class="d-inline ml-5">
+                        <i class="far fa-eye"></i>
+                        <span id="counter" v-text="event.visitsCount"></span>
+                    </p>
                     <p class="d-inline float-right">
                         <favorite :model="data" instance="event" size="">
                         </favorite>
@@ -71,6 +75,14 @@
 
     .card-body {
         padding: 10px 10px 10px 10px;
+    }
+
+    .fa-eye {
+        color: #3490dc;
+    }
+
+    #counter {
+        color: rgb(66, 66, 66);
     }
 
     #title {
