@@ -3528,11 +3528,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['message', 'type'],
   data: function data() {
     return {
-      body: '',
+      body: this.message,
       level: 'success',
       show: false
     };
@@ -3541,7 +3544,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     if (this.message) {
-      this.flash(this.message);
+      this.flash();
     }
 
     window.events.$on('flash', function (data) {
@@ -3550,8 +3553,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     flash: function flash(data) {
-      this.body = data.message;
-      this.level = data.level;
+      if (data) {
+        this.body = data.message;
+        this.level = data.level;
+      }
+
       this.show = true;
       this.hide();
     },
@@ -8585,7 +8591,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.card[data-v-2bb07d17] {\n    width: 48%;\n    margin: 30px auto 0;\n}\n.card-body[data-v-2bb07d17] {\n    padding: 10px 10px 10px 10px;\n}\n.fa-eye[data-v-2bb07d17] {\n    color: #3490dc;\n}\n#counter[data-v-2bb07d17] {\n    color: rgb(66, 66, 66);\n}\n#title[data-v-2bb07d17] {\n    padding-left: 0;\n}\n#title h5[data-v-2bb07d17] {\n    margin: 0;\n}\n#title p[data-v-2bb07d17] {\n    margin: 0;\n    line-height: 18px;\n    color: rgb(146, 146, 146);\n}\n#title a[data-v-2bb07d17] {\n    text-decoration: none;\n    color: black;\n}\n#title a[data-v-2bb07d17]:hover {\n    text-decoration: underline;\n}\n#date[data-v-2bb07d17] {\n    padding-right: 10px;\n    text-align: center;\n    line-height: 22px;\n}\n#date p[data-v-2bb07d17] {\n    margin-bottom: 0;\n}\n#month[data-v-2bb07d17] {\n    color: red;\n}\n#day[data-v-2bb07d17] {\n    color: rgb(77, 77, 77);\n    font-size: 20px;\n    font-weight: 500;\n}\n#eventImage[data-v-2bb07d17] {\n    background-color: black;\n    -webkit-transition: .3s ease-in-out;\n    transition: .3s ease-in-out;\n    opacity: 0.8;\n}\n#eventImage[data-v-2bb07d17]:hover {\n    opacity: 1;\n}\n@media (max-width: 1199px) {\n.card[data-v-2bb07d17] {\n        width: 80%;\n}\n}\n@media (max-width: 991px) {\n.card[data-v-2bb07d17] {\n        width: 96%;\n}\n}\n@media (max-width: 575px) {\n.card[data-v-2bb07d17] {\n        width: 96%;\n}\n#title[data-v-2bb07d17] {\n        padding: 0px 20px 20px 20px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-2bb07d17] {\n    width: 48%;\n    margin: 30px auto 0;\n}\n.card-body[data-v-2bb07d17] {\n    padding: 10px 10px 10px 10px;\n}\n.fa-eye[data-v-2bb07d17] {\n    color: #3490dc;\n}\n#counter[data-v-2bb07d17] {\n    color: rgb(66, 66, 66);\n}\n#title[data-v-2bb07d17] {\n    padding-left: 0;\n}\n#title h5[data-v-2bb07d17] {\n    margin: 0;\n}\n#title p[data-v-2bb07d17] {\n    margin: 0;\n    line-height: 18px;\n    color: rgb(146, 146, 146);\n}\n#title a[data-v-2bb07d17] {\n    text-decoration: none;\n    color: black;\n}\n#title a[data-v-2bb07d17]:hover {\n    text-decoration: underline;\n}\n#date[data-v-2bb07d17] {\n    padding-right: 10px;\n    text-align: center;\n    line-height: 22px;\n}\n#date p[data-v-2bb07d17] {\n    margin-bottom: 0;\n}\n#month[data-v-2bb07d17] {\n    color: red;\n}\n#day[data-v-2bb07d17] {\n    color: rgb(77, 77, 77);\n    font-size: 20px;\n    font-weight: 500;\n}\n#eventImage[data-v-2bb07d17] {\n    background-color: black;\n    -webkit-transition: .3s ease-in-out;\n    transition: .3s ease-in-out;\n}\n#eventImage[data-v-2bb07d17]:hover {\n    opacity: 0.8;\n}\n@media (max-width: 1199px) {\n.card[data-v-2bb07d17] {\n        width: 80%;\n}\n}\n@media (max-width: 991px) {\n.card[data-v-2bb07d17] {\n        width: 96%;\n}\n}\n@media (max-width: 575px) {\n.card[data-v-2bb07d17] {\n        width: 96%;\n}\n#title[data-v-2bb07d17] {\n        padding: 0px 20px 20px 20px;\n}\n}\n", ""]);
 
 // exports
 
@@ -58917,18 +58923,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
-      ],
-      staticClass: "alert alert-flash",
-      class: "alert-" + _vm.level,
-      attrs: { role: "alert" }
-    },
-    [_vm._v("\n    " + _vm._s(_vm.body) + "\n")]
-  )
+  return _c("div", {
+    directives: [
+      { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
+    ],
+    staticClass: "alert alert-flash",
+    class: "alert-" + _vm.level,
+    attrs: { role: "alert" },
+    domProps: { textContent: _vm._s(_vm.body) }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -72734,9 +72737,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/activity.scss */"./resources/sass/activity.scss");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/activity.scss */"./resources/sass/activity.scss");
 
 
 /***/ })

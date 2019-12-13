@@ -131,11 +131,10 @@
     #eventImage {
         background-color: black;
         transition: .3s ease-in-out;
-        opacity: 0.8;
     }
 
     #eventImage:hover {
-        opacity: 1;
+        opacity: 0.8;
     }
 
     @media (max-width: 1199px) {
@@ -154,7 +153,7 @@
         .card {
             width: 96%;
         }
-        
+
         #title {
             padding: 0px 20px 20px 20px;
         }

@@ -1,6 +1,9 @@
 <template>
-    <div class="alert alert-flash" :class="'alert-'+level" role="alert" v-show="show">
-        {{ body }}
+    <div class="alert alert-flash"
+         :class="'alert-'+level"
+         role="alert"
+         v-show="show"
+         v-text="body">
     </div>
 </template>
 
@@ -10,7 +13,7 @@ export default {
 
     data() {
         return {
-            body: '',
+            body: this.message,
             level: 'success',
             show: false
         }
@@ -18,7 +21,7 @@ export default {
 
     created() {
         if (this.message) {
-            this.flash(this.message);
+            this.flash();
         }
 
         window.events.$on('flash', data => this.flash(data));
@@ -26,8 +29,11 @@ export default {
 
     methods: {
         flash(data) {
-            this.body = data.message;
-            this.level = data.level;
+            if (data) {
+                this.body = data.message;
+                this.level = data.level;
+            }
+
             this.show = true;
 
             this.hide();
