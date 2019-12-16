@@ -65,5 +65,9 @@ Route::get('/users/{user}/mails/edit', 'MailPreferenceController@edit')->middlew
 Route::post('/users/{user}/mails/update', 'MailPreferenceController@update')->middleware('auth', 'verified')->name('profile.mail.update');
 Route::get('/users/{user}/mails/delete/{unsubscribeToken}', 'MailPreferenceController@destroy')->middleware('auth', 'verified')->name('profile.mail.delete');
 
-// Users controller
+// Users Controller
 Route::get('api/users', 'Api\UsersController@index');
+
+// Locked Events
+Route::post('/locked-events/{event}', 'LockedEventsController@store')->middleware('auth', 'verified', 'role:Super Admin')->name('locked-event.store');
+Route::delete('/locked-events/{event}', 'LockedEventsController@destroy')->middleware('auth', 'verified', 'role:Super Admin')->name('locked-event.delete');

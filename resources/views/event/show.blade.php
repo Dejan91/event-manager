@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<event-view :initial-comments-count="{{ $event->comments_count }}" inline-template>
+<event-view :event="{{ $event }}" inline-template>
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -46,6 +46,14 @@
                             <a href="#">{{ $event->creator->name }}</a>, and currently
                             has <span v-text="commentsCount"></span> {{ Str::plural('comment', $event->comments_count) }}.
                         </p>
+                        @role('Super Admin')
+                            <p v-if="! locked">
+                                <button class="btn btn-outline-secondary" @click="lock">Lock</button>
+                            </p>
+                            <p v-else>
+                                <button class="btn btn-outline-secondary" @click="unlock">Unlock</button>
+                            </p>
+                        @endrole
                     </div>
                 </div>
             </div>

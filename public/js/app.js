@@ -3311,6 +3311,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4024,7 +4028,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['initialCommentsCount'],
+  props: ['event'],
   components: {
     Comments: _components_Comments_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     SubscribeButton: _components_SubscribeButton_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -4032,8 +4036,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      commentsCount: this.initialCommentsCount
+      commentsCount: this.event.comments_count,
+      locked: this.event.locked
     };
+  },
+  methods: {
+    lock: function lock() {
+      this.locked = true;
+      axios.post("/locked-events/".concat(this.event.id));
+    },
+    unlock: function unlock() {
+      this.locked = false;
+      axios["delete"]("/locked-events/".concat(this.event.id));
+    }
   }
 });
 
@@ -58784,7 +58799,20 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("new-comment", { on: { created: _vm.add } }),
+      _vm.$parent.locked
+        ? _c(
+            "div",
+            {
+              staticClass: "alert alert-warning mt-2",
+              attrs: { role: "alert" }
+            },
+            [
+              _vm._v(
+                "\n        This event has been locked by admin and may not be commented anymore.\n    "
+              )
+            ]
+          )
+        : _c("new-comment", { on: { created: _vm.add } }),
       _vm._v(" "),
       _vm._l(_vm.items, function(comment, index) {
         return _c("comment", {

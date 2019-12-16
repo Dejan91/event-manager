@@ -1,6 +1,10 @@
 <template>
     <div>
-        <new-comment @created="add"></new-comment>
+        <div class="alert alert-warning mt-2" role="alert" v-if="$parent.locked">
+            This event has been locked by admin and may not be commented anymore.
+        </div>
+
+        <new-comment @created="add" v-else></new-comment>
 
         <comment
             v-for="(comment, index) in items"

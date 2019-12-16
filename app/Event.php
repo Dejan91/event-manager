@@ -47,6 +47,7 @@ class Event extends Model
         'image_path',
         'start_date',
         'end_date',
+        'locked',
     ];
 
     /**

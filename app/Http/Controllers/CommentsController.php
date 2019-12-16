@@ -35,6 +35,10 @@ class CommentsController extends Controller
      */
     public function store(Event $event, CreateCommentRequest $request)
     {
+        if ($event->locked) {
+            return response('Event is locked', 422);
+        }
+
         return $event->addComment([
             'user_id' => auth()->id(),
             'body'    => request('body'),

@@ -22,6 +22,7 @@ class CreateEventsTable extends Migration
             $table->text('image_path')->nullable();
             $table->date('start_date');
             $table->date('end_date');
+            $table->boolean('locked')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
