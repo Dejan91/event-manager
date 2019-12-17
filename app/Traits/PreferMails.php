@@ -42,6 +42,7 @@ trait PreferMails
         )->count();
     }
 
+
     /**
      *
      */

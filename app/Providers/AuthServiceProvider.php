@@ -7,6 +7,7 @@ use App\Event;
 use App\Comment;
 use App\Policies\UserPolicy;
 use App\Policies\EventPolicy;
+use Laravel\Passport\Passport;
 use App\Policies\CommentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -33,8 +34,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-       Gate::before(function ($user, $ability) {
-           return $user->hasRole('Super Admin') ? true : null;
-       });
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
+
+        Passport::routes();
     }
 }
