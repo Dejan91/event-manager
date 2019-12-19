@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Comment;
 use App\Event;
+use App\Comment;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CommentsCollectionResource;
+use App\Http\Resources\CommentsResource;
+use App\Http\Requests\Comments\CreateCommentRequest;
 
 /**
  * Class CommentsController
@@ -15,31 +16,58 @@ class CommentsController extends Controller
 {
     /**
      * @param Event $event
-     * @return CommentsCollectionResource
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Event $event)
     {
         $comments =  $event->comments()
             ->latest();
-//            ->paginate(10);
 
-        return new CommentsCollectionResource($comments);
+        return CommentsResource::collection(
+            filter($comments->paginate(15))
+        );
     }
 
     /**
      * @param Event $event
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param CreateCommentRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse
      */
-    public function store(Event $event)
+    public function store(Event $event, CreateCommentRequest $request)
     {
-        request()->validate([
-            'body' => 'required',
-        ]);
+        if ($event->locked) {
+            return response(['message' => 'Event is locked'], 422);
+        }
 
-        return $event->addComment([
+        $comment = $event->addComment([
             'user_id' => auth()->id(),
             'body'    => request('body'),
         ])->load('owner');
+
+        return response()->json([
+            'message' => 'Your comment has been posted',
+            'data' => new CommentsResource($comment),
+        ]);
+    }
+
+    /**
+     * @param Comment $comment
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function update(Comment $comment)
+    {
+        $this->authorize('update', $comment);
+
+        try {
+            request()->validate(['body' => 'required|spamfree']);
+
+            $comment->update(request()->all());
+
+            return response()->json(['message' => 'Comment updated']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Sorry, your comment could not be saved at this time'], 422);
+        }
     }
 
     /**

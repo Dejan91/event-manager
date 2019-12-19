@@ -33,8 +33,8 @@ class Comment extends Model
      * @var array
      */
     protected $with = [
-        'owner',
-        'favorites',
+//        'owner',
+//        'favorites',
     ];
 
     /**

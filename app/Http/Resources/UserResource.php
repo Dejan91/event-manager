@@ -23,6 +23,12 @@ class UserResource extends JsonResource
             'thumb_path' => $this->thumb_path,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'roles' => $this->whenLoaded('roles', function() {
+                return [
+                    'id' => $this->roles->first()->id,
+                    'name' => $this->roles->first()->name,
+                ];
+            }),
         ];
     }
 }

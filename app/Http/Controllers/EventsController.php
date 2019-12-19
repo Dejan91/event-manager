@@ -17,7 +17,7 @@ class EventsController extends Controller
     /**
      * Return all events
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Factory|View|array
      */
     public function index(EventFilters $filters, Trending $trending)
     {

@@ -8,6 +8,7 @@ use App\Observers\UserObserver;
 use App\Observers\EventObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\RequestQueryFilter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        $this->app->singleton('filter', function ($app) {
+            return new RequestQueryFilter;
+        });
     }
 
     /**
