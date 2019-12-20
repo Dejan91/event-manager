@@ -7,6 +7,7 @@ Route::post('/register', 'Api\Auth\AuthController@register')->middleware('api');
 Route::post('/login', 'Api\Auth\AuthController@login')->middleware('api');
 
 // Search
+Route::get('/events', 'Api\EventsController@index')->middleware('auth:api');
 Route::get('/event/search/{query?}', 'SearchController@show')->middleware('auth:api');
 
 // Events

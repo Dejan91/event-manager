@@ -16,17 +16,30 @@ use App\Http\Resources\ResourceIncludes\CommentResourceIncludes;
 class CommentsController extends Controller
 {
     /**
-     * @param Event $event
+     * @var CommentResourceIncludes
+     */
+    protected $includes;
+
+    /**
+     * CommentsController constructor.
      * @param CommentResourceIncludes $includes
+     */
+    public function __construct(CommentResourceIncludes $includes)
+    {
+        $this->includes = $includes;
+    }
+
+    /**
+     * @param Event $event
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Event $event, CommentResourceIncludes $includes)
+    public function index(Event $event)
     {
         $comments =  $event->comments()
             ->latest();
 
         return CommentsResource::collection(
-            $includes->attach($comments->paginate(15))
+            $this->includes->attach($comments->paginate(15))
         );
     }
 
@@ -62,7 +75,9 @@ class CommentsController extends Controller
         $this->authorize('update', $comment);
 
         try {
-            request()->validate(['body' => 'required|spamfree']);
+            request()->validate(
+                ['body' => 'required|spamfree']
+            );
 
             $comment->update(request()->all());
 

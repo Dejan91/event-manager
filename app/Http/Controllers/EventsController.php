@@ -17,6 +17,8 @@ class EventsController extends Controller
     /**
      * Return all events
      *
+     * @param EventFilters $filters
+     * @param Trending $trending
      * @return Factory|View|array
      */
     public function index(EventFilters $filters, Trending $trending)
