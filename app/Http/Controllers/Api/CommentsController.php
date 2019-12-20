@@ -7,6 +7,7 @@ use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentsResource;
 use App\Http\Requests\Comments\CreateCommentRequest;
+use App\Http\Resources\ResourceIncludes\CommentResourceIncludes;
 
 /**
  * Class CommentsController
@@ -16,15 +17,16 @@ class CommentsController extends Controller
 {
     /**
      * @param Event $event
+     * @param CommentResourceIncludes $includes
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Event $event)
+    public function index(Event $event, CommentResourceIncludes $includes)
     {
         $comments =  $event->comments()
             ->latest();
 
         return CommentsResource::collection(
-            filter($comments->paginate(15))
+            $includes->attach($comments->paginate(15))
         );
     }
 
