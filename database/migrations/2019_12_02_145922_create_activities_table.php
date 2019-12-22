@@ -20,7 +20,10 @@ class CreateActivitiesTable extends Migration
             $table->string('subject_type', 50);
             $table->string('type', 50);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
+        
     }
 
     /**
