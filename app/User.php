@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\PreferMails;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -24,7 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable,
         HasRoles,
-        PreferMails;
+        PreferMails,
+        HasApiTokens;
 
     /**
      * @var array

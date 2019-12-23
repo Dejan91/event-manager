@@ -13,14 +13,14 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        DB::statement('PRAGMA foreign_keys = ON;');
+//        DB::statement('PRAGMA foreign_keys=on;');
 
         DB::table('roles')->insert(
             [
                 ['name' => 'Super Admin', 'guard_name' => 'web'],
                 ['name' => 'Event Manager', 'guard_name' => 'web'],
                 ['name' => 'Client', 'guard_name' => 'web'],
-            ],
+            ]
         );
 
         DB::table('countries')->insert(
@@ -29,7 +29,8 @@ abstract class TestCase extends BaseTestCase
                 ['name' => 'Italy'],
                 ['name' => 'France'],
                 ['name' => 'Germany'],
-            ],
+            ]
         );
     }
+
 }

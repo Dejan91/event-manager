@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReadEventsTest extends TestCase
 {
@@ -47,4 +47,5 @@ class ReadEventsTest extends TestCase
                 'user_id' => strval($this->eventManager->id),
             ]);
     }
+
 }
