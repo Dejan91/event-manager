@@ -15,6 +15,6 @@ class CommentResourceIncludes extends ResourceIncludes
      */
     protected $availableIncludes = [
         'owner',
-        'favorites'
+        'favorites',
     ];
 }

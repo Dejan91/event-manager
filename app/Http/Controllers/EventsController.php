@@ -40,6 +40,7 @@ class EventsController extends Controller
      *
      * @param Event $event
      *
+     * @param Trending $trending
      * @return Factory|View
      */
     public function show(Event $event, Trending $trending)
@@ -68,6 +69,7 @@ class EventsController extends Controller
     /**
      * Store a newly created event in database.
      *
+     * @param StoreEvent $request
      * @return JsonResponse
      */
     public function store(StoreEvent $request)
@@ -103,6 +105,7 @@ class EventsController extends Controller
      *
      * @param Event $event
      *
+     * @param StoreEvent $request
      * @return JsonResponse
      * @throws AuthorizationException
      */

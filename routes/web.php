@@ -18,7 +18,7 @@ Route::get('login/{driver}/callback', 'Auth\SocialAuthController@handleProviderC
 Route::get('/event/search/{query?}', 'SearchController@show')->middleware('auth');
 
 // Events
-Route::get('/event', 'EventsController@index')->middleware('auth');
+Route::get('/event', 'EventsController@index')->middleware('auth')->name('event.index');
 Route::get('event/create', 'EventsController@create')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager']);
 Route::get('event/{event}', 'EventsController@show')->middleware('auth');
 Route::get('/event/edit/{event}', 'EventsController@edit')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager']);
