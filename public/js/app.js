@@ -72765,9 +72765,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/vagrant/www/sites/event-manager/resources/sass/activity.scss */"./resources/sass/activity.scss");
+__webpack_require__(/*! /home/vagrant/www/event-manager/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/vagrant/www/event-manager/resources/sass/activity.scss */"./resources/sass/activity.scss");
 
 
 /***/ })
