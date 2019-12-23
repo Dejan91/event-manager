@@ -32,7 +32,7 @@ trait Favoritable
     {
         $attributes = ['user_id' => auth()->id()];
 
-        if (!$this->isFavorited()) {
+        if (! $this->isFavorited()) {
             $this->favorites()->create($attributes);
         }
     }
@@ -60,7 +60,7 @@ trait Favoritable
      */
     public function isFavorited()
     {
-        return !!$this->favorites->where('user_id', auth()->id())->count();
+        return ! ! $this->favorites->where('user_id', auth()->id())->count();
     }
 
     /**
