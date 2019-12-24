@@ -143,4 +143,90 @@ class EventTest extends TestCase
         $this->assertFalse($this->event->fresh()->isFavorited());
     }
 
+    /** @test */
+    public function an_event_has_subscriptions()
+    {
+        $this->event->subscribe();
+
+        $this->assertInstanceOf(
+            'App\EventSubscription',
+            $this->event->subscription()->first()
+        );
+    }
+
+    /** @test */
+    public function an_event_can_be_subscribed_to()
+    {
+        $this->event->subscribe();
+
+        $this->assertDatabaseHas(
+            'event_subscriptions', [
+                'user_id' => $this->eventManager->id,
+                'event_id' => $this->event->id,
+            ]
+        );
+    }
+
+    /** @test */
+    public function an_event_can_be_unsubscribed_from()
+    {
+        $this->event->subscribe();
+        $this->event->unsubscribe();
+
+        $this->assertDatabaseMissing(
+            'event_subscriptions', [
+                'user_id' => $this->eventManager->id,
+                'event_id' => $this->event->id,
+            ]
+        );
+    }
+
+    /** @test */
+    public function an_event_know_if_authenticated_user_is_subscribe_to_it()
+    {
+        $this->assertFalse($this->event->isSubscribed);
+
+        $this->event->subscribe();
+
+        $this->assertTrue($this->event->isSubscribed);
+    }
+
+    /** @test */
+    public function an_event_know_how_many_subscribers_it_has()
+    {
+        $this->assertEquals(
+            0,
+            $this->event->subscribersCount
+        );
+
+        $this->event->subscribe();
+
+        $this->assertEquals(
+            1,
+            $this->event->fresh()->subscribersCount
+        );
+    }
+
+    /** @test */
+    public function an_event_records_activity_for_the_user_when_it_is_created()
+    {
+        $this->assertDatabaseHas(
+            'activities', [
+                'user_id' => $this->eventManager->id,
+                'subject_id' => $this->event->id,
+                'subject_type' => 'App\Event',
+                'type' => 'created_event',
+            ]
+        );
+    }
+
+    /** @test */
+    public function an_event_has_activities()
+    {
+        $this->assertInstanceOf(
+            'App\Activity',
+            $this->event->activity()->first()
+        );
+    }
+
 }
