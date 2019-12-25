@@ -19,8 +19,8 @@ Route::get('/event/search/{query?}', 'SearchController@show')->middleware('auth'
 
 // Events
 Route::get('/event', 'EventsController@index')->middleware('auth')->name('event.index');
-Route::get('event/create', 'EventsController@create')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager']);
-Route::get('event/{event}', 'EventsController@show')->middleware('auth');
+Route::get('event/create', 'EventsController@create')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager'])->name('event.create');
+Route::get('event/{event}', 'EventsController@show')->middleware('auth')->name('event.show');
 Route::get('/event/edit/{event}', 'EventsController@edit')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager']);
 Route::post('event', 'EventsController@store')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager']);
 Route::put('event/update/{event}', 'EventsController@update')->middleware(['auth', 'verified', 'role:Super Admin|Event Manager']);
